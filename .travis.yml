@@ -8,6 +8,6 @@ install:
 deploy:
  provider: heroku
  api-key: 
-  secure: 8486bcc9-267c-4f21-abad-a03a3365ecd9
+  secure: $HEROKU_API_KEY
  app: fastyle
  edge: true
