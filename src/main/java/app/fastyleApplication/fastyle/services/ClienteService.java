@@ -50,6 +50,7 @@ public class ClienteService {
             newEntity.setName(entity.getName());
             newEntity.setCiudad(entity.getCiudad());
             newEntity.setProvincia(entity.getProvincia());
+            newEntity.setEMail(entity.getEMail());
             
             newEntity = repository.save(newEntity);
              

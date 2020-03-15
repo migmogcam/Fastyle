@@ -2,6 +2,7 @@ package app.fastyleApplication.fastyle.model;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
@@ -42,6 +43,11 @@ public class Usuario{
 	@NotBlank
 	@Length(max = 100)
 	@Getter @Setter private String ciudad;
+	
+	@NotBlank
+	@Length(max = 100)
+	@Email
+	@Getter @Setter private String eMail;
 	
 	
 
