@@ -15,6 +15,8 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -22,32 +24,32 @@ public class ServicioEstetico extends BaseEntity{
 
 	@NotBlank
 	@Length(max = 100)
-	private String tipo;
+	@Getter @Setter private String tipo;
 	
 	@NotBlank
 	@Length(max = 400)
-	private String detalle;
+	@Getter @Setter private String detalle;
 	
 	@Currency(value = "EUR")
 	@Range(min = 0)
-	private Double precio;
+	@Getter @Setter private Double precio;
 	
 	@NotBlank
 	@URL
-	private String imagen;
+	@Getter @Setter private String imagen;
 	
 	@NotBlank
 	@Length(max = 100)
-	private String provincia;
+	@Getter @Setter private String provincia;
 	
 	@NotBlank
 	@Length(max = 100)
-	private String ciudad;
+	@Getter @Setter private String ciudad;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Cita> citas;
+	@Getter @Setter private List<Cita> citas;
 
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "id", insertable = false, updatable = false)
-	private Esteticista esteticista;
+	@Getter @Setter private Esteticista esteticista;
 }

@@ -5,12 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
 @Table(name = "authorities")
 public class Authorities {
 	@Id
-	String username;
-	String authority;
+	@Getter @Setter String username;
+	@Getter @Setter String authority;
 }

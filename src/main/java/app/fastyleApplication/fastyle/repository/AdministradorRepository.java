@@ -7,6 +7,6 @@ import app.fastyleApplication.fastyle.model.Administrador;
 
 
 @Repository
-public interface AdministratorRepository extends JpaRepository<Administrador, Integer>{
+public interface AdministradorRepository extends JpaRepository<Administrador, Integer>{
 
 }

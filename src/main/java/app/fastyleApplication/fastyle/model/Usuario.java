@@ -6,29 +6,42 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @MappedSuperclass
 public class Usuario{
 	
 	@Id
+	@Getter @Setter private Integer id;
+		
 	@NotBlank
 	@Length(max = 15)
-	private String usuario;
+	@Getter @Setter private String usuario;
 	
 	@NotBlank
 	@Length(max = 15)
-	private String password;
+	@Getter @Setter private String password;
 
 	@NotBlank
 	@Length(max = 100)
-	private String name;
+	@Getter @Setter private String name;
 	
 	@NotBlank
 	@Length(max = 100)
-	private String apellido1;
+	@Getter @Setter private String apellido1;
 	
 	@NotBlank
 	@Length(max = 100)
-	private String apellido2;
+	@Getter @Setter private String apellido2;
+	
+	@NotBlank
+	@Length(max = 100)
+	@Getter @Setter private String provincia;
+	
+	@NotBlank
+	@Length(max = 100)
+	@Getter @Setter private String ciudad;
 	
 	
 

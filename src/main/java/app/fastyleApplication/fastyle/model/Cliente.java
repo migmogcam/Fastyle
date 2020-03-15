@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
 public class Cliente extends Usuario{
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Cita> citas;
+	@Getter @Setter private List<Cita> citas;
 
 }
