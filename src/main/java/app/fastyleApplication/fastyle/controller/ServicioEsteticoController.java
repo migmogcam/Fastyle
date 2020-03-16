@@ -82,5 +82,15 @@ public class ServicioEsteticoController {
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
         return "vista todo OK";
 	}
+	
+	@GetMapping("/listadoServicios")
+    public String listado(Model model) {
+        return "listadoServicios"; //view
+    }
+
+	@GetMapping("/servicioInfo")
+    public String diplayInfo(Model model) {
+        return "servicioInfo"; //view
+    }
 
 }

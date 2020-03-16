@@ -82,5 +82,11 @@ public class CitaController {
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
         return "vista todo OK";
 	}
+	
+	@GetMapping("/citaCrear")
+    public String diplayInfo(Model model) {
+        return "citaCrear"; //view
+    }
+
 
 }

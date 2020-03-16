@@ -50,6 +50,7 @@ public class CitaService {
             newEntity.setHora(entity.getHora());
             newEntity.setMinuto(entity.getMinuto());
             newEntity.setServicioEstetico(entity.getServicioEstetico());
+            newEntity.setDetalle(entity.getDetalle());
             
             newEntity = repository.save(newEntity);
              

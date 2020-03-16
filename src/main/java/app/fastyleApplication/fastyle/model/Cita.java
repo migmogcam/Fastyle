@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
@@ -36,5 +37,9 @@ public class Cita extends BaseEntity{
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "id",insertable = false, updatable = false)
 	@Getter @Setter private ServicioEstetico servicioEstetico;
+	
+	@Length(max = 250)
+	@Getter @Setter private String detalle;
+	
 	
 }
