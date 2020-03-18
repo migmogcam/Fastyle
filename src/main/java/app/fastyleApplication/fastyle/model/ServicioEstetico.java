@@ -30,6 +30,10 @@ public class ServicioEstetico extends BaseEntity{
 	@Length(max = 400)
 	@Getter @Setter private String detalle;
 	
+	@NotBlank
+	@Length(max = 200)
+	@Getter @Setter private String detalleAcortado;
+	
 	@Currency(value = "EUR")
 	@Range(min = 0)
 	@Getter @Setter private Double precio;
@@ -49,7 +53,7 @@ public class ServicioEstetico extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL)
 	@Getter @Setter private List<Cita> citas;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
-	@JoinColumn(name = "id", insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
+	@JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
 	@Getter @Setter private Esteticista esteticista;
 }

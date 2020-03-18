@@ -88,5 +88,10 @@ public class CitaController {
         return "citaCrear"; //view
     }
 
+	@GetMapping("/misCitas")
+    public String misCitas(Model model) {
+        return "misCitas"; //view
+    }
+
 
 }
