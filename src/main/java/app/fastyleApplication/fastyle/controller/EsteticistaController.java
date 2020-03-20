@@ -23,18 +23,18 @@ public class EsteticistaController {
     public String addEsteticista(@Valid Esteticista esteticista, BindingResult result, Model model) {
         if (result.hasErrors()) {
         	//TODO añadir vista errores
-            return "vista de errores";
+            return "errores";
         } 
         try {
 			service.createOrUpdateEsteticista(esteticista);
 		} catch (Exception e) {
 			e.printStackTrace();
         	//TODO añadir vista errores
-            return "vista de errores";
+            return "errores";
 		}
         //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "registroEsteticista";
     }
 	
 	@GetMapping("/esteticistaEdit/{id}")
