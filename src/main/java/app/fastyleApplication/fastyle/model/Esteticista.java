@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Esteticista extends Usuario{
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@Getter @Setter private List<ServicioEstetico> serviciosEsteticos;
+	 private List<ServicioEstetico> serviciosEsteticos;
 
 
 }

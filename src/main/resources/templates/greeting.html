@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link href="starter-template.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<head th:insert="fragments/header :: header"></head>
+<body>
+
+
+<div th:replace="fragments/navbar :: navbar"></div>
+	<h1>Registro esteticista</h1>
+	
+	
+	<div class="row justify-content-md-center" style="margin-top: 50px">
+    <form class="col-lg-6" style="background-color: #C0C0C0" action="#" th:action="@{/greeting}" th:object="${esteticista}" method="post">
+    	
+    	<div class="form-group row">
+				<label  class="col-2 col-form-label">Usuario*</label>
+				
+				
+				<div class="col-10">
+				 <input class="form-control" type="text" th:field="*{usuario}"  />
+					
+					</div>
+			</div>
+    	
+    		  
+    	
+    	<div class="form-group row">
+				<label class="col-2 col-form-label">Contraseña*</label> 
+				
+				<div class="col-10">
+				<input type="password"
+					class="form-control" th:field="*{password}"  />
+					</div>
+			</div>
+
+
+			<div class="form-group row">
+				<label  class="col-2 col-form-label">Nombre*</label>
+				
+				<div class="col-10">
+				 <input class="form-control"
+					type="text" th:field="*{name}"  />
+					</div>
+			</div>
+
+
+		<div class="form-group row">
+				<label for="add-price" class="col-2 col-form-label">Primer apellido*</label>
+				
+				<div class="col-10">
+				 <input type="text"
+					class="form-control"  th:field="*{apellido1}"  />
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+				<label for="add-price" class="col-2 col-form-label">Segundo apellido*</label> 
+				
+				<div class="col-10">
+				<input type="text"
+					class="form-control"  th:field="*{apellido2}"  />
+					</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="add-price" class="col-2 col-form-label">Provincia*</label>
+				
+				<div class="col-10">
+				 <input type="text"
+					class="form-control"  th:field="*{provincia}"  />
+					</div>
+			</div>
+			
+
+			<div class="form-group row">
+				<label for="add-price" class="col-2 col-form-label">Ciudad*</label>
+				
+				<div class="col-10">
+				 <input type="text"
+					class="form-control"  th:field="*{ciudad}"  />
+					</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="add-price" class="col-2 col-form-label">Email*</label>
+				
+				<div class="col-10">
+				 <input 
+					class="form-control" type="email" th:field="*{eMail}"  />
+					</div>
+			</div>
+			
+			
+
+        <p><input type="submit" value="Aceptar"  class="btn btn-primary" /> <input type="reset" value="Cancelar" class="btn btn-default" /></p>
+    </form>
+    
+    
+    </div>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
