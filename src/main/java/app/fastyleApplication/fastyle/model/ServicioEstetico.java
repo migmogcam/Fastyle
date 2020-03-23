@@ -39,7 +39,7 @@ public class ServicioEstetico extends BaseEntity{
 	@Getter @Setter private Double precio;
 	
 	@NotBlank
-	@URL
+	@Length(max = 50000)
 	@Getter @Setter private String imagen;
 	
 	@NotBlank
@@ -53,7 +53,4 @@ public class ServicioEstetico extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL)
 	@Getter @Setter private List<Cita> citas;
 
-	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
-	@JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
-	@Getter @Setter private Esteticista esteticista;
 }

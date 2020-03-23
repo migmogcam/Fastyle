@@ -12,10 +12,11 @@ import lombok.Setter;
 
 @Data
 @Entity
-public class Esteticista extends Usuario{
+public class Esteticista extends Usuario {
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@Getter @Setter private List<ServicioEstetico> serviciosEsteticos;
-
+	@Getter
+	@Setter
+	private List<Cita> citas;
 
 }

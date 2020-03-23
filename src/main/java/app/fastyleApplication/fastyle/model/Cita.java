@@ -31,6 +31,10 @@ public class Cita extends BaseEntity{
 	@Getter @Setter	private Integer minuto;
 
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(name = "esteticista_id", insertable = false, updatable = false)
+	@Getter @Setter private Esteticista esteticista;
+	
+	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "usuario", insertable = false, updatable = false)
 	@Getter @Setter private Cliente cliente;
 	

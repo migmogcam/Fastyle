@@ -1,5 +1,7 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +87,13 @@ public class ServicioEsteticoController {
 	
 	@GetMapping("/listadoServicios")
     public String listado(Model model) {
+		List<ServicioEstetico> servicios = null;
+		try {
+			servicios = service.getAllServicioEsteticos();
+			model.addAttribute("listaServicios", servicios);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return "listadoServicios"; //view
     }
 
