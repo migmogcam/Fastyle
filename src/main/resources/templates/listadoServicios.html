@@ -83,7 +83,7 @@
 									alt=""></a>
 								<div class="card-body">
 									<h4 class="card-title">
-										<td><a href="servicioInfo">Servicio de <td th:text="${servicio.tipo}"/></a></td>
+										<td><a th:href="@{/servicioInfo/{id}(id=${servicio.id})}">Servicio de <td th:text="${servicio.tipo}"/></a></td>
 									</h4>
 									<h5>€<td th:text="${servicio.precio}"/></h5>
 									<td><td th:text="${servicio.detalleAcortado}" /></td>

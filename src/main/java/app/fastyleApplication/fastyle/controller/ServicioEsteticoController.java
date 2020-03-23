@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.services.EsteticistaService;
 import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
 
 @Controller
@@ -20,6 +22,9 @@ public class ServicioEsteticoController {
 	
 	@Autowired
 	ServicioEsteticoService service;
+	
+	@Autowired
+	EsteticistaService serviceEsteticista;
 	
 	@PostMapping("/servicioEsteticoRegistro")
     public String addServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
@@ -97,8 +102,18 @@ public class ServicioEsteticoController {
         return "listadoServicios"; //view
     }
 
-	@GetMapping("/servicioInfo")
-    public String diplayInfo(Model model) {
+	@GetMapping("/servicioInfo/{id}")
+    public String diplayInfo(@PathVariable("id") long id, Model model) {
+		List<Esteticista> servicios = null;
+		ServicioEstetico servicioEstetico = null;
+		try {
+			servicios = serviceEsteticista.getAllEsteticistas();
+			servicioEstetico = service.getServicioEsteticoById((int) id);
+			model.addAttribute("listaEsteticistas", servicios);
+			model.addAttribute("servicioEstetico", servicioEstetico);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return "servicioInfo"; //view
     }
 

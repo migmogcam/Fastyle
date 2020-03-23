@@ -1,5 +1,7 @@
 package app.fastyleApplication.fastyle.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
@@ -14,6 +16,7 @@ import lombok.Setter;
 public class Usuario{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Integer id;
 		
 	@NotBlank

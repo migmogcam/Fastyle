@@ -17,20 +17,20 @@
 
 				<h1 class="my-4">Donde puedes encontrarnos</h1>
 				<div class="list-group">
-					<a href="listadoServicios" class="list-group-item">Sevilla</a> <a href="listadoServicios"
-						class="list-group-item">Huelva</a> <a href="listadoServicios"
-						class="list-group-item">Malaga</a> <a href="listadoServicios"
-						class="list-group-item">Córdoba</a> <a href="listadoServicios"
-						class="list-group-item">Todos</a>
+					<a href="listadoServicios" class="list-group-item">Sevilla</a> <a
+						href="listadoServicios" class="list-group-item">Huelva</a> <a
+						href="listadoServicios" class="list-group-item">Malaga</a> <a
+						href="listadoServicios" class="list-group-item">Córdoba</a> <a
+						href="listadoServicios" class="list-group-item">Todos</a>
 				</div>
 
 				<h1 class="my-4">Nuestros servicios</h1>
 				<div class="list-group">
-					<a href="listadoServicios" class="list-group-item">Peluquería</a> <a href="listadoServicios"
-						class="list-group-item">Tinte</a> <a href="listadoServicios"
-						class="list-group-item">pedicura o manicura</a> <a href="listadoServicios"
-						class="list-group-item">Depilación</a> <a href="listadoServicios"
-						class="list-group-item">Todos</a>
+					<a href="listadoServicios" class="list-group-item">Peluquería</a> <a
+						href="listadoServicios" class="list-group-item">Tinte</a> <a
+						href="listadoServicios" class="list-group-item">pedicura o
+						manicura</a> <a href="listadoServicios" class="list-group-item">Depilación</a>
+					<a href="listadoServicios" class="list-group-item">Todos</a>
 				</div>
 
 			</div>
@@ -40,38 +40,28 @@
 
 				<div class="card mt-4">
 					<img class="card-img-top img-fluid"
-						src="https://trucoscaserosparae-11456.kxcdn.com/wp-content/uploads/2018/10/1-como-hacer-laca-natural-para-el-pelo-35124-0-1.jpg" alt="">
+						th:src="${servicioEstetico.imagen}"
+						alt="">
 					<div class="card-body">
-						<h3 class="card-title">Servicio de peluquería</h3>
-						<h4>€10.00</h4>
-						<p class="card-text">Cortes de pelo en sevilla','Corte de pelo en sevilla,as más novedosas técnicas que existen en el mercado asesorándote para encontrar. TU IMAGEN.!</p>
+						<h3 class="card-title">Servicio de <td th:text="${servicioEstetico.tipo}"/></h3>
+						<h4>€<td th:text="${servicioEstetico.precio}"/></h4>
+						<p class="card-text"><td th:text="${servicioEstetico.detalle}"/></p>
 						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
 							&#9734;</span> 4.0 stars
 					</div>
-					
+
 				</div>
 				<!-- /.card -->
 
 				<div class="card card-outline-secondary my-4">
 					<div class="card-header">Nuestros Esteticistas</div>
 					<div class="card-body">
-						<p>Hola soy Daniel, llevo 3 meses realizando cortes de pelo, todos mis clientes están muy contentos.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
-						<hr>
-						<p>Hola soy Pedro, soy muy profesional en mi trabajo.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
-						<hr>
-						<p>Hola soy Miguel, me especializo en corte de mujeres.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
-						<hr>
-						<p>Hola soy Angel.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
-						<hr>
-						<p>Hola soy Ruben.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
-						<hr>
-						<p>Hola soy Juan. me especializo en corte de caballero.</p>
-						<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
+						<tr th:each="esteticista: ${listaEsteticistas}">
+							<p><td><td th:text="${esteticista.descripcion}" /></td></p>
+							<a href="citaCrear" class="btn btn-success">Pedir una Cita</a>
+							<hr>
+						</tr>
+
 					</div>
 				</div>
 				<!-- /.card -->

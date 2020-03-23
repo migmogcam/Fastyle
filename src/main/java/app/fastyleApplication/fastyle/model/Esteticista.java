@@ -18,5 +18,8 @@ public class Esteticista extends Usuario {
 	@Getter
 	@Setter
 	private List<Cita> citas;
-
+	
+	@Getter
+	@Setter
+	private String descripcion;
 }
