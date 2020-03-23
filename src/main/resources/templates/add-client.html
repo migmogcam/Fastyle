@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Add User</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/shards.min.css">
+    </head>
+    <body>
+        <div class="container my-5">
+            <h2 class="mb-5">Nuevo cliente</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/addclient}" th:object="${client}" method="post">
+                        <div class="row">
+                        
+                        
+                           <div class="form-group col-md-6">
+                                <label for="username" class="col-form-label">Usuario</label>
+                                <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Usuario">
+                                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="password" class="col-form-label">Contraseña</label>
+                                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Contraseña">
+                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                            </div>
+                            
+                            
+                             <div class="form-group col-md-6">
+                                <label for="name" class="col-form-label">Nombre</label>
+                                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                            </div>
+                            
+                             <div class="form-group col-md-6">
+                                <label for="apellido1" class="col-form-label">Primer apellido</label>
+                                <input type="text" th:field="*{apellido1}" class="form-control" id="apellido1" placeholder="Primer apellido">
+                                <span th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="apellido2" class="col-form-label">Segundo apellido</label>
+                                <input type="text" th:field="*{apellido2}" class="form-control" id="apellido2" placeholder="Segundo apellido">
+                                <span th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="provincia" class="col-form-label">Provincia</label>
+                                <input type="text" th:field="*{provincia}" class="form-control" id="provincia" placeholder="Provincia">
+                                <span th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="ciudad" class="col-form-label">Ciudad</label>
+                                <input type="text" th:field="*{ciudad}" class="form-control" id="ciudad" placeholder="Ciudad">
+                                <span th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}" class="text-danger"></span>
+                            </div>
+                            
+                          
+                          
+                            <div class="form-group col-md-6">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <input type="submit" class="btn btn-primary" value="Add User">
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
