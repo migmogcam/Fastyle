@@ -12,23 +12,42 @@ public class IndexController {
 
 //	@GetMapping("/")
 //    public String main(Model model) {
-//        return "index"; //view
+//       return "index"; //view
 //    }
 //	
-	
+//	
 //	 @GetMapping("/login")
 //	    public String login(Model model) {
 //	        return "login";
-//	    }
+//    }
 //	 
-	 
-	 
-	 
+//	 
+//	 
+//	 
 //	 @RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 //		public ModelAndView login() {
 //			ModelAndView modelAndView = new ModelAndView();
 //			modelAndView.setViewName("login"); // resources/template/login.html
 //			return modelAndView;
 //		}
-//
-}
+
+	
+	
+	
+	 
+
+	  // Login form
+	  @RequestMapping("/login")
+	  public String login() {
+	    return "login";
+	  }
+
+	  // Login form with error
+	  @RequestMapping("/login-error")
+	  public String loginError(Model model) {
+	    model.addAttribute("loginError", true);
+	    return "login";
+	  }
+
+	}
+	

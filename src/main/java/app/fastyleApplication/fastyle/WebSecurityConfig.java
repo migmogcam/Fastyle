@@ -23,6 +23,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
 
+		
+		
+		
+		
+		   http
+	        .formLogin()
+	        .loginPage("/login.html")
+	        .failureUrl("/login-error.html")
+	      .and()
+	        .logout()
+	        .logoutSuccessUrl("/index.html");
 	}
 
 }

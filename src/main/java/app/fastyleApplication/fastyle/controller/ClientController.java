@@ -65,4 +65,8 @@ public class ClientController {
         model.addAttribute("clients", clientRepository.findAll());
         return "index";
     }
+    
+    
+    
+    
 }
