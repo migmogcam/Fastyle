@@ -25,7 +25,7 @@ public class PaypalService {
 	
 	
 	public Payment createPayment(
-			Double total, 
+			String total, 
 			String currency, 
 			String method,
 			String intent,
@@ -34,26 +34,26 @@ public class PaypalService {
 			String successUrl) throws PayPalRESTException{
 		Amount amount = new Amount();
 		amount.setCurrency(currency);
-		total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
-		amount.setTotal(String.format("%.2f", total));
-
-		Transaction transaction = new Transaction();
-		transaction.setDescription(description);
-		transaction.setAmount(amount);
-
-		List<Transaction> transactions = new ArrayList<>();
-		transactions.add(transaction);
-
+		amount.setTotal(total);
+		Transaction trasaction = new Transaction();
+		trasaction.setDescription(description);
+		trasaction.setAmount(amount);
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		transactions.add(trasaction);
+		
 		Payer payer = new Payer();
-		payer.setPaymentMethod(method.toString());
-
+		payer.setPaymentMethod(method);
+		
 		Payment payment = new Payment();
-		payment.setIntent(intent.toString());
-		payment.setPayer(payer);  
+		payment.setIntent(intent);
+		payment.setPayer(payer);
 		payment.setTransactions(transactions);
+		
 		RedirectUrls redirectUrls = new RedirectUrls();
 		redirectUrls.setCancelUrl(cancelUrl);
 		redirectUrls.setReturnUrl(successUrl);
+		
 		payment.setRedirectUrls(redirectUrls);
 
 		return payment.create(apiContext);
