@@ -58,7 +58,7 @@
 					<div class="card-body">
 						<tr th:each="esteticista: ${listaEsteticistas}">
 							<p><td><td th:text="${esteticista.descripcion}" /></td></p>
-							<a th:href="@{/citaCrear}" class="btn btn-success">Pedir una Cita</a>
+							<a th:href="@{/citaCrear/{idServ}/{idEst}(idServ=${servicioEstetico.id}, idEst=${esteticista.id})}" class="btn btn-success">Pedir una Cita</a>
 							<hr>
 						</tr>
 

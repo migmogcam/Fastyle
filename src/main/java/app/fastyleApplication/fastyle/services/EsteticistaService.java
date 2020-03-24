@@ -51,6 +51,7 @@ public class EsteticistaService {
             newEntity.setCiudad(entity.getCiudad());
             newEntity.setProvincia(entity.getProvincia());
             newEntity.setEMail(entity.getEMail());
+            newEntity.setCitas(entity.getCitas());
             
             newEntity = repository.save(newEntity);
              

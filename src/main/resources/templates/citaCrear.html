@@ -17,12 +17,12 @@
 
 
 	<div class="row justify-content-md-center" style="margin-top: 50px">
-		<form class="col-lg-6" style="background-color: #C0C0C0" method="post" th:action="@{/pay}">
+		<form class="col-lg-6" style="background-color: #C0C0C0" method="post" th:action="@{/pay}" th:object="${cita}">
 		<p style="font-size: x-large">Solicitar una cita para: Servicio de peluquería</p>
 			<div class="form-group row">
 				<label for="example-date-input" class="col-2 col-form-label">Fecha*</label>
 				<div class="col-10">
-					<input class="form-control" type="date" value="2011-08-19"
+					<input class="form-control" type="date" th:field="*{fecha}" value="2011-08-19"
 						id="example-date-input" required>
 				</div>
 			</div>
@@ -30,14 +30,14 @@
 			<div class="form-group row">
 				<label for="example-time-input" class="col-2 col-form-label">Hora*</label>
 				<div class="col-10">
-					<input class="form-control" type="time" value="13:45:00"
+					<input class="form-control" type="time" th:field="*{hora}" value="13:45:00"
 						id="example-time-input" required>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Comentario</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1"
+				<textarea class="form-control" th:field="*{detalle}" id="exampleFormControlTextarea1"
 					rows="3"></textarea>
 			</div>
 

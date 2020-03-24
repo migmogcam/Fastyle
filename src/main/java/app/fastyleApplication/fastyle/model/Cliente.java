@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 public class Cliente extends Usuario{
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade =  CascadeType.MERGE)
 	@Getter @Setter private List<Cita> citas;
 
 }

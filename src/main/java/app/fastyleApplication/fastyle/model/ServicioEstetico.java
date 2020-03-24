@@ -2,17 +2,13 @@ package app.fastyleApplication.fastyle.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Currency;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.URL;
 
 import lombok.Data;
 import lombok.Getter;
@@ -50,7 +46,7 @@ public class ServicioEstetico extends BaseEntity{
 	@Length(max = 100)
 	@Getter @Setter private String ciudad;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@Getter @Setter private List<Cita> citas;
 
 }

@@ -1,5 +1,8 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +13,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import app.fastyleApplication.fastyle.dto.CitaDTO;
 import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.model.Esteticista;
+import app.fastyleApplication.fastyle.model.ServicioEstetico;
 import app.fastyleApplication.fastyle.services.CitaService;
+import app.fastyleApplication.fastyle.services.EsteticistaService;
+import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
 
 @Controller
 public class CitaController {
 	
 	@Autowired
 	CitaService service;
+	
+	@Autowired
+	ServicioEsteticoService serviceServicio;
+	
+	@Autowired
+	EsteticistaService serviceEsteticista;
 	
 	@PostMapping("/citaRegistro")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
@@ -83,8 +97,21 @@ public class CitaController {
         return "vista todo OK";
 	}
 	
-	@GetMapping("/citaCrear")
-    public String diplayInfo(Model model) {
+	@GetMapping("/citaCrear/{idServ}/{idEst}")
+    public String diplayInfo(@PathVariable("idServ") long id, @PathVariable("idEst") long idE, Model model, HttpSession session) {
+		Esteticista servicios = null;
+		ServicioEstetico servicioEstetico = null;
+		try {
+			servicios = serviceEsteticista.getEsteticistaById((int) idE);
+			servicioEstetico = serviceServicio.getServicioEsteticoById((int) id);
+			session.setAttribute("servicioEstetico", servicioEstetico);
+			session.setAttribute("servicios", servicios);
+			CitaDTO cita = new CitaDTO();
+			model.addAttribute("cita", cita);
+		} catch (Exception e) {
+			return "index"; 
+		}
+		
         return "citaCrear"; //view
     }
 
