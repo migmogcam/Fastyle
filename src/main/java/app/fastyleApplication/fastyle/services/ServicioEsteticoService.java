@@ -48,7 +48,7 @@ public class ServicioEsteticoService {
             newEntity.setCitas(entity.getCitas());
             newEntity.setDetalle(entity.getDetalle());
             newEntity.setDetalleAcortado(entity.getDetalleAcortado());
-            newEntity.setEsteticista(entity.getEsteticista());
+          //  newEntity.setEsteticista(entity.getEsteticista());
             newEntity.setCiudad(entity.getCiudad());
             newEntity.setProvincia(entity.getProvincia());
             newEntity.setImagen(entity.getImagen());

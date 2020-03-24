@@ -13,6 +13,6 @@ import lombok.Setter;
 @Table(name = "authorities")
 public class Authorities {
 	@Id
-	@Getter @Setter String username;
+	@Getter @Setter Integer id;
 	@Getter @Setter String authority;
 }

@@ -5,17 +5,30 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import app.fastyleApplication.fastyle.model.Authorities;
 import app.fastyleApplication.fastyle.model.Cliente;
+import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.repository.ClienteRepository;
 
 @Service
-public class ClienteService {
+public class ClienteService implements UserDetailsService {
 	
     @Autowired
     ClienteRepository repository;
      
+    public Optional<Cliente> getAllByUser(String usuario){
+    	Optional<Cliente> res =repository.findByUsuario(usuario);
+    	return res;
+    }
+    
     public List<Cliente> getAllClientes()
     {
         List<Cliente> clienteList = repository.findAll();
@@ -72,6 +85,28 @@ public class ClienteService {
         } else {
             throw new Exception("No cliente record exist for given id");
         }
-    } 
+    }
+
+	@Override
+	public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
+		
+
+	     //Buscar el usuario con el repositorio y si no existe lanzar una exepcion
+	     Cliente appUser = 
+	                  repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
+
+	    //Mapear nuestra lista de Authority con la de spring security 
+	    List grantList = new ArrayList();
+	    for (Authorities authority: appUser.getAuthorities()) {
+	        // ROLE_USER, ROLE_ADMIN,..
+	        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
+	            grantList.add(grantedAuthority);
+	    }
+
+	    //Crear El objeto UserDetails que va a ir en sesion y retornarlo.
+	    UserDetails user = (UserDetails) new User(appUser.getUsuario(), appUser.getPassword(), grantList);
+	         return user;
+	    }
+	
 
 }

@@ -53,7 +53,7 @@ public class ServicioEstetico extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL)
 	@Getter @Setter private List<Cita> citas;
 
-	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
-	@JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
-	@Getter @Setter private Esteticista esteticista;
+//	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
+//	@JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
+//	@Getter @Setter private Esteticista esteticista;
 }

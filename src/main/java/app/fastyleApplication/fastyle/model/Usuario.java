@@ -1,18 +1,30 @@
 package app.fastyleApplication.fastyle.model;
 
+import java.util.List;
+
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@EqualsAndHashCode
 @MappedSuperclass
 public class Usuario{
 	
+	
+
 	@Id
 	private Integer id;
 		
@@ -21,7 +33,7 @@ public class Usuario{
 	private String usuario;
 	
 	@NotBlank
-	@Length(max = 15)
+	@Length(max = 200)
 	private String password;
 
 	@NotBlank
@@ -48,6 +60,16 @@ public class Usuario{
 	@Length(max = 100)
 	@Email
 	private String eMail;
+
+	public Usuario() {}
+
+	public Usuario(String usuario, String passwordS) {
+		this.usuario = usuario; 
+		this.password = password;
+		
+		
+		
+	}
 
 	public Integer getId() {
 		return id;

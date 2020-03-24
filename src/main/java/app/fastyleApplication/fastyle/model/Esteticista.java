@@ -14,8 +14,14 @@ import lombok.Setter;
 @Entity
 public class Esteticista extends Usuario{
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	 private List<ServicioEstetico> serviciosEsteticos;
+	
 
+	public Esteticista(String usuario, String password) {
+		super(usuario, password); 
+	}
+	
+//	@OneToMany(cascade = CascadeType.ALL)
+//	 private List<ServicioEstetico> serviciosEsteticos;
+//
 
 }
