@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<title>Fastyle | Inicio de sesión </title>
+
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link href="starter-template.css" rel="stylesheet">
+</head>
+<head th:insert="fragments/header :: header"></head>
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+
+
+<div class="row justify-content-md-center" style="margin-top: 50px">
+
+
+
+
+                <form th:action="@{/login}" method="post">
+                    
+                    
+                    
+                    <div class="form-group">
+                        <label style="color:#ffff;"  for="username">Usuario</label>: <input type="text" id="username" name="username" class="form-control" autofocus="autofocus" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <label style="color:#ffff;"  for="password">Contraseña</label>: <input type="password" id="password" name="password" class="form-control" placeholder="Password" />
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-primary" value="Iniciar" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+
+
+	
+		
+		
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color:#ededed;">
+	<div style="background-color:#337ab7;height:50px;"></div>
+	<div class="container-fluid">
+		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 80px;background-color:#fff;padding:20px;border:solid 1px #ddd;">
+			
+			<form th:action="@{/login}" method="POST" th:object="${client}" class="form-signin">
+				<h3 class="form-signin-heading" th:text="Login"></h3>
+				<br /> <input th:field="*{username}" type="text" id="username" name="username" th:placeholder="Usuario" class="form-control" /> <br /> <input th:field="*{password}" type="password" th:placeholder="Password" id="password" name="password" class="form-control" /> <br />
+
+				<div align="center" th:if="${param.error}">
+					<p style="font-size: 20; color: #FF1C19;">Email or Password is invalid.</p>
+				</div>
+				<button class="btn btn-lg btn-primary" name="Submit" value="Login" type="Submit" th:text="Login" style="margin-right:10px;"></button>
+				<a href="/recover-password">Forgot password?</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+
+<title>Registration</title>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+					Login Module</a>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>Login page</h1>
+				<form th:action="@{/login}" method="post">
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">Invalid username or
+							password.</div>
+					</div>
+					<div th:if="${param.logout}">
+						<div class="alert alert-info">You have been logged out.</div>
+					</div>
+					<div class="form-group">
+						<label for="username">Username</label>: <input type="text"
+							id="username" name="username" class="form-control"
+							autofocus="autofocus" placeholder="Username" />
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>: <input type="password"
+							id="password" name="password" class="form-control"
+							placeholder="Password" />
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6 col-sm-offset-3">
+								<input type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-primary" value="Log In" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<span>New user? <a href="/" th:href="@{/registration}">Register
+								here</a></span>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
+
+
+
+-->
+
+
+
+
+
+<!--  
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<title>Starter Template for Bootstrap</title>
+
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link href="starter-template.css" rel="stylesheet">
+</head>
+<head th:insert="fragments/header :: header"></head>
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+
+
+<div class="row justify-content-md-center" style="margin-top: 50px">
+    <p th:if="${loginError}" class="error">Wrong user or password</p>
+    <form th:action="@{/login}" method="post">
+      <label for="username">Usuario</label>:
+      <input class="form-group" type="text" id="username" name="username" autofocus="autofocus" /> <br />
+      <label for="password">Contraseña</label>:
+      <input class="form-group" type="password" id="password" name="password" /> <br />
+      <input type="submit" value="Iniciar sesión" />
+    </form>
+    <div th:replace="fragments/footer :: footer"></div>
+  </body>
+</html>
+-->
