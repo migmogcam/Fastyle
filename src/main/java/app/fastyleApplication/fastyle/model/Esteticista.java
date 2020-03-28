@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 
 import lombok.Data;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class Esteticista extends Usuario {
 	@OneToMany
 	@Getter
 	@Setter
+	@Valid
 	private List<Cita> citas;
 	
 	@Getter

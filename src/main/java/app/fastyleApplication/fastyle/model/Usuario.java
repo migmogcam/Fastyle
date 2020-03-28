@@ -21,7 +21,6 @@ public class Usuario{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer id;
 		
 	@NotBlank
