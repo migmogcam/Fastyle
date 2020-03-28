@@ -29,8 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.permitAll();
 
 		http.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests().antMatchers("/signup")
-				.permitAll().and().authorizeRequests().antMatchers("/citaCrear/**")
-				.authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/loginCorrecto")
+				.permitAll().and().authorizeRequests()
+				.antMatchers("/citaCrear/**").authenticated()
+				.antMatchers("/misCitas/**").authenticated()
+				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/loginCorrecto")
 				.failureUrl("/loginError").and().logout()
                 .permitAll()
                 .logoutSuccessUrl("/");;

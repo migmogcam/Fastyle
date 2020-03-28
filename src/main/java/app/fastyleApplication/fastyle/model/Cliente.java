@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 
 import lombok.Data;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Cliente extends Usuario{
 	@Getter @Setter
 	@JoinTable(name="authorities_users", joinColumns= @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="authorityId"))
     @ManyToMany(fetch = FetchType.EAGER)
+	@Valid
     private List<Authorities> authorities;
 	
 	public Cliente(String usuario, String password, List<Authorities> grantList) {

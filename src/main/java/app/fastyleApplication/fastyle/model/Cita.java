@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 
@@ -32,14 +33,17 @@ public class Cita extends BaseEntity{
 
 	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
 	@JoinColumn(name = "esteticista_id", insertable = false, updatable = false)
+	@Valid
 	@Getter @Setter private Esteticista esteticista;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
 	@JoinColumn(name = "usuario", insertable = false, updatable = false)
+	@Valid
 	@Getter @Setter private Cliente cliente;
 	
 	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
 	@JoinColumn(name = "id",insertable = false, updatable = false)
+	@Valid
 	@Getter @Setter private ServicioEstetico servicioEstetico;
 	
 	@Length(max = 250)

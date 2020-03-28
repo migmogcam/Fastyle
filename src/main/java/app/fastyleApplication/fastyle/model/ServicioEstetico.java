@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Currency;
@@ -47,6 +48,7 @@ public class ServicioEstetico extends BaseEntity{
 	@Getter @Setter private String ciudad;
 	
 	@OneToMany
+	@Valid
 	@Getter @Setter private List<Cita> citas;
 
 }
