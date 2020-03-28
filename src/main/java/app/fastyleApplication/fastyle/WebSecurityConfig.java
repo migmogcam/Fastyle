@@ -29,20 +29,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.permitAll();
 
 		http.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests().antMatchers("/signup")
-				.permitAll().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/signup")
-				.failureUrl("/error");
+				.permitAll().and().authorizeRequests().antMatchers("/citaCrear/**")
+				.authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/loginCorrecto")
+				.failureUrl("/loginError").and().logout()
+                .permitAll()
+                .logoutSuccessUrl("/");;
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
 		http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
 
-//		   http
-//	        .formLogin()
-//	        .loginPage("/login.html")
-//	        .failureUrl("/login-error.html")
-//	      .and()
-//	        .logout()
-//	        .logoutSuccessUrl("/index.html");
 	}
 
 	BCryptPasswordEncoder bCryptPasswordEncoder;

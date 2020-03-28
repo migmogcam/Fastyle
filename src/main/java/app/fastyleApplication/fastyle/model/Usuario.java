@@ -25,7 +25,7 @@ public class Usuario{
 	private Integer id;
 		
 	@NotBlank
-	@Length(max = 15)
+	@Length(max = 200)
 	private String usuario;
 	
 	@NotBlank
