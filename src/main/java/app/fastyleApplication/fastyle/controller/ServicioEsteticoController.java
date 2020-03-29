@@ -29,19 +29,16 @@ public class ServicioEsteticoController {
 	@PostMapping("/servicioEsteticoRegistro")
     public String addServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
         } 
         try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
 			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
     }
 	
 	@GetMapping("/servicioEsteticoEdit/{id}")
@@ -49,32 +46,27 @@ public class ServicioEsteticoController {
 	    try {
 			ServicioEstetico servicioEstetico = service.getServicioEsteticoById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-	     
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@PostMapping("/servicioEsteticoUpdate/{id}")
 	public String updateServicioEsteticoService(@PathVariable("id") Integer id, @Valid ServicioEstetico servicioEstetico, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 	    }
 	         
 	    try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-	  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/servicioEsteticoDelete/{id}")
@@ -82,12 +74,10 @@ public class ServicioEsteticoController {
 	    try {
 			service.deleteServicioEsteticoById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-		  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/listadoServicios")
@@ -98,6 +88,7 @@ public class ServicioEsteticoController {
 			model.addAttribute("listaServicios", servicios);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
         return "listadoServicios"; //view
     }
@@ -113,6 +104,7 @@ public class ServicioEsteticoController {
 			model.addAttribute("servicioEstetico", servicioEstetico);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
         return "servicioInfo"; //view
     }

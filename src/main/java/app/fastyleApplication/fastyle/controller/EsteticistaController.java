@@ -22,19 +22,16 @@ public class EsteticistaController {
 	@PostMapping("/esteticistaRegistro")
     public String addEsteticista(@Valid Esteticista esteticista, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
         } 
         try {
 			service.createOrUpdateEsteticista(esteticista);
 		} catch (Exception e) {
 			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
     }
 	
 	@GetMapping("/esteticistaEdit/{id}")
@@ -42,32 +39,27 @@ public class EsteticistaController {
 	    try {
 			Esteticista esteticista = service.getEsteticistaById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-	     
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@PostMapping("/esteticistaUpdate/{id}")
 	public String updateEsteticista(@PathVariable("id") Integer id, @Valid Esteticista esteticista, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 	    }
 	         
 	    try {
 			service.createOrUpdateEsteticista(esteticista);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-	  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 
 }

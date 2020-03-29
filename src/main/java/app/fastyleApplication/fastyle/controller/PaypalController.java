@@ -95,7 +95,7 @@ public class PaypalController {
 	            	try {
 	    				saved = citaService.createOrUpdateCita(cita);
 	    			} catch (Exception e) {
-	    				// TODO: pagina de error
+	    				return "error";
 	    			}
 	                return "pagoCorrecto";
 	            }

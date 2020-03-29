@@ -21,8 +21,9 @@ insert into esteticista (apellido1, apellido2, ciudad, e_mail, name, password, p
 
 			
 
-insert into cliente values ('1','garcia','perez','sevilla','ekd@dvo','paco','$2y$04$eulaVXkBqGLabI0podj8KO92u3Y69lnQlX93JeJlwYfA17Yg8uDg6','sevilla','user');
+insert into cliente values ('1','Nieto','Ureña','Bormujos','ekd@dvo','Elia','$2y$04$eulaVXkBqGLabI0podj8KO92u3Y69lnQlX93JeJlwYfA17Yg8uDg6','Sevilla','user');
 insert into authorities values ('1','ROL_CLIENTE');
 
 insert into authorities_users values (1,1);
 								
+insert into cita values(1,'detalle','01/01/2021','18:30',1,1,1);

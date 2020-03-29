@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<title>Starter Template for Bootstrap</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+</head>
+<head th:insert="fragments/header :: header"></head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+<hr>
+	<div class="alert alert-info" role="alert">Autentificación correcta, bienvenido!</div>
+
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
