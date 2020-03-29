@@ -88,6 +88,13 @@ public class ClienteService implements UserDetailsService {
             throw new Exception("No cliente record exist for given id");
         }
     }
+    
+    public Cliente findByUsuario(String usuario) {
+    	Cliente appUser = 
+                repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
+    	return appUser;
+    }
+    
 
 	@Override
 	public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {

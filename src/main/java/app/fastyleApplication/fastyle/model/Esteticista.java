@@ -2,7 +2,9 @@ package app.fastyleApplication.fastyle.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
@@ -14,7 +16,7 @@ import lombok.Setter;
 @Entity
 public class Esteticista extends Usuario {
 	
-	@OneToMany
+	@OneToMany(mappedBy = "esteticista", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@Getter
 	@Setter
 	@Valid

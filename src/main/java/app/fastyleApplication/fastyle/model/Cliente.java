@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +32,8 @@ public class Cliente extends Usuario{
 	
 	@Getter @Setter
 	@JoinTable(name="authorities_users", joinColumns= @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="authorityId"))
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
 	@Valid
     private List<Authorities> authorities;
 	
@@ -43,7 +47,7 @@ public class Cliente extends Usuario{
 		
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Cita> citas;
 
 }

@@ -1,11 +1,14 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import app.fastyleApplication.fastyle.dto.CitaDTO;
 import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
 import app.fastyleApplication.fastyle.services.CitaService;
+import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.EsteticistaService;
 import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
 
@@ -32,6 +37,9 @@ public class CitaController {
 	
 	@Autowired
 	EsteticistaService serviceEsteticista;
+	
+	@Autowired
+	ClienteService clienteService;
 	
 	@PostMapping("/citaRegistro")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
@@ -116,7 +124,12 @@ public class CitaController {
     }
 
 	@GetMapping("/misCitas")
-    public String misCitas(Model model) {
+    public String misCitas(final Map<String, Object> model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Cliente c = this.clienteService.findByUsuario(username);
+		List<Cita> citas = new LinkedList<Cita>();
+		citas = c.getCitas();
+		model.put("citas", citas);
         return "misCitas"; //view
     }
 

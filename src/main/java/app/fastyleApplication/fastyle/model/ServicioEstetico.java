@@ -2,7 +2,9 @@ package app.fastyleApplication.fastyle.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -47,7 +49,7 @@ public class ServicioEstetico extends BaseEntity{
 	@Length(max = 100)
 	@Getter @Setter private String ciudad;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "servicioEstetico", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@Valid
 	@Getter @Setter private List<Cita> citas;
 
