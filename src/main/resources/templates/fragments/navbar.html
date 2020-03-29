@@ -14,10 +14,9 @@
 			<li class="nav-item"><a class="nav-link"
 				th:href="@{/listadoServicios}">Servicios</a></li>
 
-			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Mis
-					citas</a></li>
+			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Mis citas</a></li>
 					
-			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Crear Servicio</a></li>
+			<!-- <li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Crear Servicio</a></li>  -->
 
 
 		</ul>
@@ -66,10 +65,10 @@
 						width="40" height="40" class="rounded-circle">
 				</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<span class="dropdown-item"
+						<!--  <span class="dropdown-item"
 							th:text="${#authentication.getPrincipal().getUsername()}"></span>
-						<a class="dropdown-item" href="#">Edit Profile</a> <a
-							class="dropdown-item" th:href="@{/logout}">Log Out</a>
+						<a class="dropdown-item" href="#">Edit Profile</a> -->
+						<a class="dropdown-item" th:href="@{/logout}">Log Out</a>
 					</div></li>
 
 			</div>

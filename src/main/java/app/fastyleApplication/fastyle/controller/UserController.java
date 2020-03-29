@@ -88,7 +88,7 @@ public class UserController {
 				model.addAttribute("formErrorMessage",e.getMessage());
 			}
 		}
-		return "index";
+		return "accionRealizada";
 	}
 	
 //	private void baseAttributerForUserForm(Model model, User user,String activeTab) {
@@ -192,9 +192,8 @@ public class UserController {
 	
 	@GetMapping({"/loginCorrecto"})
 	public String loginCorrecto() {
-		return "loginCorrecto";
+		return "accionRealizada";
 	}
-	
 }
 
 

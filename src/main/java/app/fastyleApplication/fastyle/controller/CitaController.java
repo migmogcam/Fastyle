@@ -44,19 +44,16 @@ public class CitaController {
 	@PostMapping("/citaRegistro")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
         } 
         try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
     }
 	
 	@GetMapping("/citaEdit/{id}")
@@ -64,32 +61,27 @@ public class CitaController {
 	    try {
 			Cita cita = service.getCitaById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-	     
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@PostMapping("/citaUpdate/{id}")
 	public String updateCitaService(@PathVariable("id") Integer id, @Valid Cita cita, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 	    }
 	         
 	    try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-	  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/citaDelete/{id}")
@@ -97,12 +89,10 @@ public class CitaController {
 	    try {
 			service.deleteCitaById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-		  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/citaCrear/{idServ}/{idEst}")
@@ -129,8 +119,13 @@ public class CitaController {
 		Cliente c = this.clienteService.findByUsuario(username);
 		List<Cita> citas = new LinkedList<Cita>();
 		citas = c.getCitas();
-		model.put("citas", citas);
-        return "misCitas"; //view
+		
+		if(citas.isEmpty()) {
+			return "emptyCitas";
+		} else {
+			model.put("citas", citas);
+	        return "misCitas"; //view
+		}
     }
 
 
