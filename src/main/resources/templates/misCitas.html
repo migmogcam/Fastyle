@@ -26,7 +26,8 @@
 								<th scope="col"></th> 
 								<th scope="col">Fecha</th>
 								<th scope="col">Hora</th>
-								<th scope="col">Esteticista</th>
+								<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
+								<th sec:authorize="hasRole('ESTETICISTA')" scope="col">cliente</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,7 +36,8 @@
 								<th scope="row" th:text="${citaStat.index +1 }"></th> 
 								<td th:text="${cita.fecha}"></td>
 								<td th:text="${cita.hora}"></td>
-								<td th:text="${cita.esteticista.name}"></td>
+								<td sec:authorize="hasRole('CLIENTE')" th:text="${cita.esteticista.usuario.name}"></td>
+								<td sec:authorize="hasRole('ESTETICISTA')" th:text="${cita.esteticista.usuario.name}"></td>
 						</tr>
 						</tbody>
 					</table>

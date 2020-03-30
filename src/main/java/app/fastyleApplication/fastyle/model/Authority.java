@@ -11,7 +11,7 @@ import lombok.Setter;
 @Data
 @Entity
 @Table(name = "authorities")
-public class Authorities {
+public class Authority {
 	@Id
 	@Getter @Setter String username;
 	@Getter @Setter String authority;

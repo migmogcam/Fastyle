@@ -1,37 +1,47 @@
 package app.fastyleApplication.fastyle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import app.fastyleApplication.fastyle.services.ClienteService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 
 @Configuration
+@EnableAutoConfiguration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+    //Necesario para evitar que la seguridad se aplique a los resources
+    //Como los css, imagenes y javascripts
+    String[] resources = new String[]{
+            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
+    };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers("/resources/**", "/webjars/**", "/h2-console/**").permitAll()
-//				.antMatchers(HttpMethod.GET, "/", "/oups").permitAll().antMatchers("/users/new").permitAll()
-//				.anyRequest().denyAll().and().formLogin()
-//				/* .loginPage("/login") */
-//				.failureUrl("/login-error").and().logout().logoutSuccessUrl("/");
 
-//		http.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests().antMatchers("/console/**")
-//		.permitAll();
-
-		http.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests().antMatchers("/signup")
-				.permitAll().and().authorizeRequests()
-				.antMatchers("/citaCrear/**").authenticated()
-				.antMatchers("/misCitas/**").authenticated()
+		http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/").permitAll()
+				.antMatchers("/citaCrear/**", "/misCitas/**").access("hasRole('CLIENTE')")
+				.antMatchers("/crearServicioEstetico/**", "/servicioEsteticoRegistro/**").access("hasRole('ADMIN')")
+				.antMatchers("/misCitasEsteticista/**").access("hasRole('ESTETICISTA')")
+				.antMatchers("/signup").permitAll()
+				.anyRequest().permitAll()
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/loginCorrecto")
 				.failureUrl("/loginError").and().logout()
                 .permitAll()
@@ -57,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Autowired
-	ClienteService clienteService;
+	UsuarioService clienteService;
 
 	// Registra el service para usuarios y el encriptador de contrasena
 	@Autowired
@@ -67,4 +77,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// And Setting PassswordEncoder
 		auth.userDetailsService(clienteService).passwordEncoder(passwordEncoder());
 	}
+	
+	  @Bean
+	  public UserDetailsService userDetailsService() {
+	    return new UsuarioService();
+	  };
+	  
+	  @Override
+	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	    auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+	  }
+	
 }
+

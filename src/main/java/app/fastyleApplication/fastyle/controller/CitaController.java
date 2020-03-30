@@ -21,10 +21,12 @@ import app.fastyleApplication.fastyle.model.Cita;
 import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.services.CitaService;
 import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.EsteticistaService;
 import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 
 @Controller
 public class CitaController {
@@ -40,6 +42,12 @@ public class CitaController {
 	
 	@Autowired
 	ClienteService clienteService;
+
+	@Autowired
+	UsuarioService usuarioService;
+	
+	@Autowired
+	EsteticistaService esteticistaService;
 	
 	@PostMapping("/citaRegistro")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
@@ -116,7 +124,24 @@ public class CitaController {
 	@GetMapping("/misCitas")
     public String misCitas(final Map<String, Object> model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Cliente c = this.clienteService.findByUsuario(username);
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Cliente c = this.clienteService.findByUsuario(u);
+		List<Cita> citas = new LinkedList<Cita>();
+		citas = c.getCitas();
+		
+		if(citas.isEmpty()) {
+			return "emptyCitas";
+		} else {
+			model.put("citas", citas);
+	        return "misCitas"; //view
+		}
+    }
+	
+	@GetMapping("/misCitasEsteticista")
+    public String misCitasEsteticista(final Map<String, Object> model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Esteticista c = this.esteticistaService.findByUsuario(u);
 		List<Cita> citas = new LinkedList<Cita>();
 		citas = c.getCitas();
 		

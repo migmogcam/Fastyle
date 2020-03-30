@@ -50,7 +50,8 @@ public class ServicioEsteticoService {
 			newEntity.setImagen(entity.getImagen());
 			newEntity.setPrecio(entity.getPrecio());
 			newEntity.setTipo(entity.getTipo());
-
+			newEntity.setEsteticista(entity.getEsteticista());
+			
 			newEntity = repository.save(newEntity);
 
 			return newEntity;

@@ -64,18 +64,11 @@ public class UserController {
 		model.addAttribute("roles",roles);
 		model.addAttribute("signup",true);
 		List<Cita> citas = new ArrayList<>();
-		
+		String pass = PassGenerator.getPassEncode(user.getPassword());
+		user.setPassword(pass);
 		Cliente cliente = new Cliente();
-		cliente.setName(user.getName());
-		cliente.setApellido1(user.getApellido1());
-		cliente.setApellido2(user.getApellido2());
-		cliente.setProvincia(user.getProvincia());
-		cliente.setCiudad(user.getCiudad());
-		cliente.setEMail(user.getEMail());
-		cliente.setUsuario(user.getUsuario());
-		cliente.setPassword(PassGenerator.getPassEncode(user.getPassword()));
-		cliente.setAuthorities(null);
 		cliente.setCitas(citas);
+		cliente.setUsuario(user);
 		
 		if(result.hasErrors()) {
 			return "user-signup";

@@ -20,9 +20,11 @@ import app.fastyleApplication.fastyle.model.Cita;
 import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.services.CitaService;
 import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.PaypalService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 import app.fastyleApplication.fastyle.util.URLUtils;
 
 @Controller
@@ -36,6 +38,9 @@ public class PaypalController {
 	
 	@Autowired
 	ClienteService clienteService;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	public static final String PAYPAL_SUCCESS_URL = "pagoCorrecto";
 	public static final String PAYPAL_CANCEL_URL = "cancel";
@@ -52,7 +57,8 @@ public class PaypalController {
 					successUrl);
 			Cita cita = new Cita();
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Cliente c = this.clienteService.findByUsuario(username);
+			Usuario u = this.usuarioService.findByUsuario(username);
+			Cliente c = this.clienteService.findByUsuario(u);
 			cita.setCliente(c);
 			cita.setDetalle(order.getDetalle());
 			cita.setEsteticista(esteticista);
