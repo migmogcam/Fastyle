@@ -16,7 +16,7 @@
 
 			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Mis citas</a></li>
 					
-			<!-- <li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Crear Servicio</a></li>  -->
+			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{servicioEsteticoRegistro}">Crear Servicio</a></li> 
 
 
 		</ul>

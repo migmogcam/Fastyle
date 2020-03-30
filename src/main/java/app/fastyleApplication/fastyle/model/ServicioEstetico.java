@@ -33,7 +33,6 @@ public class ServicioEstetico extends BaseEntity{
 	@Length(max = 200)
 	@Getter @Setter private String detalleAcortado;
 	
-	@Currency(value = "EUR")
 	@Range(min = 0)
 	@Getter @Setter private Double precio;
 	

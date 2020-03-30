@@ -26,7 +26,14 @@ public class ServicioEsteticoController {
 	@Autowired
 	EsteticistaService serviceEsteticista;
 	
-	@PostMapping("/servicioEsteticoRegistro")
+	@GetMapping("/servicioEsteticoRegistro")
+    public String addServicioEstetico(Model model) {
+		model.addAttribute("servicioEstetico", new ServicioEstetico());
+       
+        return "crearServicioEstetico";
+    }
+	
+	@PostMapping("/crearServicioEstetico")
     public String addServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "error";
@@ -37,8 +44,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
             return "error";
 		}
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "accionRealizada";
+        return "servicioCreado";
     }
 	
 	@GetMapping("/servicioEsteticoEdit/{id}")
