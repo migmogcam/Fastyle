@@ -24,6 +24,23 @@ public class EsteticistaService {
                 repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
     	return appUser;
     }
+    
+    public Esteticista createOrUpdateCliente(Esteticista entity) throws Exception 
+    {
+    	
+    	if(entity.getId()!= null) {
+        Optional<Esteticista> cliente = repository.findById(entity.getId());      
+        Esteticista newEntity = cliente.get();
+            
+            newEntity = repository.save(newEntity);
+             
+            return newEntity;
+        } else {
+            entity = repository.save(entity);
+             
+            return entity;
+        }
+    } 
 
      
     public List<Esteticista> getAllEsteticistas()
