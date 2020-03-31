@@ -40,25 +40,56 @@
 
 				<div class="card mt-4">
 					<img class="card-img-top img-fluid"
-						th:src="${servicioEstetico.imagen}"
-						alt="">
+						th:src="${servicioEstetico.imagen}" alt="">
 					<div class="card-body">
-						<h3 class="card-title">Servicio de <td th:text="${servicioEstetico.tipo}"/></h3>
-						<h4>€<td th:text="${servicioEstetico.precio}"/></h4>
-						<p class="card-text"><td th:text="${servicioEstetico.detalle}"/></p>
+						<h3 class="card-title">
+							Servicio de
+							<td th:text="${servicioEstetico.tipo}" />
+						</h3>
+						<h4>
+							€
+							<td th:text="${servicioEstetico.precio}" />
+						</h4>
+						<p class="card-text">
+							<td th:text="${servicioEstetico.detalle}" />
+						</p>
 						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
 							&#9734;</span> 4.0 stars
 					</div>
+
+
+					<th:block th:switch="${est}">
+						<div th:case="'existe'">
+							<a sec:authorize="hasRole('ESTETICISTA')"
+							th:href="@{/ServicioCancelar/{idServ}(idServ=${servicioEstetico.id})}"
+							class="btn btn-warning">Dejar de ser esteticista</a>
+						</div>
+						<div th:case="'noExiste'">
+							<a sec:authorize="hasRole('ESTETICISTA')"
+							th:href="@{/ServicioUnir/{idServ}(idServ=${servicioEstetico.id})}"
+							class="btn btn-success">Unirse como esteticista</a>
+						</div>
+						<div th:case="'noEs'">
+							<!-- print object is new and active -->
+						</div>
+					</th:block>
+
 
 				</div>
 				<!-- /.card -->
 
 				<div class="card card-outline-secondary my-4">
 					<div class="card-header">Nuestros Esteticistas</div>
-					<div class="card-body">
+					<div th:if="${not #lists.isEmpty(listaEsteticistas)}"
+						class="card-body">
 						<tr th:each="esteticista: ${listaEsteticistas}">
-							<p><td><td th:text="${esteticista.descripcion}" /></td></p>
-							<a th:href="@{/citaCrear/{idServ}/{idEst}(idServ=${servicioEstetico.id}, idEst=${esteticista.id})}" class="btn btn-success">Pedir una Cita</a>
+							<p>
+								<td>
+								<td th:text="${esteticista.descripcion}" /></td>
+							</p>
+							<a sec:authorize="hasRole('CLIENTE')"
+								th:href="@{/citaCrear/{idServ}/{idEst}(idServ=${servicioEstetico.id}, idEst=${esteticista.id})}"
+								class="btn btn-success">Pedir una Cita</a>
 							<hr>
 						</tr>
 

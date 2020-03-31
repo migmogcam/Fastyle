@@ -1,33 +1,30 @@
 package app.fastyleApplication.fastyle.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Order;
-import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 
 import app.fastyleApplication.fastyle.dto.CitaDTO;
 import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.services.CitaService;
+import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.PaypalService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 import app.fastyleApplication.fastyle.util.URLUtils;
 
 @Controller
@@ -38,6 +35,12 @@ public class PaypalController {
 	
 	@Autowired
 	CitaService citaService;
+	
+	@Autowired
+	ClienteService clienteService;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	public static final String PAYPAL_SUCCESS_URL = "pagoCorrecto";
 	public static final String PAYPAL_CANCEL_URL = "cancel";
@@ -53,8 +56,10 @@ public class PaypalController {
 					"sale", "Compra de servicio Estetico de "+ servicio.getTipo(), cancelUrl,
 					successUrl);
 			Cita cita = new Cita();
-//TODO Cliente loggeado
-//			cita.setCliente(cliente);
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			Cliente c = this.clienteService.findByUsuario(u);
+			cita.setCliente(c);
 			cita.setDetalle(order.getDetalle());
 			cita.setEsteticista(esteticista);
 			cita.setFecha(order.getFecha());
@@ -96,7 +101,7 @@ public class PaypalController {
 	            	try {
 	    				saved = citaService.createOrUpdateCita(cita);
 	    			} catch (Exception e) {
-	    				// TODO: pagina de error
+	    				return "error";
 	    			}
 	                return "pagoCorrecto";
 	            }

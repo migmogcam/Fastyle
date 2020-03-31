@@ -31,18 +31,15 @@ public class Cita extends BaseEntity{
 	@Getter @Setter
 	private String hora;
 
-	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
-	@JoinColumn(name = "esteticista_id", insertable = false, updatable = false)
+	@ManyToOne
 	@Valid
 	@Getter @Setter private Esteticista esteticista;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
-	@JoinColumn(name = "usuario", insertable = false, updatable = false)
+	@ManyToOne
 	@Valid
 	@Getter @Setter private Cliente cliente;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, optional = true)
-	@JoinColumn(name = "id",insertable = false, updatable = false)
+	@ManyToOne
 	@Valid
 	@Getter @Setter private ServicioEstetico servicioEstetico;
 	

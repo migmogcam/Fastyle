@@ -17,39 +17,32 @@
 		<div class="row">
 			<div class="col-sm-12 d-flex justify-content-center">
 				<div class="w-75 mt-5">
+
 				<br/>
 				<br/>
 				
 				<h3 class="card-title" align="center">Mis citas</h3>
-					<table class="table table-striped align-middle"
+					<table th:if="${not #lists.isEmpty(citas)}" class="table table-striped align-middle"
+
 						style="margin-top: 50px">
 						<thead>
 							<tr>
-								<th scope="col"></th>
+								<th scope="col"></th> 
 								<th scope="col">Fecha</th>
 								<th scope="col">Hora</th>
-								<th scope="col">Esteticista</th>
+								<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
+								<th sec:authorize="hasRole('ESTETICISTA')" scope="col">cliente</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>19/03/2020</td>
-								<td>16:40</td>
-								<td>Juan</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>20/03/2020</td>
-								<td>18:00</td>
-								<td>Daniel</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>21/03/2020</td>
-								<td>19:00</td>
-								<td>Miguel</td>
-							</tr>
+						<tr th:each="cita : ${citas}">
+
+								<th scope="row" th:text="${citaStat.index +1 }"></th> 
+								<td th:text="${cita.fecha}"></td>
+								<td th:text="${cita.hora}"></td>
+								<td sec:authorize="hasRole('CLIENTE')" th:text="${cita.esteticista.usuario.name}"></td>
+								<td sec:authorize="hasRole('ESTETICISTA')" th:text="${cita.esteticista.usuario.name}"></td>
+						</tr>
 						</tbody>
 					</table>
 				</div>

@@ -5,29 +5,41 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import app.fastyleApplication.fastyle.model.Authorities;
 import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.repository.ClienteRepository;
 
 @Service
-public class ClienteService implements UserDetailsService {
+public class ClienteService{
 	
     @Autowired
     ClienteRepository repository;
      
-    public Optional<Cliente> getAllByUser(String usuario){
-    	Optional<Cliente> res =repository.findByUsuario(usuario);
-    	return res;
+    public Cliente findByUsuario(Usuario usuario) {
+    	Cliente appUser = 
+                repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
+    	return appUser;
     }
+
+    public Cliente createOrUpdateCliente(Cliente entity) throws Exception 
+    {
+    	
+    	if(entity.getId()!= null) {
+        Optional<Cliente> cliente = repository.findById(entity.getId());      
+            Cliente newEntity = cliente.get();
+            
+            newEntity = repository.save(newEntity);
+             
+            return newEntity;
+        } else {
+            entity = repository.save(entity);
+             
+            return entity;
+        }
+    } 
     
     public List<Cliente> getAllClientes()
     {
@@ -50,32 +62,7 @@ public class ClienteService implements UserDetailsService {
             throw new Exception("No cliente record exist for given id");
         }
     }
-     
-    public Cliente createOrUpdateCliente(Cliente entity) throws Exception 
-    {
-    	
-    	if(entity.getId()!= null) {
-        Optional<Cliente> cliente = repository.findById(entity.getId());
-         
-       
-        
-            Cliente newEntity = cliente.get();
-            newEntity.setApellido1(entity.getApellido1());
-            newEntity.setApellido2(entity.getApellido2());
-            newEntity.setName(entity.getName());
-            newEntity.setCiudad(entity.getCiudad());
-            newEntity.setProvincia(entity.getProvincia());
-            newEntity.setEMail(entity.getEMail());
-            
-            newEntity = repository.save(newEntity);
-             
-            return newEntity;
-        } else {
-            entity = repository.save(entity);
-             
-            return entity;
-        }
-    } 
+   
      
     public void deleteClienteById(Integer id) throws Exception 
     {
@@ -88,27 +75,6 @@ public class ClienteService implements UserDetailsService {
             throw new Exception("No cliente record exist for given id");
         }
     }
-
-	@Override
-	public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
-		
-
-	     //Buscar el usuario con el repositorio y si no existe lanzar una exepcion
-	     Cliente appUser = 
-	                  repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
-
-	    //Mapear nuestra lista de Authority con la de spring security 
-	    List grantList = new ArrayList();
-	    for (Authorities authority: appUser.getAuthorities()) {
-	        // ROLE_USER, ROLE_ADMIN,..
-	        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
-	            grantList.add(grantedAuthority);
-	    }
-
-	    //Crear El objeto UserDetails que va a ir en sesion y retornarlo.
-	    UserDetails user = (UserDetails) new User(appUser.getUsuario(), appUser.getPassword(), grantList);
-	         return user;
-	    }
 	
 
 }

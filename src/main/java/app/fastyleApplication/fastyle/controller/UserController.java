@@ -2,6 +2,7 @@ package app.fastyleApplication.fastyle.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,88 +17,115 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import app.fastyleApplication.fastyle.CustomeFieldValidationException;
+import app.fastyleApplication.fastyle.dto.UserDTO;
 import app.fastyleApplication.fastyle.entities.Role;
+import app.fastyleApplication.fastyle.model.Authority;
 import app.fastyleApplication.fastyle.model.Cita;
 import app.fastyleApplication.fastyle.model.Cliente;
+import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.repository.RoleRepository;
+import app.fastyleApplication.fastyle.services.AuthorityService;
 import app.fastyleApplication.fastyle.services.ClienteService;
+import app.fastyleApplication.fastyle.services.EsteticistaService;
 import app.fastyleApplication.fastyle.util.PassGenerator;
-
 
 @Controller
 public class UserController {
 
 	private final String TAB_FORM = "formTab";
 	private final String TAB_LIST = "listTab";
-	
+
 	@Autowired
 	ClienteService userService;
 	
 	@Autowired
+	EsteticistaService esteticistaService;
+
+	@Autowired
 	RoleRepository roleRepository;
-	
+
+	@Autowired
+	AuthorityService autoRepository;
+
 //	@GetMapping({"/","/login"})
 //	public String index() {
 //		return "index";
 //	}
-	
+
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-		
-		model.addAttribute("signup",true);
-		model.addAttribute("userForm", new Usuario());
-		model.addAttribute("roles",roles);
+
+		model.addAttribute("signup", true);
+		model.addAttribute("userForm", new UserDTO());
+		model.addAttribute("roles", roles);
 		return "user-signup";
 	}
-	
-	
-	
-	
+
 	@PostMapping("/signup")
-	public String signupAction(@Valid @ModelAttribute("userForm")Usuario user, BindingResult result, ModelMap model) {
+	public String signupAction(@Valid @ModelAttribute("userForm") UserDTO user, BindingResult result, ModelMap model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		model.addAttribute("userForm", user);
-		model.addAttribute("roles",roles);
-		model.addAttribute("signup",true);
+		model.addAttribute("roles", roles);
+		model.addAttribute("signup", true);
 		List<Cita> citas = new ArrayList<>();
-		
+		String pass = PassGenerator.getPassEncode(user.getPassword());
+
+		Usuario us = new Usuario();
+		us.setApellido1(user.getApellido1());
+		us.setApellido2(user.getApellido2());
+		Authority autor = this.autoRepository.findByAuthority(user.getAutority());
+		List<Authority> autoridades = new LinkedList<Authority>();
+		autoridades.add(autor);
+		us.setAuthorities(autoridades);
+		us.setCiudad(user.getCiudad());
+		us.setEMail(user.getEMail());
+		us.setName(user.getName());
+		us.setPassword(pass);
+		us.setProvincia(user.getProvincia());
+		us.setUsuario(user.getUsuario());
 		Cliente cliente = new Cliente();
-		cliente.setName(user.getName());
-		cliente.setApellido1(user.getApellido1());
-		cliente.setApellido2(user.getApellido2());
-		cliente.setProvincia(user.getProvincia());
-		cliente.setCiudad(user.getCiudad());
-		cliente.setEMail(user.getEMail());
-		cliente.setUsuario(user.getUsuario());
-		cliente.setPassword(PassGenerator.getPassEncode(user.getPassword()));
-		cliente.setAuthorities(null);
-		cliente.setCitas(citas);
-		
-		if(result.hasErrors()) {
+		Esteticista esteticista = new Esteticista();
+		if (user.getAutority().equals("ROLE_CLIENTE")) {
+
+			cliente.setCitas(citas);
+			cliente.setUsuario(us);
+		} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
+
+			esteticista.setCitas(citas);
+			esteticista.setDescripcion(user.getDescripcion());
+			esteticista.setUsuario(us);
+		}
+
+		if (result.hasErrors()) {
 			return "user-signup";
-		}else {
+		} else {
 			try {
-				userService.createOrUpdateCliente(cliente);
+				if (user.getAutority().equals("ROLE_CLIENTE")) {
+					userService.createOrUpdateCliente(cliente);
+				} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
+					esteticistaService.createOrUpdateCliente(esteticista);
+				}
+
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			}catch (Exception e) {
-				model.addAttribute("formErrorMessage",e.getMessage());
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "index";
+		return "accionRealizada";
 	}
-	
+
 //	private void baseAttributerForUserForm(Model model, User user,String activeTab) {
 //		model.addAttribute("userForm", user);
 //		model.addAttribute("userList", userService.getAllUsers());
 //		model.addAttribute("roles",roleRepository.findAll());
 //		model.addAttribute(activeTab,"active");
 //	}
-	
+
 //	@GetMapping("/userForm")
 //	public String userForm(Model model) {
 //		baseAttributerForUserForm(model, new User(), TAB_LIST );
@@ -123,7 +151,7 @@ public class UserController {
 //		}
 //		return "user-view";
 //	}
-	
+
 //	@GetMapping("/editUser/{id}")
 //	public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
 //		User userToEdit = userService.getUserById(id);
@@ -134,7 +162,7 @@ public class UserController {
 //		
 //		return "user-form/user-view";
 //	}
-	
+
 //	@PostMapping("/editUser")
 //	public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, Model model) {
 //		if(result.hasErrors()) {
@@ -156,12 +184,12 @@ public class UserController {
 //		return "user-form/user-view";
 //		
 //	}
-	
+
 //	@GetMapping("/userForm/cancel")
 //	public String cancelEditUser(ModelMap model) {
 //		return "redirect:/userForm";
 //	}
-	
+
 //	@GetMapping("/deleteUser/{id}")
 //	public String deleteUser(Model model, @PathVariable(name="id")Long id) {
 //		try {
@@ -172,7 +200,7 @@ public class UserController {
 //		}
 //		return userForm(model);
 //	}
-	
+
 //	@PostMapping("/editUser/changePassword")
 //	public ResponseEntity postEditUseChangePassword(@Valid @RequestBody ChangePasswordForm form, Errors errors) {
 //		try {
@@ -189,12 +217,9 @@ public class UserController {
 //		}
 //		return ResponseEntity.ok("Success");
 //	}
-	
-	@GetMapping({"/loginCorrecto"})
+
+	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto() {
-		return "loginCorrecto";
+		return "accionRealizada";
 	}
-	
 }
-
-

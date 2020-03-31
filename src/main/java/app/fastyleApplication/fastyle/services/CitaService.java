@@ -24,6 +24,9 @@ public class CitaService {
 	
 	@Autowired
 	ServicioEsteticoService servicioEsteticistaService;
+	
+	@Autowired
+	ClienteService clienteService;
 
 	public List<Cita> getAllCitas() {
 		List<Cita> citaList = repository.findAll();

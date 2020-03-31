@@ -19,55 +19,5 @@ public class EsteticistaController {
 	@Autowired
 	EsteticistaService service;
 	
-	@PostMapping("/esteticistaRegistro")
-    public String addEsteticista(@Valid Esteticista esteticista, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-        } 
-        try {
-			service.createOrUpdateEsteticista(esteticista);
-		} catch (Exception e) {
-			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
-		}
-        //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-    }
-	
-	@GetMapping("/esteticistaEdit/{id}")
-	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-	    try {
-			Esteticista esteticista = service.getEsteticistaById(id);
-		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-		}
-	     
-        //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-	}
-	
-	@PostMapping("/esteticistaUpdate/{id}")
-	public String updateEsteticista(@PathVariable("id") Integer id, @Valid Esteticista esteticista, 
-	  BindingResult result, Model model) {
-	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-	    }
-	         
-	    try {
-			service.createOrUpdateEsteticista(esteticista);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-	}
 
 }

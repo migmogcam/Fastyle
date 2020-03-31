@@ -9,7 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import lombok.Data;
 import lombok.Getter;
@@ -17,33 +21,17 @@ import lombok.Setter;
 
 @Data
 @Entity
-public class Cliente extends Usuario{
+public class Cliente extends BaseEntity{
 
-//	public Usuario(String usuario2, String password2, List grantList) {
-//		// TODO Auto-generated constructor stub
-//		this.usuario = usuario;
-//		this.password = password;
-//		this.authorities = authorities;
-//	}
 	
 	
-	@Getter @Setter
-	@JoinTable(name="authorities_users", joinColumns= @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="authorityId"))
-    @ManyToMany(fetch = FetchType.EAGER)
-	@Valid
-    private List<Authorities> authorities;
-	
-	public Cliente(String usuario, String password, List<Authorities> grantList) {
-		super(usuario, password); 
-		this.authorities = grantList;
-	}
-
-	public Cliente() {
-		super();
-		
-	}
-	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Cita> citas;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+	@Getter
+	@Setter
+	private Usuario usuario;
 
 }

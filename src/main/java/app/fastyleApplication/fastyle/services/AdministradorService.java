@@ -38,30 +38,7 @@ public class AdministradorService {
         }
     }
      
-    public Administrador createOrUpdateAdministrador(Administrador entity) throws Exception 
-    {
-        Optional<Administrador> administrador = repository.findById(entity.getId());
-         
-        if(administrador.isPresent()) 
-        {
-            Administrador newEntity = administrador.get();
-            newEntity.setApellido1(entity.getApellido1());
-            newEntity.setApellido2(entity.getApellido2());
-            newEntity.setName(entity.getName());
-            newEntity.setCiudad(entity.getCiudad());
-            newEntity.setProvincia(entity.getProvincia());
-            newEntity.setEMail(entity.getEMail());
-            
-            newEntity = repository.save(newEntity);
-             
-            return newEntity;
-        } else {
-            entity = repository.save(entity);
-             
-            return entity;
-        }
-    } 
-     
+  
     public void deleteAdministradorById(Integer id) throws Exception 
     {
         Optional<Administrador> administrador = repository.findById(id);

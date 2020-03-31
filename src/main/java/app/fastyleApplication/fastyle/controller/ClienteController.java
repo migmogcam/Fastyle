@@ -19,55 +19,6 @@ public class ClienteController {
 	@Autowired
 	ClienteService service;
 	
-	@PostMapping("/clienteRegistro")
-    public String addCliente(@Valid Cliente cliente, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-        } 
-        try {
-			service.createOrUpdateCliente(cliente);
-		} catch (Exception e) {
-			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
-		}
-        //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-    }
 	
-	@GetMapping("/clienteEdit/{id}")
-	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-	    try {
-			Cliente cliente = service.getClienteById(id);
-		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-		}
-	     
-        //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-	}
-	
-	@PostMapping("/clienteUpdate/{id}")
-	public String updateCliente(@PathVariable("id") Integer id, @Valid Cliente cliente, 
-	  BindingResult result, Model model) {
-	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
-	    }
-	         
-	    try {
-			service.createOrUpdateCliente(cliente);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  //TODO Añadir vista de creacion correcta
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
-	}
 
 }

@@ -1,11 +1,14 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import app.fastyleApplication.fastyle.dto.CitaDTO;
 import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.services.CitaService;
+import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.EsteticistaService;
 import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 
 @Controller
 public class CitaController {
@@ -33,22 +40,28 @@ public class CitaController {
 	@Autowired
 	EsteticistaService serviceEsteticista;
 	
+	@Autowired
+	ClienteService clienteService;
+
+	@Autowired
+	UsuarioService usuarioService;
+	
+	@Autowired
+	EsteticistaService esteticistaService;
+	
 	@PostMapping("/citaRegistro")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
         } 
         try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			e.printStackTrace();
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
     }
 	
 	@GetMapping("/citaEdit/{id}")
@@ -56,32 +69,27 @@ public class CitaController {
 	    try {
 			Cita cita = service.getCitaById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-	     
-        //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@PostMapping("/citaUpdate/{id}")
 	public String updateCitaService(@PathVariable("id") Integer id, @Valid Cita cita, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 	    }
 	         
 	    try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-	  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/citaDelete/{id}")
@@ -89,12 +97,10 @@ public class CitaController {
 	    try {
 			service.deleteCitaById(id);
 		} catch (Exception e) {
-        	//TODO añadir vista errores
-            return "vista de errores";
+            return "error";
 		}
-		  //TODO Añadir vista de creacion correcta
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "vista todo OK";
+        return "accionRealizada";
 	}
 	
 	@GetMapping("/citaCrear/{idServ}/{idEst}")
@@ -116,8 +122,35 @@ public class CitaController {
     }
 
 	@GetMapping("/misCitas")
-    public String misCitas(Model model) {
-        return "misCitas"; //view
+    public String misCitas(final Map<String, Object> model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Cliente c = this.clienteService.findByUsuario(u);
+		List<Cita> citas = new LinkedList<Cita>();
+		citas = c.getCitas();
+		
+		if(citas.isEmpty()) {
+			return "emptyCitas";
+		} else {
+			model.put("citas", citas);
+	        return "misCitas"; //view
+		}
+    }
+	
+	@GetMapping("/misCitasEsteticista")
+    public String misCitasEsteticista(final Map<String, Object> model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Esteticista c = this.esteticistaService.findByUsuario(u);
+		List<Cita> citas = new LinkedList<Cita>();
+		citas = c.getCitas();
+		
+		if(citas.isEmpty()) {
+			return "emptyCitas";
+		} else {
+			model.put("citas", citas);
+	        return "misCitas"; //view
+		}
     }
 
 

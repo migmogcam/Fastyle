@@ -1,14 +1,24 @@
 package app.fastyleApplication.fastyle.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +26,8 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@MappedSuperclass
+@Data
+@Entity
 public class Usuario{
 	
 	@Id
@@ -55,6 +66,13 @@ public class Usuario{
 	@Length(max = 100)
 	@Email
 	private String eMail;
+	
+	@Getter @Setter
+	@JoinTable(name="authorities_users", joinColumns= @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="authorityId"))
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+	@Valid
+    private List<Authority> authorities;
 
 	public Usuario() {}
 

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Esteticista;
+import app.fastyleApplication.fastyle.model.Usuario;
 
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
-	
-	public Optional<Cliente> findByUsuario(String usuario);
+	public Optional<Cliente> findByUsuario(Usuario usuario);
 }
