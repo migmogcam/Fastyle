@@ -41,7 +41,7 @@
 								<td th:text="${cita.fecha}"></td>
 								<td th:text="${cita.hora}"></td>
 								<td sec:authorize="hasRole('CLIENTE')" th:text="${cita.esteticista.usuario.name}"></td>
-								<td sec:authorize="hasRole('ESTETICISTA')" th:text="${cita.esteticista.usuario.name}"></td>
+								<td sec:authorize="hasRole('ESTETICISTA')" th:text="${cita.cliente.usuario.name}"></td>
 						</tr>
 						</tbody>
 					</table>
