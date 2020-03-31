@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -104,15 +105,20 @@ public class CitaController {
 	}
 	
 	@GetMapping("/citaCrear/{idServ}/{idEst}")
-    public String diplayInfo(@PathVariable("idServ") long id, @PathVariable("idEst") long idE, Model model, HttpSession session) {
+    public String diplayInfo(@PathVariable("idServ") long id, @PathVariable("idEst") long idE, Model model, HttpSession session, HttpServletRequest request) {
 		Esteticista servicios = null;
 		ServicioEstetico servicioEstetico = null;
+		Boolean fallo = false;
+		if(request.getSession().getAttribute("fallo") != null) {
+			fallo = (Boolean) request.getSession().getAttribute("fallo");
+		}
 		try {
 			servicios = serviceEsteticista.getEsteticistaById((int) idE);
 			servicioEstetico = serviceServicio.getServicioEsteticoById((int) id);
 			session.setAttribute("servicioEstetico", servicioEstetico);
 			session.setAttribute("servicios", servicios);
 			CitaDTO cita = new CitaDTO();
+			model.addAttribute("fallo", fallo);
 			model.addAttribute("cita", cita);
 		} catch (Exception e) {
 			return "index"; 
