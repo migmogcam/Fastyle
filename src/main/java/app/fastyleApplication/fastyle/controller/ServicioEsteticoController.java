@@ -97,7 +97,8 @@ public class ServicioEsteticoController {
 		return "accionRealizada";
 	}
 
-	@GetMapping("/listadoServicios")
+	//@GetMapping("/listadoServicios")
+	@GetMapping("/")
 	public String listado(Model model) {
 		List<ServicioEstetico> servicios = null;
 		try {

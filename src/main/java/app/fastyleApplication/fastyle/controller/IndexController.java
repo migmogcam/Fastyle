@@ -27,11 +27,11 @@ import app.fastyleApplication.fastyle.util.PassGenerator;
 @Controller
 public class IndexController {
 
-	@GetMapping("/")
-    public String main(Model model) {
-        return "index"; //view
-		// return "listadoServicios";
-    }
+//	@GetMapping("/")
+//    public String main(Model model) {
+//        return "index"; //view
+//		// return "listadoServicios";
+//    }
 
 	
 	  // Login form
