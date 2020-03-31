@@ -1,3 +1,97 @@
+
+<nav th:fragment="navbar"
+	class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<img src="/images/fastyle.jpeg" class="rounded-circle logo-fastyle"><a class="navbar-brand" id="title" href="/">Fastyle</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarsExampleDefault"
+		aria-controls="navbarsExampleDefault" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<ul class="navbar-nav mr-auto">
+
+			<li class="nav-item"><a class="nav-link"
+				th:href="@{/listadoServicios}">Servicios</a></li>
+
+			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{misCitas}">Mis citas</a></li>
+					
+			<li th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="nav-item"><a class="nav-link" th:href="@{servicioEsteticoRegistro}">Crear Servicio</a></li> 
+
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right mr-3">
+
+			<div th:switch="${#authentication.getPrincipal()}">
+
+				<li th:case="'anonymousUser'" class="dropdown"><a href="#"
+					class="nav-link" data-toggle="dropdown"><b>Autentificar</b> <span
+						class="caret"></span></a>
+					<ul id="login-dp" class="dropdown-menu">
+						<li>
+							<div class="row">
+								<div class="col-md-12">
+									<form class="form" role="form" th:action="@{/login}"
+										method="post" accept-charset="UTF-8" id="login-nav">
+										<div class="form-group">
+											<label for="username">Nombre de usuario</label> <input
+												type="text" id="username" name="username"
+												class="form-control" autofocus="autofocus"
+												placeholder="Nombre de usuario" required />
+										</div>
+										<div class="form-group">
+											<label for="contraseña">Contrase&ntilde;a</label> <input
+												type="password" id="password" name="password"
+												class="form-control" placeholder="Contrase&ntilde;a" required/>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+										</div>
+									</form>
+								</div>
+								<div class="bottom text-center">
+									No tienes cuenta? <a href="/signup"><b>Registrate
+											aqu&iacute</b></a>
+								</div>
+							</div>
+						</li>
+					</ul></li>
+				<li th:case="*" class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> <img
+						src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+						width="40" height="40" class="rounded-circle">
+				</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<!--  <span class="dropdown-item"
+							th:text="${#authentication.getPrincipal().getUsername()}"></span>
+						<a class="dropdown-item" href="#">Edit Profile</a> -->
+						<a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+					</div></li>
+
+			</div>
+		</ul>
+
+		<form class="form-inline">
+
+			<input class="form-control mr-sm-2" type="text" placeholder="Inserte un termino"
+				aria-label="Search"><!--
+			<a type="submit" class="search"></a>   -->
+		 <button class="btn btn-secondary" type="button">
+        Buscar
+      </button>
+			
+
+		</form>
+
+
+
+	</div>
+</nav>
+<!--
 <nav th:fragment="navbar"
 	class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<a class="navbar-brand" href="/">Fastyle</a>
@@ -85,3 +179,4 @@
 
 	</div>
 </nav>
+-->

@@ -30,6 +30,7 @@ public class IndexController {
 	@GetMapping("/")
     public String main(Model model) {
         return "index"; //view
+		// return "listadoServicios";
     }
 
 	

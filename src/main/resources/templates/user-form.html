@@ -12,78 +12,65 @@
 		 <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
 	 -->
 
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text" th:field="${userForm.name}"
-					th:disabled="${disableFields}" required>
-
-
-			</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.name}" th:disabled="${disableFields}">
+					
+	
 		</div>
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Primer
-				apellido</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text"
-					th:field="${userForm.apellido1}" th:disabled="${disableFields}"
-					required>
-
-
-			</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Primer apellido</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.apellido1}" th:disabled="${disableFields}">
+			
+	
 		</div>
-
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Segundo
-				apellido</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text"
-					th:field="${userForm.apellido2}" th:disabled="${disableFields}"
-					required>
-
-
-			</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Segundo apellido</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.apellido2}" th:disabled="${disableFields}">
+			
+	
 		</div>
-
-
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text"
-					th:field="${userForm.provincia}" th:disabled="${disableFields}"
-					required>
-
-
-			</div>
+	</div>
+	
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.provincia}" th:disabled="${disableFields}">
+			
+	
 		</div>
-
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text"
-					th:field="${userForm.ciudad}" th:disabled="${disableFields}"
-					required>
-
-
-			</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.ciudad}" th:disabled="${disableFields}">
+			
+	
 		</div>
-
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Email</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="email"
-					th:field="${userForm.eMail}" th:disabled="${disableFields}"
-					required>
-
-			</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Email</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="email" th:field="${userForm.eMail}" th:disabled="${disableFields}">
+			
 		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Usuario</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="text" th:field="${userForm.usuario}" th:disabled="${disableFields}" required>
+			
 
-		<div class="form-group">
-			<label for="exampleFormControlTextarea1">Descripci&oacute;n</label>
-			<div class="col-lg-9">
-				<textarea class="form-control" th:field="${userForm.descripcion}"
-					rows="3" th:disabled="${disableFields}" required></textarea>
-			</div>
 		</div>
 
 		<div class="form-group">
@@ -97,14 +84,14 @@
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Usuario</label>
-			<div class="col-lg-9">
-				<input class="form-control" type="text"
-					th:field="${userForm.usuario}" th:disabled="${disableFields}"
-					required>
+	</div>
+	
+	<div class="form-group row" th:if="${editMode==null or editMode==false}">
+		<label class="col-lg-3 col-form-label form-control-label">Contrase&ntilde;a</label>
+		<div class="col-lg-7">
+			<input class="form-control" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
+			
 
-			</div>
 		</div>
 
 		<div class="form-group row"
