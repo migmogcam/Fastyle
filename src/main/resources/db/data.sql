@@ -37,3 +37,5 @@ insert into authorities_users values (99,2);
 
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (1,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (1,2);
+
+insert into cita values(1,'detalle','01/01/2021','18:30',1,1,1);

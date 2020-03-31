@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>app.fastyleApplication</groupId>
 	<artifactId>fastyle</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.3.0-RELEASE</version>
 	<packaging>war</packaging>
 	<name>Fastyle</name>
 	<description>Application for ispp project for Spring Boot</description>

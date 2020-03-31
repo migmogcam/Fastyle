@@ -12,9 +12,6 @@
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
 
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/}">Servicios</a></li>
-
 	     	<li sec:authorize="hasRole('CLIENTE')" class="nav-item"><a class="nav-link" th:href="@{/misCitas}">Mis citas</a></li>
 			<li sec:authorize="hasRole('ESTETICISTA')" class="nav-item"><a class="nav-link" th:href="@{/misCitasEsteticista}">Mis citas</a></li>
 
