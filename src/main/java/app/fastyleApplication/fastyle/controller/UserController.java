@@ -2,12 +2,16 @@ package app.fastyleApplication.fastyle.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,6 +32,7 @@ import app.fastyleApplication.fastyle.repository.RoleRepository;
 import app.fastyleApplication.fastyle.services.AuthorityService;
 import app.fastyleApplication.fastyle.services.ClienteService;
 import app.fastyleApplication.fastyle.services.EsteticistaService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 import app.fastyleApplication.fastyle.util.PassGenerator;
 
 @Controller
@@ -47,6 +52,9 @@ public class UserController {
 
 	@Autowired
 	AuthorityService autoRepository;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 //	@GetMapping({"/","/login"})
 //	public String index() {
@@ -119,104 +127,29 @@ public class UserController {
 		return "accionRealizada";
 	}
 
-//	private void baseAttributerForUserForm(Model model, User user,String activeTab) {
-//		model.addAttribute("userForm", user);
-//		model.addAttribute("userList", userService.getAllUsers());
-//		model.addAttribute("roles",roleRepository.findAll());
-//		model.addAttribute(activeTab,"active");
-//	}
+	@GetMapping("/perfil")
+	public String getPerfil(Model model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasUserRole = authentication.getAuthorities().stream()
+		          .anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		try {
+			if (hasUserRole) {
+				Cliente cliente = this.userService.findByUsuario(u);
+				model.addAttribute("cliente", cliente);
+				return "perfilCliente";
+			} else {
+				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
+				model.addAttribute("esteticista", esteticista);
+				return "perfilEsteticista";
+			}
+			
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 
-//	@GetMapping("/userForm")
-//	public String userForm(Model model) {
-//		baseAttributerForUserForm(model, new User(), TAB_LIST );
-//		return "user-view";
-//	}
-//	
-//	@PostMapping("/userForm")
-//	public String createUser(@Valid @ModelAttribute("userForm")User user, BindingResult result, Model model) {
-//		if(result.hasErrors()) {
-//			baseAttributerForUserForm(model, user, TAB_FORM);
-//		}else {
-//			try {
-//				userService.createUser(user);
-//				baseAttributerForUserForm(model, new User(), TAB_LIST );
-//				
-//			} catch (CustomeFieldValidationException cfve) {
-//				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-//				baseAttributerForUserForm(model, user, TAB_FORM );
-//			}catch (Exception e) {
-//				model.addAttribute("formErrorMessage",e.getMessage());
-//				baseAttributerForUserForm(model, user, TAB_FORM );
-//			}
-//		}
-//		return "user-view";
-//	}
-
-//	@GetMapping("/editUser/{id}")
-//	public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
-//		User userToEdit = userService.getUserById(id);
-//
-//		baseAttributerForUserForm(model, userToEdit, TAB_FORM );
-//		model.addAttribute("editMode","true");
-//		model.addAttribute("passwordForm",new ChangePasswordForm(id));
-//		
-//		return "user-form/user-view";
-//	}
-
-//	@PostMapping("/editUser")
-//	public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, Model model) {
-//		if(result.hasErrors()) {
-//			baseAttributerForUserForm(model, user, TAB_FORM );
-//			model.addAttribute("editMode","true");
-//			model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
-//		}else {
-//			try {
-//				userService.updateUser(user);
-//				baseAttributerForUserForm(model, new User(), TAB_LIST );
-//			} catch (Exception e) {
-//				model.addAttribute("formErrorMessage",e.getMessage());
-//				
-//				baseAttributerForUserForm(model, user, TAB_FORM );
-//				model.addAttribute("editMode","true");
-//				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
-//			}
-//		}
-//		return "user-form/user-view";
-//		
-//	}
-
-//	@GetMapping("/userForm/cancel")
-//	public String cancelEditUser(ModelMap model) {
-//		return "redirect:/userForm";
-//	}
-
-//	@GetMapping("/deleteUser/{id}")
-//	public String deleteUser(Model model, @PathVariable(name="id")Long id) {
-//		try {
-//			userService.deleteUser(id);
-//		} 
-//		catch (UsernameOrIdNotFound uoin) {
-//			model.addAttribute("listErrorMessage",uoin.getMessage());
-//		}
-//		return userForm(model);
-//	}
-
-//	@PostMapping("/editUser/changePassword")
-//	public ResponseEntity postEditUseChangePassword(@Valid @RequestBody ChangePasswordForm form, Errors errors) {
-//		try {
-//			if( errors.hasErrors()) {
-//				String result = errors.getAllErrors()
-//                        .stream().map(x -> x.getDefaultMessage())
-//                        .collect(Collectors.joining(""));
-//
-//				throw new Exception(result);
-//			}
-//			userService.changePassword(form);
-//		} catch (Exception e) {
-//			return ResponseEntity.badRequest().body(e.getMessage());
-//		}
-//		return ResponseEntity.ok("Success");
-//	}
 
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto() {
