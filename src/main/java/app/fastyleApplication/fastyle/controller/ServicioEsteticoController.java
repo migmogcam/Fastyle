@@ -1,5 +1,6 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -98,18 +99,41 @@ public class ServicioEsteticoController {
 	}
 
 	//@GetMapping("/listadoServicios")
-	@GetMapping("/")
-	public String listado(Model model) {
-		List<ServicioEstetico> servicios = null;
-		try {
-			servicios = service.getAllServicioEsteticos();
-			model.addAttribute("listaServicios", servicios);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
+		@GetMapping("/")
+		public String listado(Model model) {
+			List<ServicioEstetico> servicios = null;
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			try {
+				servicios = service.getAllServicioEsteticosPorProvincia(provincia);
+				model.addAttribute("listaServicios", servicios);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			return "listadoServicios"; // view
 		}
-		return "listadoServicios"; // view
-	}
+		
+		//@GetMapping("/listadoServicios")
+//				@GetMapping("/{Peluqueria}")
+//				public String listadoPeluqueria(@PathVariable("Peluqueria") String peluqueria, Model model) {
+//					List<ServicioEstetico> serviciosProvincia = new ArrayList<ServicioEstetico>();
+//					List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+//					String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//					Usuario u = this.usuarioService.findByUsuario(username);
+//					String provincia = u.getProvincia();
+//					try {
+//						serviciosProvincia = service.getAllServicioEsteticosPorProvincia(provincia);
+//						serviciosTipo = service.getAllServicioEsteticosPorTipo(peluqueria);
+//						serviciosProvincia.retainAll(serviciosTipo);
+//						model.addAttribute("listaServiciosTipo", serviciosTipo);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//						return "error";
+//					}
+//					return "listadoServiciosTipo"; // view
+//				}
 
 	@GetMapping("/servicioInfo/{id}")
 	public String diplayInfo(@PathVariable("id") long id, Model model) {
