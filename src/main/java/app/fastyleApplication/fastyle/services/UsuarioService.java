@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import app.fastyleApplication.fastyle.model.Authority;
+import app.fastyleApplication.fastyle.model.Cliente;
 import app.fastyleApplication.fastyle.model.Usuario;
 import app.fastyleApplication.fastyle.repository.UsuarioRepository;
 
@@ -56,6 +57,16 @@ public class UsuarioService implements UserDetailsService {
                 repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
     	return appUser;
     }
+    
+    public void deleteUsuarioById(Integer id) throws Exception {
+		Optional<Usuario> usuario = repository.findById(id);
+
+		if (usuario.isPresent()) {
+			repository.deleteById(id);
+		} else {
+			throw new Exception("No cliente record exist for given id");
+		}
+	}
     
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import antlr.StringUtils;
 import app.fastyleApplication.fastyle.CustomeFieldValidationException;
 import app.fastyleApplication.fastyle.dto.UserDTO;
 import app.fastyleApplication.fastyle.entities.Role;
@@ -43,7 +44,7 @@ public class UserController {
 
 	@Autowired
 	ClienteService userService;
-	
+
 	@Autowired
 	EsteticistaService esteticistaService;
 
@@ -52,7 +53,7 @@ public class UserController {
 
 	@Autowired
 	AuthorityService autoRepository;
-	
+
 	@Autowired
 	UsuarioService usuarioService;
 
@@ -133,7 +134,7 @@ public class UserController {
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-		          .anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
 		try {
 			if (hasUserRole) {
 				Cliente cliente = this.userService.findByUsuario(u);
@@ -144,13 +145,112 @@ public class UserController {
 				model.addAttribute("esteticista", esteticista);
 				return "perfilEsteticista";
 			}
-			
+
 		} catch (Exception e) {
 			return "error";
 		}
 	}
 
+	@GetMapping("/edit")
+	public String editPerfil(Model model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasUserRole = authentication.getAuthorities().stream()
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		try {
+			if (hasUserRole) {
+				Cliente cliente = this.userService.findByUsuario(u);
+				model.addAttribute("cliente", cliente);
+				return "editCliente";
+			} else {
+				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
+				model.addAttribute("esteticista", esteticista);
+				return "editEsteticista";
+			}
 
+		} catch (Exception e) {
+			return "error";
+		}
+	}
+
+	@PostMapping("/editarCliente")
+	public String editCliente(@Valid @ModelAttribute("cliente") Cliente user, BindingResult result, ModelMap model) {
+		Role userRole = roleRepository.findByName("USER");
+		List<Role> roles = Arrays.asList(userRole);
+		model.addAttribute("cliente", user);
+		model.addAttribute("roles", roles);
+		model.addAttribute("signup", true);
+
+		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
+			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
+			user.getUsuario().setPassword(pass);
+		}
+		if (result.hasErrors()) {
+			return "editCliente";
+		} else {
+			try {
+				userService.createOrUpdateCliente(user);
+			} catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage", e.getMessage());
+			}
+		}
+		return "accionRealizada";
+	}
+
+	@PostMapping("/editarEsteticista")
+	public String editEsteticista(@Valid @ModelAttribute("esteticista") Esteticista user, BindingResult result, ModelMap model) {
+		Role userRole = roleRepository.findByName("USER");
+		List<Role> roles = Arrays.asList(userRole);
+		model.addAttribute("cliente", user);
+		model.addAttribute("roles", roles);
+		model.addAttribute("signup", true);
+
+		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
+			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
+			user.getUsuario().setPassword(pass);
+		}
+		if (result.hasErrors()) {
+			return "editCliente";
+		} else {
+			try {
+				esteticistaService.createOrUpdateCliente(user);
+			} catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage", e.getMessage());
+			}
+		}
+		return "accionRealizada";
+	}
+	
+	@GetMapping("/eliminar")
+	public String eliminar( ModelMap model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasUserRole = authentication.getAuthorities().stream()
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		try {
+			if (hasUserRole) {
+				Cliente client = this.userService.findByUsuario(u);
+				this.userService.deleteClienteById(client.getId());
+				
+				return "redirect:/logout";
+			} else {
+				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
+				this.esteticistaService.deleteEsteticistaById(esteticista.getId());
+				
+				return "redirect:/logout";
+			}
+
+		} catch (Exception e) {
+			return "error";
+		}
+	}
+	
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto() {
 		return "accionRealizada";

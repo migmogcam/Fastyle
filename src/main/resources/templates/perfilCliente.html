@@ -25,7 +25,8 @@
 						<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="text"
-								th:field="${cliente.usuario.name}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.name}"
+								th:disabled="${disableFields}" readonly>
 
 
 						</div>
@@ -35,7 +36,8 @@
 							apellido</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="text"
-								th:field="${cliente.usuario.apellido1}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.apellido1}"
+								th:disabled="${disableFields}" readonly>
 
 
 						</div>
@@ -46,7 +48,8 @@
 							apellido</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="text"
-								th:field="${cliente.usuario.apellido2}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.apellido2}"
+								th:disabled="${disableFields}" readonly>
 
 
 						</div>
@@ -57,7 +60,8 @@
 						<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="text"
-								th:field="${cliente.usuario.provincia}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.provincia}"
+								th:disabled="${disableFields}" readonly>
 
 
 						</div>
@@ -67,7 +71,8 @@
 						<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="text"
-								th:field="${cliente.usuario.ciudad}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.ciudad}"
+								th:disabled="${disableFields}" readonly>
 
 
 						</div>
@@ -77,10 +82,17 @@
 						<label class="col-lg-3 col-form-label form-control-label">Email</label>
 						<div class="col-lg-7">
 							<input class="form-control" type="email"
-								th:field="${cliente.usuario.eMail}" th:disabled="${disableFields}" readonly>
+								th:field="${cliente.usuario.eMail}"
+								th:disabled="${disableFields}" readonly>
 
 						</div>
 					</div>
+
+					<a th:href="@{/edit}" role="button" class="btn btn-outline-primary btn-sm">Editar
+						perfil</a>
+					<a th:href="@{/eliminar}" role="button" class="btn btn-outline-danger btn-sm">Eliminar
+						cuenta</a>
+
 
 				</div>
 			</div>

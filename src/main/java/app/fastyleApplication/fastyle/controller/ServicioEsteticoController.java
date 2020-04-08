@@ -103,11 +103,19 @@ public class ServicioEsteticoController {
 		public String listado(Model model) {
 			List<ServicioEstetico> servicios = null;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Usuario u = this.usuarioService.findByUsuario(username);
-			String provincia = u.getProvincia();
+			String provincia = null;
+			if(!username.equals("anonymousUser")) {
+				Usuario u = this.usuarioService.findByUsuario(username);
+				provincia = u.getProvincia();
+			}
 			try {
-				servicios = service.getAllServicioEsteticosPorProvincia(provincia);
-				model.addAttribute("listaServicios", servicios);
+				if(!username.equals("anonymousUser")) {
+					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
+					model.addAttribute("listaServicios", servicios);
+				} else {
+					servicios = service.getAllServicioEsteticos();
+					model.addAttribute("listaServicios", servicios);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";

@@ -48,7 +48,6 @@ public class UserDTO {
 		@Email
 		private String eMail;
 		
-		@NotBlank
 		@Length(max = 250)
 		private String descripcion;
 		

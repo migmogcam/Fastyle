@@ -17,6 +17,16 @@ public class ServicioEsteticoService {
 	@Autowired
 	ServicioEsteticoRepository repository;
 
+	public List<ServicioEstetico> getAllServicioEsteticos() {
+		List<ServicioEstetico> servicioEsteticoList = repository.findAll();
+
+		if (servicioEsteticoList.size() > 0) {
+			return servicioEsteticoList;
+		} else {
+			return new ArrayList<ServicioEstetico>();
+		}
+	}
+	
 	public List<ServicioEstetico> getAllServicioEsteticosPorProvincia(String provincia) {
 		List<ServicioEstetico> servicioEsteticoList = repository.findByProvincia(provincia);
 
