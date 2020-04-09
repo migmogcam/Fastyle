@@ -46,4 +46,9 @@ public class IndexController {
 	    model.addAttribute("loginError", true);
 	    return "loginError";
 	  }
+	  
+	  @RequestMapping("/ayuda")
+	  public String ayuda(Model model) {
+	    return "ayuda";
+	  }
 }
