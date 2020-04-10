@@ -3,6 +3,9 @@ package app.fastyleApplication.fastyle.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -27,6 +30,13 @@ public class Esteticista extends BaseEntity {
 	@Getter
 	@Setter
 	private String descripcion;
+	
+	@Getter
+	@Setter
+	@ElementCollection
+	@CollectionTable(name="imagenes", joinColumns=@JoinColumn(name="esteticista_id"))
+	@Column(name="imagenes")
+	private List<String> imagenes;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")

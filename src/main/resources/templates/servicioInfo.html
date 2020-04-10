@@ -69,6 +69,9 @@
 								th:href="@{/ServicioUnir/{idServ}(idServ=${servicioEstetico.id})}"
 								class="btn btn-outline-success ">Unirse como esteticista</a>
 						</div>
+						<div th:case="'noEs'">
+							<!-- print object is new and active -->
+						</div>
 					</th:block>
 					<div class="container">
 						<a sec:authorize="hasRole('ADMIN')"
@@ -77,9 +80,6 @@
 							sec:authorize="hasRole('ADMIN')"
 							th:href="@{/ServicioBorrar/{idServ}(idServ=${servicioEstetico.id})}"
 							class="btn btn-outline-danger ">Borrar</a>
-					</div>
-					<div th:case="'noEs'">
-						<!-- print object is new and active -->
 					</div>
 
 

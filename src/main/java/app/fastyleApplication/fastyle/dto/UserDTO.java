@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,6 +55,15 @@ public class UserDTO {
 		@NotBlank
 		@Length(max = 100)
 		private String autority;
+		
+		@URL
+		private String imagen1;
+		@URL
+		private String imagen2;
+		@URL
+		private String imagen3;
+		@URL
+		private String imagen4;
 		
 	
 }

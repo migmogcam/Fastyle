@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,15 +102,18 @@ public class ServicioEsteticoController {
 	//@GetMapping("/listadoServicios")
 		@GetMapping("/")
 		public String listado(Model model) {
+			Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext()
+					.getAuthentication().getAuthorities();
+	
 			List<ServicioEstetico> servicios = null;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = null;
-			if(!username.equals("anonymousUser") && !username.equals("admin")) {
+			if(!username.equals("anonymousUser") && !username.equals("admin") && !authorities.contains(new SimpleGrantedAuthority("ROLE_ESTETICISTA"))) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();
 			}
 			try {
-				if(!username.equals("anonymousUser") && !username.equals("admin")) {
+				if(!username.equals("anonymousUser") && !username.equals("admin") && !authorities.contains(new SimpleGrantedAuthority("ROLE_ESTETICISTA"))) {
 					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
 					model.addAttribute("listaServicios", servicios);
 				} else {

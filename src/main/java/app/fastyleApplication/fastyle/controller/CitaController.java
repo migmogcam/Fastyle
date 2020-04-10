@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,18 +51,14 @@ public class CitaController {
 	@Autowired
 	EsteticistaService esteticistaService;
 	
-	@PostMapping("/citaRegistro")
+	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "error";
-        } 
         try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			e.printStackTrace();
             return "error";
 		}
-        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
         return "accionRealizada";
     }
 	
@@ -125,6 +122,21 @@ public class CitaController {
 		}
 		
         return "citaCrear"; //view
+    }
+	
+	@GetMapping("/verCita/{idCita}")
+    public String diplayCita(@PathVariable("idCita") Integer id,Model model, HttpSession session, HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isCliente = authentication.getAuthorities().stream()
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		try {
+			Cita cita = this.service.getCitaById(id);
+			model.addAttribute("cita", cita);
+			model.addAttribute("isCliente", isCliente);
+		} catch (Exception e) {
+			return "error";
+		}
+		return "verCita";
     }
 
 	@GetMapping("/misCitas")

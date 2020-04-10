@@ -52,12 +52,11 @@ public class CitaService {
 		if(entity.getId() != null) {
 		Optional<Cita> cita = repository.findById(entity.getId());
 			Cita newEntity = cita.get();
-			newEntity.setCliente(entity.getCliente());
 			newEntity.setFecha(entity.getFecha());
 			newEntity.setHora(entity.getHora());
-			newEntity.setServicioEstetico(entity.getServicioEstetico());
 			newEntity.setDetalle(entity.getDetalle());
-			newEntity.setEsteticista(entity.getEsteticista());
+			newEntity.setEstado(entity.getEstado());
+			newEntity.setRespuesta(entity.getRespuesta());
 			newEntity = repository.save(newEntity);
 
 			return newEntity;

@@ -92,7 +92,10 @@ public class ServicioEsteticoService {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
+			servicioEstetico.get().setCitas(null);
+			servicioEstetico.get().setEsteticista(null);
 			repository.deleteById(id);
+			
 		} else {
 			throw new Exception("No servicioEstetico record exist for given id");
 		}

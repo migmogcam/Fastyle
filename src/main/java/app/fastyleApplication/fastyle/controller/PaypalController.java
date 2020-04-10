@@ -37,98 +37,111 @@ public class PaypalController {
 
 	@Autowired
 	PaypalService service;
-	
+
 	@Autowired
 	CitaService citaService;
-	
+
 	@Autowired
 	ClienteService clienteService;
-	
+
 	@Autowired
 	UsuarioService usuarioService;
 
 	public static final String PAYPAL_SUCCESS_URL = "pagoCorrecto";
 	public static final String PAYPAL_CANCEL_URL = "cancel";
 
-	@PostMapping("/pay")
-	public String payment(@ModelAttribute("cita") CitaDTO order,HttpServletRequest request, HttpSession session, Model model) {
+	@PostMapping("/nuevaCita")
+	public String nuevaCita(@ModelAttribute("cita") CitaDTO order, HttpServletRequest request, HttpSession session,
+			Model model) {
 		Esteticista esteticista = (Esteticista) request.getSession().getAttribute("servicios");
 		ServicioEstetico servicio = (ServicioEstetico) request.getSession().getAttribute("servicioEstetico");
 		LocalDate futuro = LocalDate.parse(order.getFecha());
 		LocalTime tFuturo = LocalTime.parse(order.getHora());
 		LocalDate ahora = LocalDate.now();
 		LocalTime tAhora = LocalTime.now();
-		
-		if(futuro.isAfter(ahora) || futuro.isEqual(ahora)) {
-		if(futuro.isEqual(ahora) && tFuturo.isBefore(tAhora)) {
-			session.setAttribute("fallo", true);
-			return "redirect:/citaCrear/"+ servicio.getId()+"/"+esteticista.getId();
-		}else {
-			try {
-				String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
-				String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
-				Payment payment = service.createPayment(servicio.getPrecio().toString(), "EUR", "paypal",
-						"sale", "Compra de servicio Estetico de "+ servicio.getTipo(), cancelUrl,
-						successUrl);
-				Cita cita = new Cita();
-				String username = SecurityContextHolder.getContext().getAuthentication().getName();
-				Usuario u = this.usuarioService.findByUsuario(username);
-				Cliente c = this.clienteService.findByUsuario(u);
-				cita.setCliente(c);
-				cita.setDetalle(order.getDetalle());
-				cita.setEsteticista(esteticista);
-				cita.setFecha(order.getFecha());
-				cita.setHora(order.getHora());
-				cita.setServicioEstetico(servicio);
-				
-				for(Links link:payment.getLinks()) {
-					if(link.getRel().equals("approval_url")) {
-						session.setAttribute("citaSave", cita);
-						return "redirect:"+link.getHref();
-					}
+		Cita saved = new Cita();
+		if (futuro.isAfter(ahora) || futuro.isEqual(ahora)) {
+			if (futuro.isEqual(ahora) && tFuturo.isBefore(tAhora)) {
+				session.setAttribute("fallo", true);
+				return "redirect:/citaCrear/" + servicio.getId() + "/" + esteticista.getId();
+			} else {
+				try {
+					Cita cita = new Cita();
+					String username = SecurityContextHolder.getContext().getAuthentication().getName();
+					Usuario u = this.usuarioService.findByUsuario(username);
+					Cliente c = this.clienteService.findByUsuario(u);
+					cita.setCliente(c);
+					cita.setDetalle(order.getDetalle());
+					cita.setEsteticista(esteticista);
+					cita.setFecha(order.getFecha());
+					cita.setHora(order.getHora());
+					cita.setServicioEstetico(servicio);
+					cita.setEstado("PENDIENTE");
+					saved = citaService.createOrUpdateCita(cita);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				
-			} catch (PayPalRESTException e) {
-			
-				e.printStackTrace();
 			}
-		}
-		}else {
+		} else {
 			session.setAttribute("fallo", true);
-			return "redirect:/citaCrear/"+ servicio.getId()+"/"+esteticista.getId();
+			return "redirect:/citaCrear/" + servicio.getId() + "/" + esteticista.getId();
+		}
+		return "accionRealizada";
+	}
+
+	@PostMapping("/pay")
+	public String payment(@ModelAttribute("cita") Cita order, HttpServletRequest request, HttpSession session,
+			Model model) {
+
+		try {
+			String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
+			String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
+			Payment payment = service.createPayment(order.getServicioEstetico().getPrecio().toString(), "EUR", "paypal", "sale",
+					"Compra de servicio Estetico de " + order.getServicioEstetico().getTipo(), cancelUrl, successUrl);
+			for (Links link : payment.getLinks()) {
+				if (link.getRel().equals("approval_url")) {
+					session.setAttribute("citaSave", order);
+					return "redirect:" + link.getHref();
+				}
+			}
+		} catch (PayPalRESTException e) {
+
+			e.printStackTrace();
+
 		}
 		return "redirect:/";
 	}
-	
+
 //	@PostMapping("/pay")
 //	public String paymentTest(@ModelAttribute("cita") Cita order,HttpServletRequest request) {
 //		return "pagoCorrecto";
 //	}
-	
-	 @GetMapping(value = PAYPAL_CANCEL_URL)
-	    public String cancelPay() {
-	        return "cancel";
-	    }
 
-	    @GetMapping(value = PAYPAL_SUCCESS_URL)
-	    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,HttpServletRequest request) {
-	    	Cita cita =  (Cita) request.getSession().getAttribute("citaSave");
-	    	Cita saved = new Cita();
-	        try {
-	            Payment payment = service.executePayment(paymentId, payerId);
-	            System.out.println(payment.toJSON());
-	            if (payment.getState().equals("approved")) {
-	            	try {
-	    				saved = citaService.createOrUpdateCita(cita);
-	    			} catch (Exception e) {
-	    				return "error";
-	    			}
-	                return "pagoCorrecto";
-	            }
-	        } catch (PayPalRESTException e) {
-	         System.out.println(e.getMessage());
-	        }
-	        return "pagoCorrecto";
-	    }
+	@GetMapping(value = PAYPAL_CANCEL_URL)
+	public String cancelPay() {
+		return "cancel";
+	}
+
+	@GetMapping(value = PAYPAL_SUCCESS_URL)
+	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
+			HttpServletRequest request) {
+		Cita cita = (Cita) request.getSession().getAttribute("citaSave");
+		Cita saved = new Cita();
+		try {
+			Payment payment = service.executePayment(paymentId, payerId);
+			if (payment.getState().equals("approved")) {
+				try {
+					cita.setEstado("PAGADA");
+					saved = citaService.createOrUpdateCita(cita);
+				} catch (Exception e) {
+					return "error";
+				}
+				return "pagoCorrecto";
+			}
+		} catch (PayPalRESTException e) {
+			System.out.println(e.getMessage());
+		}
+		return "pagoCorrecto";
+	}
 
 }
