@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<title>Starter Template for Bootstrap</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+</head>
+<head th:insert="fragments/header :: header"><title>Starter Template for Bootstrap</title></head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="menu">
+		<div class="col-sm-12 d-flex justify-content-center">
+			<div class="w-75 mt-5">
+
+				<br /> <br />
+
+				<h1>Ayuda</h1>
+				
+				<br />
+				
+				<h2>Para hacer X</h2>
+				<p>Resolver X</p>
+				
+				<h2>Para hacer Y</h2>
+				<p>Resolver Y</p>
+				
+				<h2>Para hacer Z</h2>
+				<p>Resolver Z</p>
+				
+				<h2>Para hacer R</h2>
+				<p>Resolver R</p>
+				
+				<h2>Para hacer Q</h2>
+				<p>Resolver Q</p>
+				
+				<p>Si tiene algún problema que no esté en la anterior lista, puede contactar con nosotros <a href="mailto:fastyle.info@gmail.com">aquí</a></p>
+				
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<div th:replace="fragments/footer :: footer"></div>
+</html>

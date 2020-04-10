@@ -15,7 +15,8 @@
 	     	<li sec:authorize="hasRole('CLIENTE')" class="nav-item"><a class="nav-link" th:href="@{/misCitas}">Mis citas</a></li>
 			<li sec:authorize="hasRole('ESTETICISTA')" class="nav-item"><a class="nav-link" th:href="@{/misCitasEsteticista}">Mis citas</a></li>
 
-			<li sec:authorize="hasRole('ADMIN')" class="nav-item"><a class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear Servicio</a></li> 
+			<li sec:authorize="hasRole('ADMIN')" class="nav-item"><a class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear Servicio</a></li>
+			<a class="nav-link" th:href="@{/ayuda}">Ayuda</a> 
 
 
 
