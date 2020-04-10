@@ -104,12 +104,12 @@ public class ServicioEsteticoController {
 			List<ServicioEstetico> servicios = null;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = null;
-			if(!username.equals("anonymousUser")) {
+			if(!username.equals("anonymousUser") && !username.equals("admin")) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();
 			}
 			try {
-				if(!username.equals("anonymousUser")) {
+				if(!username.equals("anonymousUser") && !username.equals("admin")) {
 					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
 					model.addAttribute("listaServicios", servicios);
 				} else {
@@ -123,25 +123,74 @@ public class ServicioEsteticoController {
 			return "listadoServicios"; // view
 		}
 		
-		//@GetMapping("/listadoServicios")
-//				@GetMapping("/{Peluqueria}")
-//				public String listadoPeluqueria(@PathVariable("Peluqueria") String peluqueria, Model model) {
-//					List<ServicioEstetico> serviciosProvincia = new ArrayList<ServicioEstetico>();
-//					List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
-//					String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//					Usuario u = this.usuarioService.findByUsuario(username);
-//					String provincia = u.getProvincia();
-//					try {
-//						serviciosProvincia = service.getAllServicioEsteticosPorProvincia(provincia);
-//						serviciosTipo = service.getAllServicioEsteticosPorTipo(peluqueria);
-//						serviciosProvincia.retainAll(serviciosTipo);
-//						model.addAttribute("listaServiciosTipo", serviciosTipo);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//						return "error";
-//					}
-//					return "listadoServiciosTipo"; // view
-//				}
+		// @GetMapping("/listadoServicios/tinte")
+		@GetMapping("/tinte")
+		public String listadoTinte(Model model) {
+			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			try {
+				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
+				model.addAttribute("listaServicios", serviciosTipo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			return "listadoServicios"; // view
+		}
+		
+		// @GetMapping("/listadoServicios/pedicura-y-manicura")
+		@GetMapping("/pedicura-y-manicura")
+		public String listadoPedicuraYManicura(Model model) {
+			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			try {
+				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
+				model.addAttribute("listaServicios", serviciosTipo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			return "listadoServicios"; // view
+		}
+				
+		// @GetMapping("/listadoServicios/depilacion")
+		@GetMapping("/depilacion")
+		public String listadoDepilacion(Model model) {
+			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			try {
+				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
+				model.addAttribute("listaServicios", serviciosTipo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			return "listadoServicios"; // view
+		}
+				
+		// @GetMapping("/listadoServicios/peluqueria")
+		@GetMapping("/peluqueria")
+		public String listadoPeluqueria(Model model) {
+			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			try {
+				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
+				model.addAttribute("listaServicios", serviciosTipo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			return "listadoServicios"; // view
+		}
+				
 
 	@GetMapping("/servicioInfo/{id}")
 	public String diplayInfo(@PathVariable("id") long id, Model model) {
@@ -198,7 +247,56 @@ public class ServicioEsteticoController {
 		return "accionRealizada"; // view
 	}
 	
+	@GetMapping("/ServicioEditar/{idServ}")
+	public String ServicioEditar(@PathVariable("idServ") long id, Model model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(username.equals("admin")) {
+		ServicioEstetico servicioEstetico = null;
+		try {
+			servicioEstetico = service.getServicioEsteticoById((int) id);
+			model.addAttribute("servicioEstetico", servicioEstetico);
+			return "editarServicio";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		}else {
+			return "error";
+		}
+	}
 	
+	@PostMapping("/editarServicioEstetico")
+	public String editarServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "error";
+		}
+		try {
+			service.createOrUpdateServicioEstetico(servicioEstetico);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "servicioCreado";
+	}
+	
+	@GetMapping("/ServicioBorrar/{idServ}")
+	public String ServicioBorrar(@PathVariable("idServ") Integer id, Model model) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(username.equals("admin")) {
+		ServicioEstetico servicioEstetico = null;
+		try {
+			service.deleteServicioEsteticoById(id);
+			model.addAttribute("servicioEstetico", servicioEstetico);
+			return "accionRealizada";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		}else {
+			return "error";
+		}
+	}
+
 	
 	@GetMapping("/ServicioCancelar/{idServ}")
 	public String ServicioCancelar(@PathVariable("idServ") long id, Model model) {
