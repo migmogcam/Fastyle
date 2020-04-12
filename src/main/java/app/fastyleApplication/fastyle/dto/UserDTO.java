@@ -45,6 +45,10 @@ public class UserDTO {
 		 private String ciudad;
 		
 		@NotBlank
+		@Length(max = 200)
+		private String direccion;
+		
+		@NotBlank
 		@Length(max = 100)
 		@Email
 		private String eMail;

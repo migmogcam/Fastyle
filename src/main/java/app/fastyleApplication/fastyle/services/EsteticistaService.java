@@ -45,6 +45,7 @@ public class EsteticistaService {
 			newEntity.getUsuario().setEMail(entity.getUsuario().getEMail());
 			newEntity.getUsuario().setName(entity.getUsuario().getName());
 			newEntity.getUsuario().setProvincia(entity.getUsuario().getProvincia());
+			newEntity.getUsuario().setDireccion(entity.getUsuario().getDireccion());
 			newEntity.getUsuario().setUsuario(entity.getUsuario().getUsuario());
 			newEntity.setDescripcion(entity.getDescripcion());
 			newEntity.setImagenes(entity.getImagenes());
