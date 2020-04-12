@@ -1,10 +1,36 @@
+
+
 <div th:fragment="footer">
 
 
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
+	<div align="center" class="cookie-container">
+	<p class="col-lg-8 text-cookie">
+	Este sitio web utiliza cookies para
+		garantizar que obtenga la mejor experiencia en nuestro sitio web. Al
+		utilizar nuestro sitio usted acepta cookies.
+		</p>
+		<button class="cookie-accept">Aceptar</button>
+		</div>
+	<!-- 	<script>
+		
+		$(document).ready(function(){
+			  $(".cookie-accept").click(function(){
+				  Cookies.set("fastyle", "true", {expires: 365});  
+				  Cookies.get();
+			    $(".cookie-container").hide();
+			  });
+			 
+			});
+		</script>
+		 -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		
+		
 		<div class="mx-auto" style="width: 200px;">
-			<p class="m-0 text-center text-white" style="text-align: center;">Fastyle - 2020</p>
+			<p class="m-0 text-center text-white" style="text-align: center;">&copy Fastyle - 2020</p>
 		</div>
 	</nav>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -17,7 +43,11 @@
 	</script>
 	<script src="../../assets/js/vendor/popper.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-
+	<script type="text/javascript" th:src="@{/js/cookies.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>
 </div>
+
+
+
+

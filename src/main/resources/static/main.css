@@ -374,3 +374,36 @@ col-lg-4 col-md-6 mb-4 {
 	padding-bottom: 0px;
 }
 
+
+.cookie-container{
+	position:fixed;
+	bottom:-100%;
+	left:0;
+	right:0;
+	z-index:300;
+	background-color: white;
+	border-top: solid 1px rgba(0,0,0,.125);
+	transition: 400ms;
+	
+
+	
+}
+
+.cookie-container.active{
+	bottom: 0;
+}
+
+.cookie-accept{
+	background: green;
+	color: white;
+	 margin-bottom: 10px !important;
+	 border: 0;
+	 padding: 8px 32px;
+	 border-radius : 5px;
+	 cursor: pointer;
+}
+
+#check-signup{
+	margin-left: 10px;
+	margin-right: 10px;
+}

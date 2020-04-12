@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<title>Starter Template for Bootstrap</title>
+<title>Solicitar cita | Fastyle</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -25,17 +25,20 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
-
-	<div class="row justify-content-md-center" style="margin-top: 50px">
-		<form class="col-lg-6" style="background-color: white" method="post"
+	<!-- 
+	<div class= "cita col-lg-6 row justify-content-md-center" style="margin-top: 50px">
+		<form style="background-color: white" method="post"
 			th:action="@{/pay}" th:object="${cita}">
+			<div class="card-header">
 			<p style="font-size: x-large" align="center">Solicitar una cita para: Servicio
 				de peluquería</p>
-
+			</div>
+			</br>
+			</br>
 			<div class="alert alert-danger" role="alert" th:if="${fallo} == true">No se puede intruducir una fecha o hora en pasado</div>
 			<div class="form-group row">
 				<label for="example-date-input" class="col-2 col-form-label">Fecha*</label>
-				<div class="col-10">
+				<div class="col-lg-7">
 					<input class="form-control" type="date" th:field="*{fecha}"
 						value="2011-08-19" id="example-date-input" required>
 				</div>
@@ -43,23 +46,92 @@
 
 			<div class="form-group row">
 				<label for="example-time-input" class="col-2 col-form-label">Hora*</label>
-				<div class="col-10">
+				<div class="col-lg-7">
 					<input class="form-control" type="time" th:field="*{hora}"
 						value="13:45:00" id="example-time-input" required>
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Comentario</label>
+			<div class="form-group row">
+				<label for="exampleFormControlTextarea1" class="col-2 col-form-label">Comentario</label>
+				<div class="col-lg-7">
 				<textarea class="form-control" th:field="*{detalle}"
 					id="exampleFormControlTextarea1" rows="3"></textarea>
+					</div>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Solicitar</button>
+			<button type="submit"  class="cita-submit btn btn-primary">Solicitar</button>
 			<hr>
 
 		</form>
 	</div>
+	 -->
+
+	</br>
+	</br>
+	</br>
+	<div class="container">
+		<div class="mx-auto col-sm-8 main-section">
+			<div class="card">
+				<div class="card-header">
+					<h4 align="center">Registro de cita</h4>
+				</div>
+				<div class="card-body">
+
+
+					<form style="background-color: white" method="post"
+						th:action="@{/pay}" th:object="${cita}">
+
+						<div class="alert alert-danger" role="alert"
+							th:if="${fallo} == true">No se puede intruducir una fecha o
+							hora en pasado</div>
+
+						<div class="form-group row">
+							<label for="example-date-input"
+								class="col-lg-3 col-form-label form-control-label">Fecha*</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="date" th:field="*{fecha}"
+									value="2011-08-19" id="example-date-input" required>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="example-time-input"
+								class="col-lg-3 col-form-label form-control-label">Hora*</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="time" th:field="*{hora}"
+									value="13:45:00" id="example-time-input" required>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="exampleFormControlTextarea1"
+								class="col-lg-3 col-form-label form-control-label">Comentario</label>
+							<div class="col-lg-7">
+								<textarea class="form-control" th:field="*{detalle}"
+									id="exampleFormControlTextarea1" rows="3"></textarea>
+							</div>
+						</div>
+
+						<button type="submit" id="aceptar" class="btn btn-primary">Solicitar</button>
+						
+
+					</form>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
