@@ -60,7 +60,11 @@ public class Usuario{
 	
 	@NotBlank
 	@Length(max = 100)
-	 private String ciudad;
+	private String ciudad;
+	
+	@NotBlank
+	@Length(max = 200)
+	private String direccion;
 	
 	@NotBlank
 	@Length(max = 100)
@@ -156,7 +160,13 @@ public class Usuario{
 		this.eMail = eMail;
 	}
 	
-	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
 	
 }
