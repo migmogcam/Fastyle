@@ -23,7 +23,9 @@
 </script>
 
 <body>
+
 	<div th:replace="fragments/navbar :: navbar"></div>
+	<!-- 
 	<div class="row justify-content-md-center" style="margin-top: 50px">
 		<form class="col-lg-6" style="background-color: white" method="post"
 			th:action="@{/nuevaCita}" th:object="${cita}">
@@ -66,8 +68,7 @@
 
 		</form>
 	</div>
-	 -->
-
+ -->
 	</br>
 	</br>
 	</br>
@@ -81,7 +82,7 @@
 
 
 					<form style="background-color: white" method="post"
-						th:action="@{/pay}" th:object="${cita}">
+						th:action="@{/nuevaCita}" th:object="${cita}">
 
 						<div class="alert alert-danger" role="alert"
 							th:if="${fallo} == true">No se puede intruducir una fecha o
@@ -114,7 +115,12 @@
 							</div>
 						</div>
 
-						<button type="submit" id="aceptar" class="btn btn-primary">Solicitar</button>
+						<div class="form-group row">
+				<div class="col-lg-12 text-center">
+					<button type="submit" class="btn btn-primary">Solicitar</button>
+					<a type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
+				</div>
+			</div>
 						
 
 					</form>
