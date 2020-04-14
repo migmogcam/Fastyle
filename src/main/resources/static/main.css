@@ -377,3 +377,7 @@ col-lg-4 col-md-6 mb-4 {
 .show p {
     width: 80%;
 }
+
+.ayuda-container a{
+    color: #646B6C
+}

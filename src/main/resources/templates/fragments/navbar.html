@@ -22,13 +22,12 @@
 				class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear
 					Servicio</a></li>
 			<a class="nav-link" th:href="@{/ayuda}"><b>Ayuda</b></a>
-
+			<ul class="nav navbar-nav navbar-right mr-3">
 			<th:block th:switch="${#authentication.getPrincipal()}">
 
-				<li th:case="'anonymousUser'" class="nav-item dropdown"><a
-					href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-					style="padding-top: 8px;"><b>Iniciar sesi&oacuten</b> <span
-						class="caret"></span></a>
+				<li th:case="'anonymousUser'" class="dropdown">
+				<a href="#" class="nav-link" data-toggle="dropdown"><strong>Iniciar sesi&oacuten</strong> 
+					<span class="caret"></span></a>
 					<ul id="login-dp" class="dropdown-menu">
 						<li>
 							<div class="row">
@@ -59,6 +58,7 @@
 							</div>
 						</li>
 					</ul></li>
+
 				<li th:case="*" class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -74,6 +74,7 @@
 					</div></li>
 
 			</th:block>
+			</ul>
 		</ul>
 
 
