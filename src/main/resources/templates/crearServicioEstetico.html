@@ -30,11 +30,12 @@
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Tipo</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text"
-										th:field="${servicioEstetico.tipo}"
-										th:disabled="${disableFields}" required>
-
-
+									<select id="provincia" th:field="${servicioEstetico.provincia}">
+										<option value="Peluqueria">Peluqueria</option>
+										<option value="Tinte">Tinte</option>
+										<option value="Pedicura y Manicura">Pedicura y Manicura</option>
+										<option value="Depilacion">Depilacion</option>
+									</select>
 								</div>
 							</div>
 
