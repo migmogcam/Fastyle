@@ -12,31 +12,9 @@
 <script th:src="@{/js/popper.min.js}"></script>
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2"></script>
 <link rel="stylesheet" th:href="@{/css/iziToast.min.css}" />
+<script th:src="/ja/bootstrap-auto-dismiss-alert.js"></script>
 
 
-<script>
-    $('#login-submit').click(function (event) {
-        event.preventDefault();
-
-        $.post("/login", {'login': $('#login').val()}, function () {
-            iziToast.show({
-                title: 'Success',
-                message: 'Ha iniciado sesión satisfactoriamente',
-                position: 'topRight',
-                timeout: 500000,
-                color: 'green'
-            });
-
-        }).fail(function () {
-            iziToast.show({
-                title: 'Fail',
-                message: 'Ha habido un error',
-                position: 'topRight',
-                color: 'red'
-            });
-        });
-    });
-</script>
 
 </head>
 <head th:insert="fragments/header :: header"></head>
@@ -45,6 +23,8 @@
 	<div th:replace="fragments/navbar :: navbar"></div>
 
 <!--  	<div th:replace="fragments/footer :: footer"></div>   -->
+
+
 
 </body>
 </html>

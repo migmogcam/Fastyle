@@ -10,48 +10,88 @@
 	<div th:replace="fragments/navbar :: navbar"></div>
 
 	<!-- Page Content -->
-	<div class="container col-lg-6">
-		</br> </br> </br>
 
-		<h1 align="center">Sobre nosotros</h1>
-		</br>
+	</br>
+	</br>
+	</br>
 
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-			aliquam turpis ac massa dignissim iaculis. Nunc eget est at ex
-			aliquet imperdiet. Morbi in ex in magna fringilla tristique id ut
-			sapien. Quisque dapibus metus eget rhoncus tincidunt. Aenean a arcu
-			commodo, suscipit orci eget, bibendum velit. In purus nisi, placerat
-			fringilla tincidunt posuere, dapibus vitae augue. Nulla pharetra
-			elementum nulla ac tincidunt. Vestibulum non dui bibendum,
-			consectetur dolor id, auctor nibh. Morbi hendrerit commodo iaculis.
-			Etiam pulvinar vel lorem in mollis. Donec mattis lacus at condimentum
-			ullamcorper. Ut at blandit dui. Aenean tincidunt lobortis ipsum, sed
-			ullamcorper diam hendrerit eu. Donec pretium justo magna, sed
-			tristique felis sodales in. Nullam dignissim maximus efficitur.</p>
-		<p>Etiam egestas placerat turpis. Curabitur ac tellus accumsan,
-			elementum nunc sed, ultrices augue. Nullam id eros risus. Nam ante
-			nunc, varius vitae laoreet quis, maximus vel sem. Quisque suscipit
-			felis ut tellus accumsan, non facilisis arcu viverra. Cras a arcu eu
-			leo commodo luctus ac maximus nisi. Donec vitae viverra ex. Integer
-			in dui vel ligula commodo vehicula sed a neque. Ut aliquam mattis
-			libero et sollicitudin. Nulla iaculis dolor in tortor porta pretium
-			id id nibh. Etiam felis odio, viverra eget commodo laoreet, egestas
-			vitae lectus. Donec id massa aliquam, tempus leo nec, venenatis mi.</p>
-		<p>Donec bibendum mi nunc, quis euismod leo volutpat vel. Class
-			aptent taciti sociosqu ad litora torquent per conubia nostra, per
-			inceptos himenaeos. Maecenas ante felis, tristique dignissim egestas
-			sed, ullamcorper vel mauris. Sed aliquam turpis id lectus hendrerit
-			suscipit. Cras consectetur, ipsum ut imperdiet rhoncus, magna purus
-			tincidunt nunc, non convallis dolor enim id nibh. Donec et lacus
-			vitae nisl pulvinar euismod ut ut mauris. Aliquam erat volutpat. Sed
-			aliquet vehicula ante, at convallis tellus commodo lacinia. Praesent
-			ex risus, ornare at congue non, posuere non orci. Suspendisse tellus
-			sapien, luctus id pulvinar nec, faucibus at ligula. Aenean ac velit
-			sem.</p>
+	<h1 align="center">Sobre nosotros</h1>
+	</br>
+	</br>
+	</br>
+
+	<div align="center" class="row centrado">
+		<div class=col-lg-3>
+			<h4>A domicilio</h4>
+			<p>Vamos a tu casa. No tienes que ir a ning&uacuten sitio,
+				as&iacute de comodo.</p>
+		</div>
+
+		<div class=col-lg-3>
+			<h4>Sencillo</h4>
+			<p>Desde nuestra web y a unos pocos clics, as&iacute de
+				f&aacutecil es disfrutar de Fastyle.</p>
+		</div>
+
+		<div class=col-lg-3>
+			<h4>Accesible</h4>
+			<p>&Uacutetil para personas con problemas de movilidad, ancianos
+				y min&uacutesvalidos.</p>
+
+		</div>
+	</div>
+	</br>
+	</br>
+
+
+	</br>
+
+	<div class="row">
+		<div class=" offset-1 col-lg-4">
+
+			<h3 align="center">Peluquer&iacutea y est&eacutetica</h3>
+
+			</br>
+			<img th:src="@{/images/unas.jpg}" />
+
+
+
+				</br>
+			<p align="center">En Fastyle te ofrecemos corte de caballero, mujer, ni&ntildeo
+				y servicios de est&eacutetica. Desde un alisado japon&eacutes a un
+				afeitado a navaja cl&aacutesica, as&iacute de vers&aacutetiles
+				somos.</p>
+
+
+		</div>
+
+
+
+
+		<div class="offset-1 col-lg-4">
+
+			<h3 align="center">Est&eacutetica y cuidados para m&aacutescotas</h3>
+			</br>
+
+			<img th:src="@{/images/perros.jpg}" />
+</br>
+
+
+			<p align="center">Los fieles compa&ntildeeros de los humanos tampoco se quedan
+				atr&aacutes, ofrecemos servicios de peluquer&iacutea y corte de
+				u&ntildeas.</p>
+
+
+
+
+		</div>
 	</div>
 
+
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 
-<footer th:replace="fragments/footer :: footer"></footer>
+
 
 </html>

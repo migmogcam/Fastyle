@@ -33,36 +33,32 @@ public class IndexController {
 //		// return "listadoServicios";
 //    }
 
-	
-	  // Login form
-	  @RequestMapping("/login")
-	  public String login(Model model) {
-		  model.addAttribute("message", "ok");
-	    return "login";
-	  }
+	// Login form
+	@RequestMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("login", true);
+		return "login";
+	}
 
-	  // Login form with error
-	  @RequestMapping("/loginError")
-	  public String loginError(Model model) {
-	    model.addAttribute("loginError", true);
-	    return "loginError";
-	  }
-	  
-	  
-	  
-	  @RequestMapping("/about")
-	  public String about(Model model) {
-	    return "about";
-	  }
-	  
-	  
-	  @RequestMapping("/politicaCookies")
-	  public String politicaCookies(Model model) {
-	    return "politicaCookies";
-	  }
-	  
-	  @RequestMapping("/politicaPrivacidad")
-	  public String politicaPrivacidad(Model model) {
-	    return "politicaPrivacidad";
-	  }
+	// Login form with error
+	@RequestMapping("/loginError")
+	public String loginError(Model model) {
+		model.addAttribute("loginError", true);
+		return "listadoServicios";
+	}
+
+	@RequestMapping("/about")
+	public String about(Model model) {
+		return "about";
+	}
+
+	@RequestMapping("/politicaCookies")
+	public String politicaCookies(Model model) {
+		return "politicaCookies";
+	}
+
+	@RequestMapping("/politicaPrivacidad")
+	public String politicaPrivacidad(Model model) {
+		return "politicaPrivacidad";
+	}
 }

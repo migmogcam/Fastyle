@@ -4,34 +4,67 @@
 
 
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
-	<div align="center" class="cookie-container">
-	<p class="col-lg-8 text-cookie">
-	Este sitio web utiliza cookies para
-		garantizar que obtenga la mejor experiencia en nuestro sitio web. Al
-		utilizar nuestro sitio usted acepta cookies.
-		</p>
-		<button class="cookie-accept">Aceptar</button>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark footer-fastyle">
+		<div align="center" class="cookie-container">
+			<p class="col-lg-8 text-cookie">Este sitio web utiliza cookies
+				para garantizar que obtenga la mejor experiencia en nuestro sitio
+				web. Al utilizar nuestro sitio usted acepta cookies. Consulte aqu&iacute nuestras <a href="/politicaPrivacidad">Pol&iacuteticas de Privacidad</a>
+				y de <a href="politicaCookies">Cookies</a>.</p>
+			<button class="cookie-accept">Aceptar</button>
 		</div>
-	<!-- 	<script>
-		
-		$(document).ready(function(){
-			  $(".cookie-accept").click(function(){
-				  Cookies.set("fastyle", "true", {expires: 365});  
-				  Cookies.get();
-			    $(".cookie-container").hide();
-			  });
-			 
-			});
-		</script>
-		 -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+	<!-- 	<div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+
+ -->
+
+
+
+
+    <div data-auto-dismiss="2000" th:if="${loginCorrecto== true}" class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         Operaci&oacuten realizada con &eacutexito.
+    </div>
+    
+	<div data-auto-dismiss="2000" th:if="${loginError== true }" class="alert alert-danger alert-dismissible fade show">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          Los campos no han sido correctamente introducidos.
+    </div>
+	
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 		
 		
-		<div class="mx-auto" style="width: 200px;">
-			<p class="m-0 text-center text-white" style="text-align: center;">&copy Fastyle - 2020</p>
+		
+		<div class="col-lg-6 mx-auto" style="width: 200px;">
+			<p class="m-0 text-center text-white" style="text-align: center;">&copy
+				Fastyle - 2020</p>
 		</div>
+		
+		<div class="col-lg-6 mx-auto">
+
+     
+       
+
+        <div class="row">
+          
+            <a href="/about">Sobre nosotros</a>
+          
+            <a href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a>
+          
+            <a href="politicaCookies">Pol&iacutetica de Cookies</a>
+            
+        
+</div>
+      </div>
+
+		
 	</nav>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -44,6 +77,7 @@
 	<script src="../../assets/js/vendor/popper.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/cookies.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-auto-dismiss-alert.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>
 </div>

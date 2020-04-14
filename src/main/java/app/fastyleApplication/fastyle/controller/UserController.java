@@ -110,6 +110,7 @@ public class UserController {
 		}
 
 		if (result.hasErrors()) {
+			model.addAttribute("error-registro", true);
 			return "user-signup";
 		} else {
 			try {
@@ -122,6 +123,7 @@ public class UserController {
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
+				
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
@@ -252,7 +254,8 @@ public class UserController {
 	}
 	
 	@GetMapping({ "/loginCorrecto" })
-	public String loginCorrecto() {
-		return "accionRealizada";
+	public String loginCorrecto(Model model) {
+		model.addAttribute("loginCorrecto", true);
+		return "listadoServicios";
 	}
 }
