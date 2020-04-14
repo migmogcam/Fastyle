@@ -80,6 +80,7 @@ public class UserController {
 		model.addAttribute("userForm", user);
 		model.addAttribute("roles", roles);
 		model.addAttribute("signup", true);
+		model.addAttribute("registro", true);
 		List<Cita> citas = new ArrayList<>();
 		String pass = PassGenerator.getPassEncode(user.getPassword());
 

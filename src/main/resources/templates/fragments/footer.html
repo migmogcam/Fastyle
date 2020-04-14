@@ -8,8 +8,8 @@
 		<div align="center" class="cookie-container">
 			<p class="col-lg-8 text-cookie">Este sitio web utiliza cookies
 				para garantizar que obtenga la mejor experiencia en nuestro sitio
-				web. Al utilizar nuestro sitio usted acepta cookies. Consulte aqu&iacute nuestras <a href="/politicaPrivacidad">Pol&iacuteticas de Privacidad</a>
-				y de <a href="politicaCookies">Cookies</a>.</p>
+				web. Al utilizar nuestro sitio usted acepta cookies. Consulte aqu&iacute nuestras <a target="_blank" href="/politicaPrivacidad">Pol&iacuteticas de Privacidad</a>
+				y de <a target="_blank" href="politicaCookies">Cookies</a>.</p>
 			<button class="cookie-accept">Aceptar</button>
 		</div>
 
@@ -46,7 +46,7 @@
 
         <div class="row links-footer">
           
-            <a href="/about">Sobre nosotros</a>
+            
           
             <a href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a>
           
@@ -59,7 +59,20 @@
 		
 	</nav>
 	
-	<div data-auto-dismiss="3000" th:if="${signup== true}" class="alert alert-success alert-dismissible">
+	 <!-- 
+	<div data-auto-dismiss="3000" th:if="${citasVacio== true}" class="alert alert-danger alert-dismissible fade show">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          Los campos no han sido correctamente introducidos.
+    </div>
+	
+	<div data-auto-dismiss="3000" th:if="${== true}" class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         Ha salido de sesi&oacuten con &eacutexito.
+    </div>
+    -->
+	
+	
+	<div data-auto-dismiss="3000" th:if="${registro== true}" class="alert alert-success alert-dismissible">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
          Operaci&oacuten realizada con &eacutexito.
     </div>
