@@ -264,6 +264,6 @@ public class UserController {
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto(Model model) {
 		model.addAttribute("loginCorrecto", true);
-		return "listadoServicios";
+		return "redirect:/";
 	}
 }

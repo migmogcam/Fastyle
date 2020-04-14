@@ -83,8 +83,16 @@
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
 							<div class="col-lg-7">
-								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.provincia}">
+								<select id="provincia" th:field="${esteticista.usuario.provincia}">
+									<option value="Sevilla">Sevilla</option>
+									<option value="Huelva">Huelva</option>
+									<option value="Cadiz">Cadiz</option>
+									<option value="Cordoba">Cordoba</option>
+									<option value="Jaen">Jaen</option>
+									<option value="Malaga">Malaga</option>
+									<option value="Almeria">Almeria</option>
+									<option value="Granada">Granada</option>
+								</select>
 
 
 							</div>
