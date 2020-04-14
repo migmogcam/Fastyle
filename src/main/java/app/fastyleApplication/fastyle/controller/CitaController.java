@@ -140,7 +140,7 @@ public class CitaController {
     }
 
 	@GetMapping("/misCitas")
-    public String misCitas(final Map<String, Object> model) {
+    public String misCitas(final Map<String, Object> model, Model model2) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Cliente c = this.clienteService.findByUsuario(u);
@@ -148,6 +148,7 @@ public class CitaController {
 		citas = c.getCitas();
 		
 		if(citas.isEmpty()) {
+			model2.addAttribute("citasVacio", true);
 			return "emptyCitas";
 		} else {
 			model.put("citas", citas);

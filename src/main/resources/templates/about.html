@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="fragments/header :: header">
+<meta charset="ISO-8859-1">
+<title>Sobre nosotros</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<!-- Page Content -->
+
+	</br>
+	</br>
+	</br>
+
+	<h1 align="center">Sobre nosotros</h1>
+	</br>
+	</br>
+	</br>
+
+	<div align="center" class="row centrado">
+		<div class=col-lg-3>
+			<h4>A domicilio</h4>
+			<p>Vamos a tu casa. No tienes que ir a ning&uacuten sitio,
+				as&iacute de comodo.</p>
+		</div>
+
+		<div class=col-lg-3>
+			<h4>Sencillo</h4>
+			<p>Desde nuestra web y a unos pocos clics, as&iacute de
+				f&aacutecil es disfrutar de Fastyle.</p>
+		</div>
+
+		<div class=col-lg-3>
+			<h4>Accesible</h4>
+			<p>&Uacutetil para personas con problemas de movilidad, ancianos
+				y min&uacutesvalidos.</p>
+
+		</div>
+	</div>
+	</br>
+	</br>
+
+
+	</br>
+
+	<div class="row">
+		<div class=" offset-1 col-lg-4">
+
+			<h3 align="center">Peluquer&iacutea y est&eacutetica</h3>
+
+			</br>
+			<img th:src="@{/images/unas.jpg}" />
+
+
+
+				</br>
+			<p align="center">En Fastyle te ofrecemos corte de caballero, mujer, ni&ntildeo
+				y servicios de est&eacutetica. Desde un alisado japon&eacutes a un
+				afeitado a navaja cl&aacutesica, as&iacute de vers&aacutetiles
+				somos.</p>
+
+
+		</div>
+
+
+
+
+		<div class="offset-1 col-lg-4">
+
+			<h3 align="center">Est&eacutetica y cuidados para m&aacutescotas</h3>
+			</br>
+
+			<img th:src="@{/images/perros.jpg}" />
+</br>
+
+
+			<p align="center">Los fieles compa&ntildeeros de los humanos tampoco se quedan
+				atr&aacutes, ofrecemos servicios de peluquer&iacutea y corte de
+				u&ntildeas.</p>
+
+
+
+
+		</div>
+	</div>
+
+
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+
+
+</html>

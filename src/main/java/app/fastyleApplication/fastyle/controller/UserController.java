@@ -80,6 +80,7 @@ public class UserController {
 		model.addAttribute("userForm", user);
 		model.addAttribute("roles", roles);
 		model.addAttribute("signup", true);
+		model.addAttribute("registro", true);
 		List<Cita> citas = new ArrayList<>();
 		String pass = PassGenerator.getPassEncode(user.getPassword());
 
@@ -117,6 +118,7 @@ public class UserController {
 		}
 
 		if (result.hasErrors()) {
+			model.addAttribute("error-registro", true);
 			return "user-signup";
 		} else {
 			try {
@@ -129,10 +131,11 @@ public class UserController {
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
+				
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "accionRealizada";
+		return "listadoServicios";
 	}
 
 	@GetMapping("/perfil")
@@ -259,7 +262,8 @@ public class UserController {
 	}
 	
 	@GetMapping({ "/loginCorrecto" })
-	public String loginCorrecto() {
-		return "accionRealizada";
+	public String loginCorrecto(Model model) {
+		model.addAttribute("loginCorrecto", true);
+		return "listadoServicios";
 	}
 }

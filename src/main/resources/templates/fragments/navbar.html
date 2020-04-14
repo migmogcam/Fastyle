@@ -1,8 +1,8 @@
 
 <nav th:fragment="navbar"
 	class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<img src="/images/fastyle.jpeg" class="rounded-circle logo-fastyle"><a
-		class="navbar-brand" id="title" href="/">Fastyle</a>
+	<a	class="navbar-brand" id="title" href="/">
+	<img src="/images/fastyle.png" class="logo-fastyle"></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExampleDefault"
 		aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -11,7 +11,7 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<ul class="nav navbar-nav mr-auto mr-3">
+		<ul class="navbar-nav mr-auto">
 
 			<li sec:authorize="hasRole('CLIENTE')" class="nav-item"><a
 				class="nav-link" th:href="@{/misCitas}">Mis citas</a></li>
@@ -21,7 +21,10 @@
 			<li sec:authorize="hasRole('ADMIN')" class="nav-item"><a
 				class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear
 					Servicio</a></li>
-			<a class="nav-link" th:href="@{/ayuda}"><b>Ayuda</b></a>
+			<li class="nav-item"><a class="nav-link" th:href="@{/about}">Sobre
+					nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" th:href="@{/ayuda}">Ayuda</a></li>
+		</ul>
 			<ul class="nav navbar-nav navbar-right mr-3">
 			<th:block th:switch="${#authentication.getPrincipal()}">
 
@@ -76,10 +79,10 @@
 			</th:block>
 			</ul>
 		</ul>
-
-
-
-
-
 	</div>
+	
+
+	
 </nav>
+
+

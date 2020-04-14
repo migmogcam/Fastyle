@@ -5,10 +5,15 @@
 <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+	<script src="@{/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/toast.js}"></script>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/css/shop-homepage.css}" />
 <link rel="stylesheet" th:href="@{/main.css}" />
+
 <!-- Custom styles for this template -->
 <link href="starter-template.css" rel="stylesheet">
 <style>
@@ -28,3 +33,13 @@ body {
 }
 </style>
 </head>
+
+<div class="cookie-container">
+	<p>
+	Este sitio web utiliza cookies para
+		garantizar que obtenga la mejor experiencia en nuestro sitio web. Al
+		utilizar nuestro sitio usted acepta cookies. Aprende más
+		</p>
+		
+		<button class="cookie-btn">Aceptar</button>
+		</div>
