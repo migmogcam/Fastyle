@@ -32,7 +32,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.name}">
+									th:field="${esteticista.usuario.name}" readonly>
 
 
 							</div>
@@ -42,7 +42,7 @@
 								apellido</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.apellido1}">
+									th:field="${esteticista.usuario.apellido1}" readonly>
 
 
 							</div>
@@ -53,12 +53,32 @@
 								apellido</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.apellido2}">
+									th:field="${esteticista.usuario.apellido2}" readonly>
 
 
 							</div>
 						</div>
+						
+						<div class="form-group row">
+							<div class="input-group">
+								<label class="col-lg-3 col-form-label form-control-label">Edad</label>
 
+								<div class="input-group-prepend" style="padding-left: 15px;">
+									<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
+								</div>
+								<input class="form-control number col-lg-5" type="number"
+									min="18" th:field="${esteticista.usuario.edad}" readonly>
+
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Rol</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text"
+									placeholder="ESTETICISTA" readonly>
+							</div>
+						</div>
 
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
@@ -90,18 +110,6 @@
 							</div>
 						</div>
 
-						<div class="form-group row">
-							<div class="input-group">
-								<label class="col-lg-3 col-form-label form-control-label">Edad</label>
-
-								<div class="input-group-prepend" style="padding-left: 15px;">
-									<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
-								</div>
-								<input class="form-control number col-lg-5" type="number"
-									min="18" th:field="${esteticista.usuario.edad}">
-
-							</div>
-						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Email</label>
 							<div class="col-lg-7">

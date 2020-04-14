@@ -3,125 +3,154 @@
 	xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<title>Starter Template for Bootstrap</title>
+<title>Aplicación Fastyle</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <!-- Custom styles for this template -->
 <link href="starter-template.css" rel="stylesheet">
 </head>
-<head th:insert="fragments/header :: header"><title>Ayuda | Fastyle</title></head>
+<head th:insert="fragments/header :: header">
+<title>Ayuda | Fastyle</title>
+</head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	
-</br>
-</br>
 
-			
-			<div align= "center" class="ayuda-container">
-			<h4>Ayuda</h4>
-</br>
-</br>
-			<h5>Servicios</h5>
-			<div>
-			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser6" class="collapsed" aria-expanded="false">No veo los servicios filtrados por mi provincia</a>
-							</p>
-						</div>
-						<div id="col-ser6" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>Para ver los servicios filtrados por tu provincia, debes autenticarte primero.</p>
-							</div>
-						</div>
-						
-						
-						
-			
-		
-		<div>
-			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser0" class="collapsed" aria-expanded="false">No veo los servicios filtrados por el tipo de servicio</a>
-							</p>
-						</div>
-						<div id="col-ser0" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>Para ver los servicios filtrados por un tipo de servicio, debes autenticarte primero.</p>
-							</div>
-						</div>
-						
-				
-			</br>
-<h5>Reservas</h5>
+	</br>
+	</br>
 
 
-		
+	<div align="center" class="ayuda-container">
+		<h4>Ayuda</h4>
+		</br> </br>
+		<h5>Servicios</h5>
 		<div>
 			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser1" class="collapsed" aria-expanded="false">¿Cuándo puedo saber que mi cita está reservada?</a>
-							</p>
-						</div>
-						<div id="col-ser1" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>A la hora de reservar una cita no basta con pedirla, tiene que esperar a que el profesional se la acepte y, una vez aceptada, se procederá a realizar el pago. Una vez realizado el pago, se considerará que la cita está reservada.</p>
-							</div>
-						</div>
-						
-						
-				</br>		
-		<h5>Cancelaciones y modificaciones</h5>
-		
-		
-		<div>
-			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser2" class="collapsed" aria-expanded="false">Quiero modificar algún campo de la cita</a>
-							</p>
-						</div>
-						<div id="col-ser2" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>No se puede modificar los campos de la cita. Si se desea cambiar algún tipo de campo, debe cancelar la cita y realizar una nueva.</p>
-							</div>
-						</div>
-						
-						
-						
-		
-		
-		<div>
-			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser3" class="collapsed" aria-expanded="false">¿Cuál es la política de cancelaciones de Fastyle?</a>
-							</p>
-						</div>
-						<div id="col-ser3" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>Antes de todo, se debe diferenciar 2 aspectos, la cancelación antes y después de la reserva o pago de la cita. Si la cancelación se realiza antes de la reserva de la cita, se realizará la cancelación sin ningún tipo de problemas pero si se realiza después de la reserva, se realizará la cancelación de la cita pero no se devolverá el importe.</p>
-							</div>
-						</div>
-						
-						
-
-	<div>
-			<p class="panel-title text-bold">
-								<a data-toggle="collapse" data-parent="#acor-servicios" href="#col-ser4" class="collapsed" aria-expanded="false">¿Cómo puedo cancelar mi cita?</a>
-							</p>
-						</div>
-						<div id="col-ser4" class="panel-collapse collapse" style="">
-							<div class="panel-body">
-								<p>Se habilitará un botón para poder realizar la cancelación de la cita.</p>
-							</div>
-						</div>
-				</br>
-				
-				
-				
-				<div class="col-12 col-md-3 text-center mt-3 mb-4">
-		    			<h6 style="letter-spacing: 0em !important;">Para cualquier otra duda, puede contactarnos por email</h6>
-		    			<h4 style="font-size:1em;"><a href="mailto:fastyle.info@gmail.com">fastyle.info@gmail.com</a></h4>
-		    		</div>		
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser6" class="collapsed" aria-expanded="false">No veo
+					los servicios filtrados por mi provincia</a>
+			</p>
+		</div>
+		<div id="col-ser6" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>Para ver los servicios filtrados por tu provincia, debes
+					autenticarte primero.</p>
 			</div>
-			
-			
-						
+		</div>
+
+
+
+
+
+		<div>
+			<p class="panel-title text-bold">
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser0" class="collapsed" aria-expanded="false">No veo
+					los servicios filtrados por el tipo de servicio</a>
+			</p>
+		</div>
+		<div id="col-ser0" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>Para ver los servicios filtrados por un tipo de servicio,
+					debes autenticarte primero.</p>
+			</div>
+		</div>
+
+
+		</br>
+		<h5>Reservas</h5>
+
+
+
+		<div>
+			<p class="panel-title text-bold">
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser1" class="collapsed" aria-expanded="false">¿Cuándo
+					puedo saber que mi cita está reservada?</a>
+			</p>
+		</div>
+		<div id="col-ser1" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>A la hora de reservar una cita no basta con pedirla, tiene
+					que esperar a que el profesional se la acepte y, una vez aceptada,
+					se procederá a realizar el pago. Una vez realizado el pago, se
+					considerará que la cita está reservada.</p>
+			</div>
+		</div>
+
+
+		</br>
+		<h5>Cancelaciones y modificaciones</h5>
+
+
+		<div>
+			<p class="panel-title text-bold">
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser2" class="collapsed" aria-expanded="false">Quiero
+					modificar algún campo de la cita</a>
+			</p>
+		</div>
+		<div id="col-ser2" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>No se puede modificar los campos de la cita. Si se desea
+					cambiar algún tipo de campo, debe cancelar la cita y realizar una
+					nueva.</p>
+			</div>
+		</div>
+
+
+
+
+
+		<div>
+			<p class="panel-title text-bold">
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser3" class="collapsed" aria-expanded="false">¿Cuál
+					es la política de cancelaciones de Fastyle?</a>
+			</p>
+		</div>
+		<div id="col-ser3" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>Antes de todo, se debe diferenciar 2 aspectos, la cancelación
+					antes y después de la reserva o pago de la cita. Si la cancelación
+					se realiza antes de la reserva de la cita, se realizará la
+					cancelación sin ningún tipo de problemas pero si se realiza después
+					de la reserva, se realizará la cancelación de la cita pero no se
+					devolverá el importe.</p>
+			</div>
+		</div>
+
+
+
+		<div>
+			<p class="panel-title text-bold">
+				<a data-toggle="collapse" data-parent="#acor-servicios"
+					href="#col-ser4" class="collapsed" aria-expanded="false">¿Cómo
+					puedo cancelar mi cita?</a>
+			</p>
+		</div>
+		<div id="col-ser4" class="panel-collapse collapse" style="">
+			<div class="panel-body">
+				<p>Se habilitará un botón para poder realizar la cancelación de
+					la cita.</p>
+			</div>
+		</div>
+		</br>
+
+
+
+		<div class="col-12 col-md-3 text-center mt-3 mb-4">
+			<h6 style="letter-spacing: 0em !important;">Para cualquier otra
+				duda, puede contactarnos por email</h6>
+			<h4 style="font-size: 1em;">
+				<a href="mailto:fastyle.info@gmail.com">fastyle.info@gmail.com</a>
+			</h4>
+		</div>
+	</div>
+
+
+
 
 
 </body>
