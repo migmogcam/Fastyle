@@ -40,6 +40,8 @@ public class UsuarioService implements UserDetailsService {
             newEntity.setCiudad(entity.getCiudad());
             newEntity.setProvincia(entity.getProvincia());
             newEntity.setEMail(entity.getEMail());
+            newEntity.setDireccion(entity.getDireccion());
+            newEntity.setEdad(entity.getEdad());
             
             newEntity = repository.save(newEntity);
              

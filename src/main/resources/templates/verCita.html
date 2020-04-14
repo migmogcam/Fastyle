@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
+</head>
+<head th:insert="fragments/header :: header"></head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<br />
+	<br />
+	<div class="container">
+		<div class="mx-auto col-sm-8 main-section">
+			<div class="card">
+				<div class="card-header">
+					<h4 align="center">Detalles de la cita y pago</h4>
+				</div>
+				<div class="card-body">
+
+					<form class="form" role="form" autocomplete="off"
+						th:object="${cita}" th:action="${isCliente} ? @{/pay}
+						: @{/guardarRespuesta}"
+						method="post">
+
+						<input class="form-control" type=hidden th:field="${cita.id}">
+
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Fecha</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text" th:field="${cita.fecha}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Hora</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text" th:field="${cita.hora}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text" th:field="${cita.cliente.usuario.direccion}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('CLIENTE')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Estado</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="email"
+									th:field="${cita.estado}" th:disabled="${disableFields}"
+									readonly>
+
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('CLIENTE')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Esteticista</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text"
+									th:field="${cita.esteticista.usuario.name}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+
+
+						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Cliente</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text"
+									th:field="${cita.cliente.usuario.name}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Servicio
+								Estetico</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="text"
+									th:field="${cita.servicioEstetico.detalleAcortado}"
+									th:disabled="${disableFields}" readonly>
+
+
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Precio</label>
+							<div class="col-lg-7">
+								<input class="form-control" type="email"
+									th:field="${cita.servicioEstetico.precio}"
+									th:disabled="${disableFields}" readonly>
+
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Comentario</label>
+							<div class="col-lg-7">
+								<textarea rows="3" class="form-control" type="email"
+									th:field="${cita.detalle}" th:disabled="${disableFields}"
+									readonly></textarea>
+
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Responder</label>
+							<div class="col-lg-7">
+								<textarea rows="3" class="form-control" type="email"
+									th:field="${cita.respuesta}" th:disabled="${disableFields}"
+									required th:readonly="${cita.estado != 'PENDIENTE'}"></textarea>
+
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('CLIENTE')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Respuesta
+								del Esteticista</label>
+							<div class="col-lg-7">
+								<textarea rows="3" class="form-control" type="email"
+									th:field="${cita.respuesta}" th:disabled="${disableFields}"
+									readonly></textarea>
+
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Respuesta </label>
+							<div class="col-lg-7">
+								<select class="form-control" th:readonly="${cita.estado != 'PENDIENTE'}" required
+									th:field="${cita.estado}">
+									<option th:value="'ACEPTADA'" th:text="ACEPTAR"></option>
+									<option th:value="'RECHAZADA'" th:text="RECHAZAR"></option>
+								</select>
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('ESTETICISTA')"
+							th:if="${cita.estado == 'PENDIENTE'}" class="form-group row">
+							<div class="col-lg-12 text-center">
+								<input type="submit" class="btn btn-outline-primary"
+									value="Guardar">
+							</div>
+						</div>
+
+						<div sec:authorize="hasRole('CLIENTE')"
+							th:if="${cita.estado == 'ACEPTADA'}" class="form-group row">
+							<div class="col-lg-12 text-center">
+								<input type="submit" class="btn btn-outline-success"
+									value="Pagar">
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  <div th:replace="fragments/footer :: footer"></div> -->
+</body>
+</html>

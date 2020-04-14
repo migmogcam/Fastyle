@@ -15,11 +15,10 @@
 
 				<h1 class="my-4">Nuestros servicios</h1>
 				<div class="list-group">
-					<a href="@{/{Peluqueria}}" class="list-group-item">Peluquería</a> 
-					<a href="@{/{Tinte}" class="list-group-item">Tinte</a> 
-					<a href="@{/{Pedicura}" class="list-group-item">Pedicura</a> 
-					<a href="@{/{Manicura}" class="list-group-item">Manicura</a> 
-					<a href="@{/{Depilación}" class="list-group-item">Depilación</a>
+					<a href="/peluqueria" class="list-group-item">Peluquería</a> 
+					<a href="/tinte" class="list-group-item">Tinte</a> 
+					<a href="/pedicura-y-manicura" class="list-group-item">Pedicura y Manicura</a> 
+					<a href="/depilacion" class="list-group-item">Depilación</a>
 					<a href="/" class="list-group-item">Todos</a>
 				</div>
 
@@ -70,7 +69,7 @@
 							<div class="card h-100">
 								<a href="#"><img class="card-img-top"
 									th:src="${servicio.imagen}"
-									alt=""></a>
+									alt="" height="200" width="350"></a>
 								<div class="card-body">
 									<h4 class="card-title">
 										<td><a th:href="@{/servicioInfo/{id}(id=${servicio.id})}">Servicio de <td th:text="${servicio.tipo}"/></a></td>

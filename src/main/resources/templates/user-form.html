@@ -12,14 +12,11 @@
 		 <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
 	 -->
 
-
 		<div class="form-group row">
 			<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text" th:field="${userForm.name}"
 					th:disabled="${disableFields}">
-
-
 			</div>
 		</div>
 		<div class="form-group row">
@@ -28,8 +25,6 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
 					th:field="${userForm.apellido1}" th:disabled="${disableFields}">
-
-
 			</div>
 		</div>
 
@@ -39,19 +34,6 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
 					th:field="${userForm.apellido2}" th:disabled="${disableFields}">
-
-
-			</div>
-		</div>
-
-
-		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
-			<div class="col-lg-7">
-				<input class="form-control" type="text"
-					th:field="${userForm.provincia}" th:disabled="${disableFields}">
-
-
 			</div>
 		</div>
 
@@ -60,7 +42,42 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
 					th:field="${userForm.ciudad}" th:disabled="${disableFields}">
+			</div>
+		</div>
 
+		<div class="form-group row">
+			<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
+			<div class="col-lg-7">
+				<select id="provincia" th:field="${userForm.provincia}">
+					<option value="Sevilla">Sevilla</option>
+					<option value="Huelva">Huelva</option>
+					<option value="Cadiz">Cadiz</option>
+					<option value="Cordoba">Cordoba</option>
+					<option value="Jaen">Jaen</option>
+					<option value="Malaga">Malaga</option>
+					<option value="Almeria">Almeria</option>
+					<option value="Granada">Granada</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="col-lg-3 col-form-label form-control-label">Direcci&oacute;n</label>
+			<div class="col-lg-7">
+				<input class="form-control" type="text"
+					th:field="${userForm.direccion}" th:disabled="${disableFields}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="input-group">
+				<label class="col-lg-3 col-form-label form-control-label">Edad</label>
+
+				<div class="input-group-prepend" style="padding-left: 15px;">
+					<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
+				</div>
+				<input class="form-control number col-lg-5" type="number" min="18"
+					th:field="${userForm.edad}" required>
 
 			</div>
 		</div>
@@ -70,7 +87,6 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="email"
 					th:field="${userForm.eMail}" th:disabled="${disableFields}">
-
 			</div>
 		</div>
 
@@ -80,8 +96,6 @@
 				<input class="form-control" type="text"
 					th:field="${userForm.usuario}" th:disabled="${disableFields}"
 					required>
-
-
 			</div>
 		</div>
 
@@ -93,24 +107,13 @@
 				<input class="form-control" type="password"
 					th:field="${userForm.password}" th:disabled="${disableFields}"
 					required>
-
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="exampleFormControlTextarea1">Descripci&oacute;n</label>
-			<div class="col-lg-9">
-				<textarea class="form-control" th:field="${userForm.descripcion}"
-					rows="3" th:disabled="${disableFields}"></textarea>
-			</div>
-		</div>
-
-
-
-		<div class="form-group">
-			<label for="exampleFormControlTextarea1">Crear cuenta de: </label>
-			<div class="col-lg-9">
-				<select multiple class="form-control" required
+		<div class="form-group row">
+			<label class="col-lg-3 col-form-label form-control-label">Crear cuenta de: </label>
+			<div class="col-lg-7">
+				<select class="form-control" required
 					th:field="${userForm.autority}">
 					<option th:value="'ROLE_CLIENTE'" th:text="Cliente"></option>
 					<option th:value="'ROLE_ESTETICISTA'" th:text="Esteticista"></option>
@@ -119,18 +122,27 @@
 		</div>
 
 		<div class="form-group row">
-			<input type="checkbox" id="check-signup" name="check-signup" required>
-<label> He le&iacutedo y acepto la <a target="_blank" href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a></label>
-
+			<label class="col-lg-3 col-form-label form-control-label">Descripci&oacute;n</label>
+			<div class="col-lg-7">
+				<textarea class="form-control" th:field="${userForm.descripcion}"
+					rows="3" th:disabled="${disableFields}"></textarea>
 			</div>
 		</div>
 
+    <div class="form-group row">
+			<input type="checkbox" id="check-signup" name="check-signup" required>
+<label> He le&iacutedo y acepto la <a target="_blank" href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a></label>
+    </div>
+    
 		<div class="form-group row">
 			<div class="col-lg-12 text-center">
 				<input type="submit"  class="btn btn-primary" value="Save Changes"
 					th:value="${editMode}?'Save User':'Aceptar'">
+				<a type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
 			</div>
 		</div>
+		
+	
 
 		<div class="alert alert-success text-center d-none" id="formSuccess"
 			th:if="${editMode}">Success Message</div>

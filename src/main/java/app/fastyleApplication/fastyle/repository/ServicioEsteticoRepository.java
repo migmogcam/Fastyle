@@ -12,6 +12,4 @@ import app.fastyleApplication.fastyle.model.ServicioEstetico;
 public interface ServicioEsteticoRepository extends JpaRepository<ServicioEstetico, Integer>{
 
 	List<ServicioEstetico> findByProvincia(String provincia);
-	
-	List<ServicioEstetico> findByTipo(String tipo);
 }

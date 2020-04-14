@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -60,12 +61,19 @@ public class Usuario{
 	
 	@NotBlank
 	@Length(max = 100)
-	 private String ciudad;
+	private String ciudad;
+	
+	@NotBlank
+	@Length(max = 200)
+	private String direccion;
 	
 	@NotBlank
 	@Length(max = 100)
 	@Email
 	private String eMail;
+	
+	@Range(min = 18)
+	private Integer edad;
 	
 	@Getter @Setter
 	@JoinTable(name="authorities_users", joinColumns= @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="authorityId"))
@@ -156,7 +164,13 @@ public class Usuario{
 		this.eMail = eMail;
 	}
 	
-	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
 	
 }

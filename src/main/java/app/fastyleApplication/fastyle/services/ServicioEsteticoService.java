@@ -37,11 +37,16 @@ public class ServicioEsteticoService {
 		}
 	}
 	
-	public List<ServicioEstetico> getAllServicioEsteticosPorTipo(String tipo) {
-		List<ServicioEstetico> servicioEsteticoList = repository.findByTipo(tipo);
-
-		if (servicioEsteticoList.size() > 0) {
-			return servicioEsteticoList;
+	public List<ServicioEstetico> getAllServicioEsteticosPorProvinciaYTipo(String provincia, String tipo) {
+		List<ServicioEstetico> res = new ArrayList<ServicioEstetico>();
+		List<ServicioEstetico> servicioEsteticoList = repository.findAll();
+		for(ServicioEstetico se: servicioEsteticoList) {
+			if(se.getProvincia().equals(provincia) && se.getTipo().equals(tipo)) {
+				res.add(se);
+			}
+		}
+		if (res.size() > 0) {
+			return res;
 		} else {
 			return new ArrayList<ServicioEstetico>();
 		}
@@ -87,7 +92,10 @@ public class ServicioEsteticoService {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
+			servicioEstetico.get().setCitas(null);
+			servicioEstetico.get().setEsteticista(null);
 			repository.deleteById(id);
+			
 		} else {
 			throw new Exception("No servicioEstetico record exist for given id");
 		}

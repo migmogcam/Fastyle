@@ -39,8 +39,8 @@
 			<div class="col-lg-9">
 
 				<div class="card mt-4">
-					<img class="card-img-top img-fluid"
-						th:src="${servicioEstetico.imagen}" alt="">
+					<img class="card-img-top"
+						th:src="${servicioEstetico.imagen}" height="500" width="900" alt="">
 					<div class="card-body">
 						<h3 class="card-title">
 							Servicio de
@@ -59,20 +59,29 @@
 
 
 					<th:block th:switch="${est}">
-						<div th:case="'existe'">
+						<div class="container" th:case="'existe'">
 							<a sec:authorize="hasRole('ESTETICISTA')"
-							th:href="@{/ServicioCancelar/{idServ}(idServ=${servicioEstetico.id})}"
-							class="btn btn-warning">Dejar de ser esteticista</a>
+								th:href="@{/ServicioCancelar/{idServ}(idServ=${servicioEstetico.id})}"
+								class="btn btn-outline-warning ">Dejar de ser esteticista</a>
 						</div>
-						<div th:case="'noExiste'">
+						<div class="container" th:case="'noExiste'">
 							<a sec:authorize="hasRole('ESTETICISTA')"
-							th:href="@{/ServicioUnir/{idServ}(idServ=${servicioEstetico.id})}"
-							class="btn btn-success">Unirse como esteticista</a>
+								th:href="@{/ServicioUnir/{idServ}(idServ=${servicioEstetico.id})}"
+								class="btn btn-outline-success ">Unirse como esteticista</a>
 						</div>
 						<div th:case="'noEs'">
 							<!-- print object is new and active -->
 						</div>
 					</th:block>
+					<div class="container">
+						<a sec:authorize="hasRole('ADMIN')"
+							th:href="@{/ServicioEditar/{idServ}(idServ=${servicioEstetico.id})}"
+							class="btn btn-outline-warning ">Editar</a> <a
+							sec:authorize="hasRole('ADMIN')"
+							th:href="@{/ServicioBorrar/{idServ}(idServ=${servicioEstetico.id})}"
+							class="btn btn-outline-danger ">Borrar</a>
+					</div>
+
 
 
 				</div>

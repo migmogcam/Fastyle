@@ -18,39 +18,44 @@
 			<div class="col-sm-12 d-flex justify-content-center">
 				<div class="w-75 mt-5">
 
-				<br/>
-				<br/>
-				
-				<h3 class="card-title" align="center">Mis citas</h3>
-					<table th:if="${not #lists.isEmpty(citas)}" class="table table-striped align-middle"
+					<br /> <br />
 
-						style="margin-top: 50px">
+					<h3 class="card-title" align="center">Mis citas</h3>
+					<table th:if="${not #lists.isEmpty(citas)}"
+						class="table table-striped align-middle" style="margin-top: 50px">
 						<thead>
 							<tr>
-								<th scope="col"></th> 
+								<th scope="col"></th>
 								<th scope="col">Fecha</th>
 								<th scope="col">Hora</th>
 								<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
-								<th sec:authorize="hasRole('ESTETICISTA')" scope="col">cliente</th>
+								<th sec:authorize="hasRole('ESTETICISTA')" scope="col">Cliente</th>
+								<th scope="col">Estado</th>
+								<th scope="col">Información y pago</th>
 							</tr>
 						</thead>
 						<tbody>
-						<tr th:each="cita : ${citas}">
+							<tr th:each="cita : ${citas}">
 
-								<th scope="row" th:text="${citaStat.index +1 }"></th> 
+								<th scope="row" th:text="${citaStat.index +1 }"></th>
 								<td th:text="${cita.fecha}"></td>
 								<td th:text="${cita.hora}"></td>
-								<td sec:authorize="hasRole('CLIENTE')" th:text="${cita.esteticista.usuario.name}"></td>
-								<td sec:authorize="hasRole('ESTETICISTA')" th:text="${cita.cliente.usuario.name}"></td>
-						</tr>
+								<td sec:authorize="hasRole('CLIENTE')"
+									th:text="${cita.esteticista.usuario.name}"></td>
+								<td sec:authorize="hasRole('ESTETICISTA')"
+									th:text="${cita.cliente.usuario.name}"></td>
+								<td th:text="${cita.estado}"></td>
+								<td><a th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
+									class="btn btn-outline-success ">Ver Detalles</a></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 
- <!--  <div th:replace="fragments/footer :: footer"></div> -->  
+<!--  <div th:replace="fragments/footer :: footer"></div> -->
 </html>

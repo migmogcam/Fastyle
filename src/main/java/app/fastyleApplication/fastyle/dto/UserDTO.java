@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +46,13 @@ public class UserDTO {
 		 private String ciudad;
 		
 		@NotBlank
+		@Length(max = 200)
+		private String direccion;
+		
+		@Range(min = 18)
+		private Integer edad;
+		
+		@NotBlank
 		@Length(max = 100)
 		@Email
 		private String eMail;
@@ -54,6 +63,15 @@ public class UserDTO {
 		@NotBlank
 		@Length(max = 100)
 		private String autority;
+		
+		@URL
+		private String imagen1;
+		@URL
+		private String imagen2;
+		@URL
+		private String imagen3;
+		@URL
+		private String imagen4;
 		
 	
 }

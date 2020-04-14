@@ -92,6 +92,8 @@ public class UserController {
 		autoridades.add(autor);
 		us.setAuthorities(autoridades);
 		us.setCiudad(user.getCiudad());
+		us.setDireccion(user.getDireccion());
+		us.setEdad(user.getEdad());
 		us.setEMail(user.getEMail());
 		us.setName(user.getName());
 		us.setPassword(pass);
@@ -104,7 +106,12 @@ public class UserController {
 			cliente.setCitas(citas);
 			cliente.setUsuario(us);
 		} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
-
+			List<String> imagenes = new LinkedList<>();
+			imagenes.add(user.getImagen1());
+			imagenes.add(user.getImagen2());
+			imagenes.add(user.getImagen3());
+			imagenes.add(user.getImagen4());
+			esteticista.setImagenes(imagenes);
 			esteticista.setCitas(citas);
 			esteticista.setDescripcion(user.getDescripcion());
 			esteticista.setUsuario(us);

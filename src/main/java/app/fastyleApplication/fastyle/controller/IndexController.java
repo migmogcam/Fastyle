@@ -51,6 +51,11 @@ public class IndexController {
 	public String about(Model model) {
 		return "about";
 	}
+  
+  @RequestMapping("/ayuda")
+	  public String ayuda(Model model) {
+	    return "ayuda";
+	}
 
 	@RequestMapping("/politicaCookies")
 	public String politicaCookies(Model model) {

@@ -449,4 +449,11 @@ body
 .alert-dismissible {
     right: 10px;
     bottom: 1px;
+
+.show p {
+    width: 80%;
+}
+
+.ayuda-container a{
+    color: #646B6C
 }

@@ -21,20 +21,16 @@
 			<li sec:authorize="hasRole('ADMIN')" class="nav-item"><a
 				class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear
 					Servicio</a></li>
-
-
 			<li class="nav-item"><a class="nav-link" th:href="@{/about}">Sobre
 					nosotros</a></li>
-
+    <li class="nav-item"><a class="nav-link" th:href="@{/ayuda}">Ayuda</a></li>
 		</ul>
+			<ul class="nav navbar-nav navbar-right mr-3">
+			<th:block th:switch="${#authentication.getPrincipal()}">
 
-		<ul class="nav navbar-nav navbar-right mr-3">
-
-			<div th:switch="${#authentication.getPrincipal()}">
-
-				<li th:case="'anonymousUser'" class="dropdown"><a href="#"
-					class="nav-link" data-toggle="dropdown"><b>Autentificar</b> <span
-						class="caret"></span></a>
+				<li th:case="'anonymousUser'" class="dropdown">
+				<a href="#" class="nav-link" data-toggle="dropdown"><strong>Iniciar sesi&oacuten</strong> 
+					<span class="caret"></span></a>
 					<ul id="login-dp" class="dropdown-menu">
 						<li>
 							<div class="row">
@@ -65,6 +61,7 @@
 							</div>
 						</li>
 					</ul></li>
+
 				<li th:case="*" class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -79,22 +76,9 @@
 							th:href="@{/logout}">Cerrar sesi&oacuten</a>
 					</div></li>
 
-			</div>
+			</th:block>
+			</ul>
 		</ul>
-
-		<form class="form-inline">
-
-			<input class="form-control mr-sm-2" type="text"
-				placeholder="Inserte un termino" aria-label="Search">
-			<!--
-			<a type="submit" class="search"></a>   -->
-			<button class="btn btn-secondary" type="button">Buscar</button>
-
-
-		</form>
-
-
-
 	</div>
 	
 
