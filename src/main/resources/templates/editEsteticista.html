@@ -79,7 +79,7 @@
 
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
 							<div class="col-lg-7">
@@ -90,6 +90,18 @@
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<div class="input-group">
+								<label class="col-lg-3 col-form-label form-control-label">Edad</label>
+
+								<div class="input-group-prepend" style="padding-left: 15px;">
+									<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
+								</div>
+								<input class="form-control number col-lg-5" type="number"
+									min="18" th:field="${esteticista.usuario.edad}">
+
+							</div>
+						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Email</label>
 							<div class="col-lg-7">
@@ -111,7 +123,7 @@
 							<label for="exampleFormControlTextarea1">Imagen 1</label>
 							<div class="col-lg-9">
 								<input class="form-control"
-									th:field="${esteticista.imagenes[0]}" ></input>
+									th:field="${esteticista.imagenes[0]}"></input>
 							</div>
 						</div>
 
@@ -119,7 +131,7 @@
 							<label for="exampleFormControlTextarea1">Imagen 2</label>
 							<div class="col-lg-9">
 								<input class="form-control"
-									th:field="${esteticista.imagenes[1]}" ></input>
+									th:field="${esteticista.imagenes[1]}"></input>
 							</div>
 						</div>
 
@@ -127,7 +139,7 @@
 							<label for="exampleFormControlTextarea1">Imagen 3</label>
 							<div class="col-lg-9">
 								<input class="form-control"
-									th:field="${esteticista.imagenes[2]}" ></input>
+									th:field="${esteticista.imagenes[2]}"></input>
 							</div>
 						</div>
 
@@ -135,7 +147,7 @@
 							<label for="exampleFormControlTextarea1">Imagen 4</label>
 							<div class="col-lg-9">
 								<input class="form-control"
-									th:field="${esteticista.imagenes[3]}" ></input>
+									th:field="${esteticista.imagenes[3]}"></input>
 							</div>
 						</div>
 
@@ -148,13 +160,9 @@
 							</div>
 						</div>
 
-						<div class="form-group row d-flex justify-content-center">
-							<span class="col-lg-3 col-form-label form-control-label">Cambiar
-								Contrase&ntilde;a</span>
-						</div>
-
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label">Contrase&ntilde;a</label>
+							<label class="col-lg-3 col-form-label form-control-label">Cambiar
+								Contrase&ntilde;a</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="password"
 									th:field="${esteticista.usuario.password}">
@@ -165,6 +173,7 @@
 						<div class="form-group row">
 							<div class="col-lg-12 text-center">
 								<input type="submit" class="btn btn-primary" value="Guardar">
+								<a type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
 							</div>
 						</div>
 

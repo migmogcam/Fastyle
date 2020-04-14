@@ -92,6 +92,7 @@ public class UserController {
 		us.setAuthorities(autoridades);
 		us.setCiudad(user.getCiudad());
 		us.setDireccion(user.getDireccion());
+		us.setEdad(user.getEdad());
 		us.setEMail(user.getEMail());
 		us.setName(user.getName());
 		us.setPassword(pass);

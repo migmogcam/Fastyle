@@ -29,10 +29,11 @@
 	<div class="row justify-content-md-center" style="margin-top: 50px">
 		<form class="col-lg-6" style="background-color: white" method="post"
 			th:action="@{/nuevaCita}" th:object="${cita}">
-			<p style="font-size: x-large" align="center">Solicitar una cita para: Servicio
-				de peluquería</p>
+			<p style="font-size: x-large" align="center">Solicitar una cita
+				para: Servicio de peluquería</p>
 
-			<div class="alert alert-danger" role="alert" th:if="${fallo} == true">No se puede intruducir una fecha o hora en pasado</div>
+			<div class="alert alert-danger" role="alert" th:if="${fallo} == true">No
+				se puede intruducir una fecha o hora en pasado</div>
 			<div class="form-group row">
 				<label for="example-date-input" class="col-2 col-form-label">Fecha*</label>
 				<div class="col-10">
@@ -54,8 +55,12 @@
 				<textarea class="form-control" th:field="*{detalle}"
 					id="exampleFormControlTextarea1" rows="3"></textarea>
 			</div>
-
-			<button type="submit" class="btn btn-primary">Solicitar</button>
+			<div class="form-group row">
+				<div class="col-lg-12 text-center">
+					<button type="submit" class="btn btn-primary">Solicitar</button>
+					<a type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
+				</div>
+			</div>
 			<hr>
 
 		</form>

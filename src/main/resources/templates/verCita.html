@@ -126,7 +126,7 @@
 							<div class="col-lg-7">
 								<textarea rows="3" class="form-control" type="email"
 									th:field="${cita.respuesta}" th:disabled="${disableFields}"
-									required></textarea>
+									required th:readonly="${cita.estado != 'PENDIENTE'}"></textarea>
 
 							</div>
 						</div>
@@ -142,10 +142,10 @@
 							</div>
 						</div>
 
-						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group">
-							<label for="exampleFormControlTextarea1">Respuesta </label>
-							<div class="col-lg-9">
-								<select multiple class="form-control" required
+						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label">Respuesta </label>
+							<div class="col-lg-7">
+								<select class="form-control" th:readonly="${cita.estado != 'PENDIENTE'}" required
 									th:field="${cita.estado}">
 									<option th:value="'ACEPTADA'" th:text="ACEPTAR"></option>
 									<option th:value="'RECHAZADA'" th:text="RECHAZAR"></option>

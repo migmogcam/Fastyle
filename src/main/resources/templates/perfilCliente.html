@@ -77,7 +77,7 @@
 
 						</div>
 					</div>
-					
+
 					<div class="form-group row">
 						<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
 						<div class="col-lg-7">
@@ -85,6 +85,19 @@
 								th:field="${cliente.usuario.direccion}"
 								th:disabled="${disableFields}" readonly>
 
+
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="input-group">
+							<label class="col-lg-3 col-form-label form-control-label">Edad</label>
+
+							<div class="input-group-prepend" style="padding-left: 15px;">
+								<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
+							</div>
+							<input class="form-control number col-lg-5" type="number"
+								min="18" th:field="${cliente.usuario.edad}">
 
 						</div>
 					</div>
@@ -99,10 +112,10 @@
 						</div>
 					</div>
 
-					<a th:href="@{/edit}" role="button" class="btn btn-outline-primary btn-sm">Editar
-						perfil</a>
-					<a th:href="@{/eliminar}" role="button" class="btn btn-outline-danger btn-sm">Eliminar
-						cuenta</a>
+					<a th:href="@{/edit}" role="button"
+						class="btn btn-outline-primary btn-sm">Editar perfil</a> <a
+						th:href="@{/eliminar}" role="button"
+						class="btn btn-outline-danger btn-sm">Eliminar cuenta</a>
 
 
 				</div>
