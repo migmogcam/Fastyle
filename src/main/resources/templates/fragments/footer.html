@@ -25,15 +25,7 @@
 
 
 
-    <div data-auto-dismiss="2000" th:if="${loginCorrecto== true}" class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-         Operaci&oacuten realizada con &eacutexito.
-    </div>
     
-	<div data-auto-dismiss="2000" th:if="${loginError== true }" class="alert alert-danger alert-dismissible fade show">
-	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          Los campos no han sido correctamente introducidos.
-    </div>
 	
 
 		<script
@@ -52,7 +44,7 @@
      
        
 
-        <div class="row">
+        <div class="row links-footer">
           
             <a href="/about">Sobre nosotros</a>
           
@@ -66,6 +58,29 @@
 
 		
 	</nav>
+	
+	<div data-auto-dismiss="3000" th:if="${signup== true}" class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         Operaci&oacuten realizada con &eacutexito.
+    </div>
+    
+   
+	
+	
+	<div data-auto-dismiss="3000" th:if="${loginCorrecto== true}" class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         Operaci&oacuten realizada con &eacutexito.
+    </div>
+    
+	<div data-auto-dismiss="3000" th:if="${loginError== true }" class="alert alert-danger alert-dismissible fade show">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          Los campos no han sido correctamente introducidos.
+    </div>
+	
+	
+	
+	
+	
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>

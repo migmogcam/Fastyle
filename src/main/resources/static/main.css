@@ -432,7 +432,9 @@ body
 		
 	}
 	
-	.mx-auto a {
+	
+	
+	.links-footer a {
     margin-right: 20px;
     color: white;
 }
@@ -441,4 +443,10 @@ body
 .centrado{
    
      justify-content: center;
+}
+
+
+.alert-dismissible {
+    right: 10px;
+    bottom: 1px;
 }

@@ -127,7 +127,7 @@ public class UserController {
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "accionRealizada";
+		return "listadoServicios";
 	}
 
 	@GetMapping("/perfil")
