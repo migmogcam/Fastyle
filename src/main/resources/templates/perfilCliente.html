@@ -101,12 +101,12 @@
 
 						</div>
 					</div>
-					
+
 					<div class="form-group row">
 						<label class="col-lg-3 col-form-label form-control-label">Rol</label>
 						<div class="col-lg-7">
-							<input class="form-control" type="text"
-								placeholder="CLIENTE" readonly>
+							<input class="form-control" type="text" placeholder="CLIENTE"
+								readonly>
 
 
 						</div>
@@ -123,15 +123,44 @@
 					</div>
 
 					<a th:href="@{/edit}" role="button"
-						class="btn btn-outline-primary btn-sm">Editar perfil</a> <a
+						class="btn btn-outline-primary btn-sm">Editar perfil</a>
+					<button type="button" class="btn btn-outline-danger btn-sm"
+						data-toggle="modal" data-target="#exampleModal">Eliminar
+						cuenta</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Confirmar
+										la eliminación de la cuenta</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">¿Esta seguro que desea eliminar
+									todos los datos asociados a su cuenta?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-secondary btn-sm"
+										data-dismiss="modal">Cancelar</button>
+									<a
 						th:href="@{/eliminar}" role="button"
-						class="btn btn-outline-danger btn-sm">Eliminar cuenta</a>
-
-
+						class="btn btn-outline-danger btn-sm">Acepto eliminar mi cuenta</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--  <div th:replace="fragments/footer :: footer"></div> -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
+
+
+
 </html>

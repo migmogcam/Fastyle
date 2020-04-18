@@ -40,13 +40,30 @@
 								<th scope="row" th:text="${citaStat.index +1 }"></th>
 								<td th:text="${cita.fecha}"></td>
 								<td th:text="${cita.hora}"></td>
-								<td sec:authorize="hasRole('CLIENTE')"
+
+								<td th:if="${cita.esteticista != null}"
+									sec:authorize="hasRole('CLIENTE')"
 									th:text="${cita.esteticista.usuario.name}"></td>
-								<td sec:authorize="hasRole('ESTETICISTA')"
+
+								<td th:unless="${cita.esteticista != null}"
+									sec:authorize="hasRole('CLIENTE')">El esteticista ha
+									eliminado su cuenta</td>
+
+								<td th:if="${cita.cliente != null}"
+									sec:authorize="hasRole('ESTETICISTA')"
 									th:text="${cita.cliente.usuario.name}"></td>
+
+								<td th:unless="${cita.cliente != null}"
+									sec:authorize="hasRole('ESTETICISTA')">El
+									cliente ha eliminado su cuenta</td>
+
 								<td th:text="${cita.estado}"></td>
-								<td><a th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
+								<td th:if="${cita.cliente != null and cita.esteticista != null}"><a
+									th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
 									class="btn btn-outline-success ">Ver Detalles</a></td>
+								<td
+									th:unless="${cita.cliente != null and cita.esteticista != null}">Cita
+									cancelada</td>
 							</tr>
 						</tbody>
 					</table>
