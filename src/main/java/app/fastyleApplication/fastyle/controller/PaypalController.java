@@ -59,7 +59,32 @@ public class PaypalController {
 		LocalTime tFuturo = LocalTime.parse(order.getHora());
 		LocalDate ahora = LocalDate.now();
 		LocalTime tAhora = LocalTime.now();
+		Integer año = ahora.getYear();
+		Integer mes = ahora.getMonthValue();
+		Integer dia = ahora.getDayOfMonth();
+		Integer hora = tAhora.getHour();
+		Integer minuto = tAhora.getMinute();
+		String stringAño = año.toString();
+		String stringMes = mes.toString();
+		String stringDia = dia.toString();
+		String stringHora = hora.toString();
+		String stringMinuto = minuto.toString();
+		if(mes<10) {
+			stringMes = "0"+stringMes;
+		}
+		if(dia<10) {
+			stringDia = "0"+stringDia;
+		}
+		if(hora<10) {
+			stringHora = "0"+stringHora;
+		}
+		if(minuto<10) {
+			stringMinuto = "0"+stringMinuto;
+		}
+		String momento = stringAño+"-"+stringMes+"-"+stringDia+" "+stringHora+":"+stringMinuto;
+		
 		Cita saved = new Cita();
+		
 		if (futuro.isAfter(ahora) || futuro.isEqual(ahora)) {
 			if (futuro.isEqual(ahora) && tFuturo.isBefore(tAhora)) {
 				session.setAttribute("fallo", true);
@@ -74,6 +99,7 @@ public class PaypalController {
 					cita.setDetalle(order.getDetalle());
 					cita.setEsteticista(esteticista);
 					cita.setFecha(order.getFecha());
+					cita.setMomento(momento);
 					cita.setHora(order.getHora());
 					cita.setServicioEstetico(servicio);
 					cita.setEstado("PENDIENTE");
