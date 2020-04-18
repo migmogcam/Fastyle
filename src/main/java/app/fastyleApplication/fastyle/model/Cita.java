@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -61,8 +62,13 @@ public class Cita extends BaseEntity {
 	@Getter
 	@Setter
 	private String respuesta;
+	
 	@Getter
 	@Setter
 	private String estado;
+		
+	@Getter
+	@Setter
+	private String momento;
 
 }
