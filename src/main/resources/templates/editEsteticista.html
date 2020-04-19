@@ -63,12 +63,10 @@
 							<div class="input-group">
 								<label class="col-lg-3 col-form-label form-control-label">Edad</label>
 
-								<div class="input-group-prepend" style="padding-left: 15px;">
-									<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
-								</div>
-								<input class="form-control number col-lg-5" type="number"
+								<div class="col-lg-7">
+								<input class="form-control number" type="number"
 									min="18" th:field="${esteticista.usuario.edad}" readonly>
-
+</div>
 							</div>
 						</div>
 
@@ -83,18 +81,17 @@
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
 							<div class="col-lg-7">
-								<select id="provincia" th:field="${esteticista.usuario.provincia}">
+								<select class="form-control" id="provincia"
+									th:field="${esteticista.usuario.provincia}">
 									<option value="Sevilla">Sevilla</option>
 									<option value="Huelva">Huelva</option>
-									<option value="Cadiz">Cadiz</option>
+									<option value="Cadiz">C&aacutediz</option>
 									<option value="Cordoba">Cordoba</option>
-									<option value="Jaen">Jaen</option>
-									<option value="Malaga">Malaga</option>
-									<option value="Almeria">Almeria</option>
+									<option value="Jaen">Ja&eacuten</option>
+									<option value="Malaga">M&aacutelaga</option>
+									<option value="Almeria">Almer&iacutea</option>
 									<option value="Granada">Granada</option>
 								</select>
-
-
 							</div>
 						</div>
 

@@ -458,3 +458,14 @@ body
     color: #646B6C
 }
 
+
+#paginaError {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#cuerpoError {
+	margin-right: 10px;
+}
+

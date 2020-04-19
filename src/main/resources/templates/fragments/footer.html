@@ -59,10 +59,10 @@
 		
 	</nav>
 	
-	 <!-- 
+	  <!--
 	<div data-auto-dismiss="3000" th:if="${citasVacio== true}" class="alert alert-danger alert-dismissible fade show">
 	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          Los campos no han sido correctamente introducidos.
+          No hay citas disponibles.
     </div>
 	
 	<div data-auto-dismiss="3000" th:if="${== true}" class="alert alert-success alert-dismissible">
@@ -72,13 +72,20 @@
     -->
 	
 	
-	<div data-auto-dismiss="3000" th:if="${registro== true}" class="alert alert-success alert-dismissible">
+	<div data-auto-dismiss="3000"  th:if="${registro== true}" class="alert alert-success alert-dismissible">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
          Operaci&oacuten realizada con &eacutexito.
     </div>
     
-   
-	
+    
+    
+  <div data-auto-dismiss="3000"  th:if="${correcto== true}" class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         Operaci&oacuten realizada con &eacutexito.
+    </div>
+    
+    
+    
 	
 	<div data-auto-dismiss="3000" th:if="${loginCorrecto== true}" class="alert alert-success alert-dismissible">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

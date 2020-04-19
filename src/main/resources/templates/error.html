@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<title>Starter Template for Bootstrap</title>
+<title>Fastyle</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -12,10 +12,15 @@
 </head>
 <head th:insert="fragments/header :: header"></head>
 
-<body>
+<body id="paginaError">
 	<div th:replace="fragments/navbar :: navbar"></div>
 <hr>
-	<div class="alert alert-error" role="alert">Algo inesperado ha ocurrido</div>
+
+	<div class="error  alert alert-warning container-fluid" style=" width:60%; display: flex;justify-content: center; align-items: center;" role="alert">
+	<div style="margin-right: 10px;" id="cuerpoError">Algo inesperado ha ocurrido. Ha intentado acceder
+	 a una p&aacutegina que no existe o para la que no tiene permisos.</div>
+	 <input type="button"  class="btn btn-outline-primary btn-sm" onclick="history.back()" name="volver atras" value="volver atr&aacute;s">
+	 </div>
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

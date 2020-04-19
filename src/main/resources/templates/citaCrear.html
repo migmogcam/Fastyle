@@ -84,8 +84,10 @@
 					<form style="background-color: white" method="post"
 						th:action="@{/nuevaCita}" th:object="${cita}">
 
-						<div class="alert alert-danger" role="alert"
-							th:if="${fallo} == true">No se puede intruducir una fecha o
+						<div data-auto-dismiss="2000" style="z-index:300;" class="alert alert-danger" role="alert"
+							th:if="${fallo} == true">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							No se puede intruducir una fecha u
 							hora en pasado</div>
 
 						<div class="form-group row">

@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<title>Starter Template for Bootstrap</title>
+<title>Fastyle | No hay citas</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -15,7 +15,42 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 <hr>
-	<div class="alert alert-error" role="alert">No tienes citas</div>
+
+
+<div  class="alert alert-info">
+    
+       <div class="modal-body">No ha solicitado a&uacuten ninguna cita,
+								vaya a la página principal y reserve una</div>
+       <a  th:href="@{/}" role="button" class="btn btn-outline-danger btn-sm">Ir a p&aacutegina principal</a>
+        <a  th:href="@{/ayuda}" role="button" class="btn btn-outline-danger btn-sm">Ir a ayuda</a>
+    </div>
+
+
+
+
+
+
+<div class="modal fade">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">No hay citas disponibles</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">No ha solicitado a&uacuten ninguna cita,
+								vaya a la página principal y reserve una</div>
+								<div class="modal-footer">
+									
+									<a
+						th:href="@{/}" role="button"
+						class="btn btn-outline-danger btn-sm">Ir a p&aacutegina principal</a>
+								</div>
+							</div>
+						</div>
+					</div>
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

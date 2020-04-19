@@ -68,7 +68,7 @@ public class ServicioEsteticoController {
 			return "error";
 		}
 		model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-		return "accionRealizada";
+		return "redirect:/";
 	}
 
 	@PostMapping("/servicioEsteticoUpdate/{id}")
@@ -85,7 +85,7 @@ public class ServicioEsteticoController {
 			return "error";
 		}
 		model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-		return "accionRealizada";
+		return "redirect:/";
 	}
 
 	@GetMapping("/servicioEsteticoDelete/{id}")
@@ -96,7 +96,7 @@ public class ServicioEsteticoController {
 			return "error";
 		}
 		model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-		return "accionRealizada";
+		return "redirect:/";
 	}
 
 	//@GetMapping("/listadoServicios")
@@ -248,7 +248,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "accionRealizada"; // view
+		return "redirect:/";
 	}
 	
 	@GetMapping("/ServicioEditar/{idServ}")
@@ -291,7 +291,7 @@ public class ServicioEsteticoController {
 		try {
 			service.deleteServicioEsteticoById(id);
 			model.addAttribute("servicioEstetico", servicioEstetico);
-			return "accionRealizada";
+			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -316,7 +316,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "accionRealizada"; // view
+		return "redirect:/";
 	}
 
 }

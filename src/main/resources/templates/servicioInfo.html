@@ -12,13 +12,26 @@
 	<div class="container">
 
 		<div class="row">
+
+			<div class="col-lg-3" style="background-color: #ECECEC">
+
+				<h1 class="my-4">Nuestros servicios</h1>
+				<div class="list-group">
+					<a href="listadoServicios" class="list-group-item">Peluquería</a> <a
+						href="listadoServicios" class="list-group-item">Tinte</a> <a
+						href="listadoServicios" class="list-group-item">Pedicura o
+						Manicura</a> <a href="listadoServicios" class="list-group-item">Depilación</a>
+					<a href="listadoServicios" class="list-group-item">Todos</a>
+				</div>
+
+			</div>
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
 
 				<div class="card mt-4">
 					<img class="card-img-top"
-						th:src="${servicioEstetico.imagen}" height="400" width="600" alt="">
+						th:src="${servicioEstetico.imagen}" height="500" width="900" alt="">
 					<div class="card-body">
 						<h3 class="card-title">
 							Servicio de
@@ -39,8 +52,7 @@
 					<th:block th:switch="${est}">
 						<div class="container" th:case="'existe'">
 							<a sec:authorize="hasRole('ESTETICISTA')"
-								th:href="@{/ServicioCancelar/{idServ}(idServ=${servicioEstetico.id})}"
-								class="btn btn-outline-warning ">Dejar de ser esteticista</a>
+							data-toggle="modal"  data-target="#servicioModal" 	class="btn btn-outline-warning ">Dejar de ser esteticista</a>
 						</div>
 						<div class="container" th:case="'noExiste'">
 							<a sec:authorize="hasRole('ESTETICISTA')"
@@ -56,11 +68,12 @@
 							th:href="@{/ServicioEditar/{idServ}(idServ=${servicioEstetico.id})}"
 							class="btn btn-outline-warning ">Editar</a> <a
 							sec:authorize="hasRole('ADMIN')"
-							th:href="@{/ServicioBorrar/{idServ}(idServ=${servicioEstetico.id})}"
+								data-toggle="modal"  data-target="#servicioBorrarModal"
+							
+					 
 							class="btn btn-outline-danger ">Borrar</a>
 					</div>
-
-
+  
 
 				</div>
 				<!-- /.card -->
@@ -91,6 +104,62 @@
 
 	</div>
 	<!-- /.container -->
+	
+	
+						<!-- Modal -->
+	<div class="modal fade" id="servicioModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="servicioModalLabel">Confirmar
+										dejar el servicio</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">¿Est&aacute seguro que desea
+									dejar de prestar este servicio?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-secondary btn-sm"
+										data-dismiss="modal">Cancelar</button>
+									<a th:href="@{/ServicioCancelar/{idServ}(idServ=${servicioEstetico.id})}" role="button"
+										class="btn btn-outline-danger btn-sm">Acepto </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					<div class="modal fade" id="servicioBorrarModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="servicioModalLabel">Confirmar
+										borrar el servicio</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">¿Est&aacute seguro que desea
+									borrar el servicio?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-secondary btn-sm"
+										data-dismiss="modal">Cancelar</button>
+									<a th:href="@{/ServicioBorrar/{idServ}(idServ=${servicioEstetico.id})}" role="button"
+										class="btn btn-outline-danger btn-sm">Acepto </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					 
 
 	<div th:replace="fragments/footer :: footer"></div>
 
