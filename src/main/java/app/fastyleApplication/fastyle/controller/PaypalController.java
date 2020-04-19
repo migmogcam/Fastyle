@@ -112,7 +112,8 @@ public class PaypalController {
 			session.setAttribute("fallo", true);
 			return "redirect:/citaCrear/" + servicio.getId() + "/" + esteticista.getId();
 		}
-		return "accionRealizada";
+		session.setAttribute("correcto", true);
+		return "redirect:/misCitas";
 	}
 
 	@PostMapping("/pay")

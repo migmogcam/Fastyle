@@ -207,7 +207,7 @@ public class UserController {
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "accionRealizada";
+		return "redirect:/";
 	}
 
 	@PostMapping("/editarEsteticista")
@@ -233,7 +233,7 @@ public class UserController {
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "accionRealizada";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/eliminar")
