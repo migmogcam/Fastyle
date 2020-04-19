@@ -84,7 +84,7 @@ insert into servicio_esteticistas (servicio_id, esteticista_id) values (18,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (19,2);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (20,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (21,1);
-insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,2);
+insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,2);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (23,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (23,2);
