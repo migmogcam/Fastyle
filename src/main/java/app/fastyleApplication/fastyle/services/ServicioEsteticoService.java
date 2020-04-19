@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.fastyleApplication.fastyle.model.Cita;
 import app.fastyleApplication.fastyle.model.ServicioEstetico;
 import app.fastyleApplication.fastyle.repository.ServicioEsteticoRepository;
 
@@ -92,6 +93,10 @@ public class ServicioEsteticoService {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
+			for(Cita cita : servicioEstetico.get().getCitas()) {
+				cita.setServicioEstetico(null);
+			}
+			
 			servicioEstetico.get().setCitas(null);
 			servicioEstetico.get().setEsteticista(null);
 			repository.deleteById(id);
