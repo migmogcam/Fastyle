@@ -29,8 +29,8 @@ insert into usuario (id, apellido1, apellido2, ciudad, direccion, e_mail, name, 
 insert into usuario (id, apellido1, apellido2, ciudad, direccion, e_mail, name, password, provincia, usuario, edad) values ('1','Nieto','Ureña','Bormujos', 'Avenida Juan Carlos I Rey de España Nº10', 'elniet@hotmail.es','Elia','$2y$04$kdT5cuHQu/TwAS86FKBWG.4QJXaRt2v2yRGiBIL8N59Ozue6xTE3y','Sevilla','elias', 28);
 insert into usuario (id, apellido1, apellido2, ciudad, direccion, e_mail, name, password, provincia, usuario, edad) values ('2','González','García','Santiponce', 'Calle Giraldillo Nº95', 'jcgonzalez@dvo','José Carlos','$2y$04$k1./314y4aPyYUID7K3Tee89gkz/.6DGe.jS1dUzUiyxxz.sztVJe','Sevilla','carlos', 27);
 
-insert into cliente values (1,1);
-insert into cliente values (2,2);
+insert into cliente values (1, 50.0,1);
+insert into cliente values (2, 8.0,2);
 
 insert into esteticista (descripcion, usuario_id, id) values ('Hola soy Antonio, llevo 3 meses realizando cortes de pelo, todos mis clientes están muy contentos.', 4,1);
 insert into imagenes values (1,'https://static3.abc.es/media/summum/2019/12/07/Yolanda-Aberasturi-TUPe-FLEXIBLE-WEB--kfhG--660x372@abc.jpg');
@@ -84,7 +84,7 @@ insert into servicio_esteticistas (servicio_id, esteticista_id) values (18,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (19,2);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (20,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (21,1);
-insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,2);
+insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (22,2);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (23,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (23,2);

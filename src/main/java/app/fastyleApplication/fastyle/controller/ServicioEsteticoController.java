@@ -108,12 +108,12 @@ public class ServicioEsteticoController {
 			List<ServicioEstetico> servicios = null;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = null;
-			if(!username.equals("anonymousUser") && !username.equals("admin") && !authorities.contains(new SimpleGrantedAuthority("ROLE_ESTETICISTA"))) {
+			if(!username.equals("anonymousUser") && !username.equals("admin")) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();
 			}
 			try {
-				if(!username.equals("anonymousUser") && !username.equals("admin") && !authorities.contains(new SimpleGrantedAuthority("ROLE_ESTETICISTA"))) {
+				if(!username.equals("anonymousUser") && !username.equals("admin")) {
 					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
 					model.addAttribute("listaServicios", servicios);
 				} else {

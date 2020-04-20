@@ -11,11 +11,15 @@
 <head th:insert="fragments/header :: header"></head>
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
+	
+	</br>
+	</br>
+	</br>
 	<div class="container">
 		<div class="mx-auto col-sm-8 main-section">
 			<div class="card">
 				<div class="card-header">
-					<h4>Editar servicio estetico</h4>
+					<h4 align="center">Editar servicio estetico</h4>
 				</div>
 				<div class="card-body">
 					<div>
@@ -30,11 +34,13 @@
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Tipo</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text"
-										th:field="${servicioEstetico.tipo}"
-										th:disabled="${disableFields}" >
-
-
+									<select id="provincia" th:field="${servicioEstetico.tipo}">
+										<option value="Peluqueria">Peluqueria</option>
+										<option value="Tinte">Tinte</option>
+										<option value="Pedicura y Manicura">Pedicura y
+											Manicura</option>
+										<option value="Depilacion">Depilacion</option>
+									</select>
 								</div>
 							</div>
 
@@ -63,12 +69,17 @@
 
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
-								<div class="col-lg-9">
-									<input class="form-control" type="text"
-										th:field="${servicioEstetico.provincia}"
-										th:disabled="${disableFields}" >
-
-
+								<div class="col-lg-7">
+									<select id="provincia" th:field="${servicioEstetico.provincia}">
+										<option value="Sevilla">Sevilla</option>
+										<option value="Huelva">Huelva</option>
+										<option value="Cadiz">Cadiz</option>
+										<option value="Cordoba">Cordoba</option>
+										<option value="Jaen">Jaen</option>
+										<option value="Malaga">Malaga</option>
+										<option value="Almeria">Almeria</option>
+										<option value="Granada">Granada</option>
+									</select>
 								</div>
 							</div>
 

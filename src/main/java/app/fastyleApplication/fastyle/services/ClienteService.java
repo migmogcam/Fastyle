@@ -44,6 +44,7 @@ public class ClienteService {
 			newEntity.getUsuario().setUsuario(entity.getUsuario().getUsuario());
 			newEntity.getUsuario().setDireccion(entity.getUsuario().getDireccion());
 			newEntity.getUsuario().setEdad(entity.getUsuario().getEdad());
+			newEntity.setPuntos(entity.getPuntos());
 			
 			if(null != entity.getUsuario().getPassword() && !"".equals(entity.getUsuario().getPassword())) {
 				newEntity.getUsuario().setPassword(entity.getUsuario().getPassword());
