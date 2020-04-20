@@ -326,7 +326,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "servicioCreado";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/ServicioBorrar/{idServ}")
