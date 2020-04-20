@@ -61,8 +61,7 @@
 								<td th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}"><a
 									th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
 									class="btn btn-outline-success ">Ver Detalles</a></td>
-								<td
-									th:unless="${cita.cliente != null and cita.esteticista != null  and cita.servicioEstetico != null}">Cita
+								<td th:unless="${cita.cliente != null and cita.esteticista != null  and cita.servicioEstetico != null}">Cita
 									cancelada</td>
 							</tr>
 						</tbody>
