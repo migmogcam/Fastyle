@@ -51,6 +51,7 @@ public class UserController {
 	@Autowired
 	RoleRepository roleRepository;
 
+	
 	@Autowired
 	AuthorityService autoRepository;
 

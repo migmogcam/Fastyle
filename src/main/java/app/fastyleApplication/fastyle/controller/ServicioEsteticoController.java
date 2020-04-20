@@ -57,6 +57,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
+		
 		return "redirect:/";
 	}
 

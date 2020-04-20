@@ -21,6 +21,7 @@
 				</div>
 				<div class="card-body">
 
+
 					<form class="form" role="form" autocomplete="off"
 						th:object="${cita}" th:action="${isCliente} ? @{/pay}
 						: @{/guardarRespuesta}"
@@ -33,6 +34,7 @@
 							<div class="col-lg-7">
 								<input class="form-control" type="text" th:field="${cita.fecha}"
 									th:disabled="${disableFields}" readonly>
+
 
 
 							</div>
