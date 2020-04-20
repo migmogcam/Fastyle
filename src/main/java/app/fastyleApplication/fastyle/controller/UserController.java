@@ -104,7 +104,7 @@ public class UserController {
 		Cliente cliente = new Cliente();
 		Esteticista esteticista = new Esteticista();
 		if (user.getAutority().equals("ROLE_CLIENTE")) {
-
+			cliente.setPuntos(0.0);
 			cliente.setCitas(citas);
 			cliente.setUsuario(us);
 		} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {

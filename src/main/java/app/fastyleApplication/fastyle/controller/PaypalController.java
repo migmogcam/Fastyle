@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -71,22 +72,22 @@ public class PaypalController {
 		String stringDia = dia.toString();
 		String stringHora = hora.toString();
 		String stringMinuto = minuto.toString();
-		if(mes<10) {
-			stringMes = "0"+stringMes;
+		if (mes < 10) {
+			stringMes = "0" + stringMes;
 		}
-		if(dia<10) {
-			stringDia = "0"+stringDia;
+		if (dia < 10) {
+			stringDia = "0" + stringDia;
 		}
-		if(hora<10) {
-			stringHora = "0"+stringHora;
+		if (hora < 10) {
+			stringHora = "0" + stringHora;
 		}
-		if(minuto<10) {
-			stringMinuto = "0"+stringMinuto;
+		if (minuto < 10) {
+			stringMinuto = "0" + stringMinuto;
 		}
-		String momento = stringAño+"-"+stringMes+"-"+stringDia+" "+stringHora+":"+stringMinuto;
-		
+		String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
+
 		Cita saved = new Cita();
-		
+
 		if (futuro.isAfter(ahora) || futuro.isEqual(ahora)) {
 			if (futuro.isEqual(ahora) && tFuturo.isBefore(tAhora)) {
 				session.setAttribute("fallo", true);
@@ -125,8 +126,9 @@ public class PaypalController {
 		try {
 			String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
 			String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
-			Payment payment = service.createPayment(order.getServicioEstetico().getPrecio().toString(), "EUR", "paypal", "sale",
-					"Compra de servicio Estetico de " + order.getServicioEstetico().getTipo(), cancelUrl, successUrl);
+			Payment payment = service.createPayment(order.getServicioEstetico().getPrecio().toString(), "EUR", "paypal",
+					"sale", "Compra de servicio Estetico de " + order.getServicioEstetico().getTipo(), cancelUrl,
+					successUrl);
 			for (Links link : payment.getLinks()) {
 				if (link.getRel().equals("approval_url")) {
 					session.setAttribute("citaSave", order);
@@ -137,6 +139,30 @@ public class PaypalController {
 
 			e.printStackTrace();
 
+		}
+		return "redirect:/";
+	}
+
+	@GetMapping("/pagarPuntos/{id}")
+	public String pagarPuntos(@PathVariable("id") Integer id, Model model) {
+		try {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			Cliente c = this.clienteService.findByUsuario(u);
+			Cita cita = this.citaService.getCitaById(id);
+			if (c.getPuntos() >= cita.getServicioEstetico().getPrecio()) {
+				Double puntos = c.getPuntos()-cita.getServicioEstetico().getPrecio();
+				c.setPuntos(puntos);
+				this.clienteService.createOrUpdateCliente(c);
+			} else {
+				return "cancel";
+			}
+			cita.setEstado("PAGADA");
+			citaService.createOrUpdateCita(cita);
+			return "pagoCorrecto";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "redirect:/";
 	}
@@ -156,10 +182,16 @@ public class PaypalController {
 			HttpServletRequest request) {
 		Cita cita = (Cita) request.getSession().getAttribute("citaSave");
 		Cita saved = new Cita();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		Cliente c = this.clienteService.findByUsuario(u);
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
 			if (payment.getState().equals("approved")) {
 				try {
+					Double puntos = (cita.getServicioEstetico().getPrecio()*0.1) + c.getPuntos();
+					c.setPuntos(puntos);
+					this.clienteService.createOrUpdateCliente(c);
 					cita.setEstado("PAGADA");
 					saved = citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
