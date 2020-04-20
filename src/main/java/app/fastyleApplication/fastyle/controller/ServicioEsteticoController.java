@@ -36,6 +36,7 @@ public class ServicioEsteticoController {
 	@Autowired
 	UsuarioService usuarioService;
 
+	
 	@Autowired
 	EsteticistaService esteticistaService;
 
@@ -57,7 +58,8 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "servicioCreado";
+		
+		return "redirect:/";
 	}
 
 	@GetMapping("/servicioEsteticoEdit/{id}")

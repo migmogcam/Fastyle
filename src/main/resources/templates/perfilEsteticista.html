@@ -13,6 +13,8 @@
 					<h4 align="center">Perfil de esteticista</h4>
 				</div>
 
+
+
 				<div
 					th:if="${esteticista.imagenes!=null and !esteticista.imagenes.isEmpty()}"
 					class="container">
@@ -137,11 +139,10 @@
 						<div class="input-group">
 							<label class="col-lg-3 col-form-label form-control-label">Edad</label>
 
-							<div class="input-group-prepend" style="padding-left: 15px;">
-								<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
+							<div class="col-lg-7">
+								<input class="form-control number" type="number" min="18"
+									th:field="${esteticista.usuario.edad}" readonly>
 							</div>
-							<input class="form-control number col-lg-5" type="number"
-								min="18" th:field="${esteticista.usuario.edad}" readonly>
 
 						</div>
 					</div>
@@ -166,9 +167,9 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="exampleFormControlTextarea1">Descripci&oacute;n</label>
-						<div class="col-lg-9">
+					<div class="form-group row">
+						<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Descripci&oacute;n</label>
+						<div class="col-lg-7">
 							<textarea class="form-control"
 								th:field="${esteticista.descripcion}" rows="3"
 								th:disabled="${disableFields}" readonly></textarea>
