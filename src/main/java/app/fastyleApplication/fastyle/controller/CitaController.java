@@ -59,7 +59,7 @@ public class CitaController {
 			e.printStackTrace();
             return "error";
 		}
-        return "accionRealizada";
+        return "redirect:/";
     }
 	
 	@GetMapping("/citaEdit/{id}")
@@ -70,7 +70,7 @@ public class CitaController {
             return "error";
 		}
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "accionRealizada";
+        return "redirect:/";
 	}
 	
 	@PostMapping("/citaUpdate/{id}")
@@ -87,7 +87,7 @@ public class CitaController {
 			return "error";
 		}
         model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-        return "accionRealizada";
+        return "redirect:/";
 	}
 	
 	@GetMapping("/citaDelete/{id}")
@@ -124,15 +124,34 @@ public class CitaController {
         return "citaCrear"; //view
     }
 	
+	
+
+	/*   Si me logeo con un cliente y voy a los detalles
+	 *  de una cita mia, si pongo la id de otra cita que no es mia, 
+	 *  me deja ver los detalles de esa cita. */
+	
+	
 	@GetMapping("/verCita/{idCita}")
     public String diplayCita(@PathVariable("idCita") Integer id,Model model, HttpSession session, HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
 				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		
+		// usuario logueado
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario u = this.usuarioService.findByUsuario(username);
+		// cliente de la cita
+		
 		try {
+			
+			Usuario userCliente =    this.service.getCitaById(id).getCliente().getUsuario();
+			Usuario userEsteticista =  this.service.getCitaById(id).getEsteticista().getUsuario();
+			if(userCliente.equals(u) || userEsteticista.equals(u)) {
+			
 			Cita cita = this.service.getCitaById(id);
 			model.addAttribute("cita", cita);
 			model.addAttribute("isCliente", isCliente);
+			}
 		} catch (Exception e) {
 			return "error";
 		}

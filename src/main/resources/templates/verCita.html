@@ -156,11 +156,10 @@
 						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Respuesta </label>
 							<div class="col-lg-7">
-								<select class="form-control" th:readonly="${cita.estado != 'PENDIENTE'}" required
-									th:field="${cita.estado}">
-									<option th:value="'ACEPTADA'" th:text="ACEPTAR"></option>
-									<option th:value="'RECHAZADA'" th:text="RECHAZAR"></option>
-								</select>
+								<input  class="form-control" th:readonly="${cita.estado != 'PENDIENTE'}" required
+									th:field="${cita.estado}"
+									
+								>
 							</div>
 						</div>
 
@@ -185,6 +184,6 @@
 			</div>
 		</div>
 	</div>
-	<!--  <div th:replace="fragments/footer :: footer"></div> -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
