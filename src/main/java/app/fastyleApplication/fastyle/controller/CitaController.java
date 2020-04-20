@@ -87,7 +87,7 @@ public class CitaController {
 			e.printStackTrace();
             return "error";
 		}
-        return "accionRealizada";
+        return "redirect:/";
     }
 	
 	@GetMapping("/citaEdit/{id}")

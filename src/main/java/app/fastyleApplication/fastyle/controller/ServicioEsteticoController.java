@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,7 +58,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "servicioCreado";
+		return "redirect:/";
 	}
 
 	@GetMapping("/servicioEsteticoEdit/{id}")
@@ -127,6 +128,7 @@ public class ServicioEsteticoController {
 			return "listadoServicios"; // view
 		}
 		
+		
 		// @GetMapping("/listadoServicios/tinte")
 		@GetMapping("/tinte")
 		public String listadoTinte(Model model) {
@@ -134,9 +136,21 @@ public class ServicioEsteticoController {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+			
 			try {
+				if(hasAdminRole) {
+					
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Tinte");
+					model.addAttribute("listaServicios", serviciosTipo);
+					
+					
+					}else { // para clientes y esteticistas
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
 				model.addAttribute("listaServicios", serviciosTipo);
+			}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
@@ -151,9 +165,20 @@ public class ServicioEsteticoController {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 			try {
+				if(hasAdminRole) {
+					
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Pedicura y Manicura");
+					model.addAttribute("listaServicios", serviciosTipo);
+					
+					
+					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
 				model.addAttribute("listaServicios", serviciosTipo);
+					}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
@@ -168,9 +193,20 @@ public class ServicioEsteticoController {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 			try {
+				if(hasAdminRole) {
+					
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Depilacion");
+					model.addAttribute("listaServicios", serviciosTipo);
+					
+					
+					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
 				model.addAttribute("listaServicios", serviciosTipo);
+					}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
@@ -185,9 +221,19 @@ public class ServicioEsteticoController {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 			try {
+				if(hasAdminRole) {
+					
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria");
+					model.addAttribute("listaServicios", serviciosTipo);
+					
+					
+					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
-				model.addAttribute("listaServicios", serviciosTipo);
+				model.addAttribute("listaServicios", serviciosTipo);}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
@@ -280,7 +326,7 @@ public class ServicioEsteticoController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "servicioCreado";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/ServicioBorrar/{idServ}")

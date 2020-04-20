@@ -38,6 +38,16 @@ public class ServicioEsteticoService {
 		}
 	}
 	
+	public List<ServicioEstetico> getAllServicioEsteticosPorTipo(String tipo) {
+		List<ServicioEstetico> servicioEsteticoList = repository.findByTipo(tipo);
+
+		if (servicioEsteticoList.size() > 0) {
+			return servicioEsteticoList;
+		} else {
+			return new ArrayList<ServicioEstetico>();
+		}
+	}
+	
 	public List<ServicioEstetico> getAllServicioEsteticosPorProvinciaYTipo(String provincia, String tipo) {
 		List<ServicioEstetico> res = new ArrayList<ServicioEstetico>();
 		List<ServicioEstetico> servicioEsteticoList = repository.findAll();

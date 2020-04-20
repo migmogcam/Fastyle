@@ -157,7 +157,7 @@ public class PaypalController {
 			}
 			cita.setEstado("PAGADA");
 			citaService.createOrUpdateCita(cita);
-			return "pagoCorrecto";
+			return "redirect:/";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
