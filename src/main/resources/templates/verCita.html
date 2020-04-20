@@ -22,7 +22,8 @@
 				<div class="card-body">
 
 					<form class="form" role="form" autocomplete="off"
-						th:object="${cita}" th:action="${isCliente} ? @{/pay}
+						th:object="${cita}"
+						th:action="${isCliente} ? @{/pay}
 						: @{/guardarRespuesta}"
 						method="post">
 
@@ -46,21 +47,24 @@
 
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label">Momento del envío del mensaje</label>
+							<label class="col-lg-3 col-form-label form-control-label">Momento
+								del envío del mensaje</label>
 							<div class="col-lg-7">
-								<input class="form-control" type="text" th:field="${cita.momento}"
-									th:disabled="${disableFields}" readonly>
+								<input class="form-control" type="text"
+									th:field="${cita.momento}" th:disabled="${disableFields}"
+									readonly>
 
 
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
 							<div class="col-lg-7">
-								<input class="form-control" type="text" th:field="${cita.cliente.usuario.direccion}"
+								<input class="form-control" type="text"
+									th:field="${cita.cliente.usuario.direccion}"
 									th:disabled="${disableFields}" readonly>
 
 
@@ -154,9 +158,11 @@
 						</div>
 
 						<div sec:authorize="hasRole('ESTETICISTA')" class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label">Respuesta </label>
+							<label class="col-lg-3 col-form-label form-control-label">Respuesta
+							</label>
 							<div class="col-lg-7">
-								<select class="form-control" th:readonly="${cita.estado != 'PENDIENTE'}" required
+								<select class="form-control"
+									th:readonly="${cita.estado != 'PENDIENTE'}" required
 									th:field="${cita.estado}">
 									<option th:value="'ACEPTADA'" th:text="ACEPTAR"></option>
 									<option th:value="'RECHAZADA'" th:text="RECHAZAR"></option>
@@ -167,24 +173,66 @@
 						<div sec:authorize="hasRole('ESTETICISTA')"
 							th:if="${cita.estado == 'PENDIENTE'}" class="form-group row">
 							<div class="col-lg-12 text-center">
-								<input type="submit" class="btn btn-outline-primary"
-									value="Guardar">
+								<input type="submit" class="btn btn-outline-primary btn-sm"
+									value="Guardar"> <a type="button"
+									class="btn btn-outline-dark btn-sm" th:href="@{/}">Cancelar</a>
 							</div>
 						</div>
 
 						<div sec:authorize="hasRole('CLIENTE')"
 							th:if="${cita.estado == 'ACEPTADA'}" class="form-group row">
 							<div class="col-lg-12 text-center">
-								<input type="submit" class="btn btn-outline-success"
+								<input type="submit" class="btn btn-outline-success btn-sm"
 									value="Pagar">
+								<button type="button" class="btn btn-outline-warning btn-sm"
+									data-toggle="modal" data-target="#exampleModal">Usar
+									puntos</button>
+								<a type="button" class="btn btn-outline-dark btn-sm"
+									th:href="@{/}">Cancelar</a>
 							</div>
 						</div>
 
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmar
+											compra con puntos</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										¿Desea usar sus puntos para pagar el
+										servicio estetico? <br> <br>
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label form-control-label">Puntos</label>
+											<div class="col-lg-7">
+												<input class="form-control" type="email"
+													th:field="${cita.cliente.puntos}"
+													th:disabled="${disableFields}" readonly>
+
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-secondary btn-sm"
+											data-dismiss="modal">Cancelar</button>
+										<a th:href="@{/pagarPuntos/{idCita}(idCita=${cita.id})}" role="button"
+											class="btn btn-outline-danger btn-sm">Aceptar</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--  <div th:replace="fragments/footer :: footer"></div> -->
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

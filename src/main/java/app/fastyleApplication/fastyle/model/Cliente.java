@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 import lombok.Getter;
@@ -33,5 +34,8 @@ public class Cliente extends BaseEntity{
 	@Getter
 	@Setter
 	private Usuario usuario;
+	
+	@Range(min = 0)
+	private Double puntos;
 
 }
