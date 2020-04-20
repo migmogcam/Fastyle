@@ -1,5 +1,7 @@
 package app.fastyleApplication.fastyle.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +56,32 @@ public class CitaController {
 	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
         try {
+        	LocalDate ahora = LocalDate.now();
+    		LocalTime tAhora = LocalTime.now();
+    		Integer año = ahora.getYear();
+    		Integer mes = ahora.getMonthValue();
+    		Integer dia = ahora.getDayOfMonth();
+    		Integer hora = tAhora.getHour();
+    		Integer minuto = tAhora.getMinute();
+    		String stringAño = año.toString();
+    		String stringMes = mes.toString();
+    		String stringDia = dia.toString();
+    		String stringHora = hora.toString();
+    		String stringMinuto = minuto.toString();
+    		if (mes < 10) {
+    			stringMes = "0" + stringMes;
+    		}
+    		if (dia < 10) {
+    			stringDia = "0" + stringDia;
+    		}
+    		if (hora < 10) {
+    			stringHora = "0" + stringHora;
+    		}
+    		if (minuto < 10) {
+    			stringMinuto = "0" + stringMinuto;
+    		}
+    		String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
+    		cita.setMomento(momento);
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			e.printStackTrace();

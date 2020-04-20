@@ -57,6 +57,7 @@ public class CitaService {
 			newEntity.setDetalle(entity.getDetalle());
 			newEntity.setEstado(entity.getEstado());
 			newEntity.setRespuesta(entity.getRespuesta());
+			newEntity.setMomento(entity.getMomento());
 			newEntity = repository.save(newEntity);
 
 			return newEntity;
