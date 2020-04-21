@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.dto;
+package app.fastyleApplication.fastyle.dto;
 
 import lombok.Getter;
 import lombok.Setter;

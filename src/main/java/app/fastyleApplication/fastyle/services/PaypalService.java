@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.services;
+package app.fastyleApplication.fastyle.services;
 
 import java.util.ArrayList;
 import java.util.List;

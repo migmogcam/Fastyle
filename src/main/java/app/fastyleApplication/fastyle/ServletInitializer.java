@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle;
+package app.fastyleApplication.fastyle;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle;
+package app.fastyleApplication.fastyle;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

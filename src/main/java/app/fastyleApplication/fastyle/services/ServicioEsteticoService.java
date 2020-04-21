@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.services;
+package app.fastyleApplication.fastyle.services;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.fastyleapplication.fastyle.model.Cita;
-import app.fastyleapplication.fastyle.model.ServicioEstetico;
-import app.fastyleapplication.fastyle.repository.ServicioEsteticoRepository;
+import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.repository.ServicioEsteticoRepository;
 
 @Service
 public class ServicioEsteticoService {

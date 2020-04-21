@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle;
+package app.fastyleApplication.fastyle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import app.fastyleapplication.fastyle.services.UsuarioService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 
 @Configuration
 @EnableAutoConfiguration

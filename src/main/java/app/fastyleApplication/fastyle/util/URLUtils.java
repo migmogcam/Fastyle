@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.util;
+package app.fastyleApplication.fastyle.util;
 
 import javax.servlet.http.HttpServletRequest;
 

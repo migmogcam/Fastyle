@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.model;
+package app.fastyleApplication.fastyle.model;
 
 import java.util.List;
 

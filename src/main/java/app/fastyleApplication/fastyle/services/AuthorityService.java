@@ -1,10 +1,10 @@
-package app.fastyleapplication.fastyle.services;
+package app.fastyleApplication.fastyle.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.fastyleapplication.fastyle.model.Authority;
-import app.fastyleapplication.fastyle.repository.AuthorityRepository;
+import app.fastyleApplication.fastyle.model.Authority;
+import app.fastyleApplication.fastyle.repository.AuthorityRepository;
 
 @Service
 public class AuthorityService {

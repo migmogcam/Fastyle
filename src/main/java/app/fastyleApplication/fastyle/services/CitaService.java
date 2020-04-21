@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.services;
+package app.fastyleApplication.fastyle.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.fastyleapplication.fastyle.model.Cita;
-import app.fastyleapplication.fastyle.repository.CitaRepository;
+import app.fastyleApplication.fastyle.model.Cita;
+import app.fastyleApplication.fastyle.repository.CitaRepository;
 
 @Service
 public class CitaService {

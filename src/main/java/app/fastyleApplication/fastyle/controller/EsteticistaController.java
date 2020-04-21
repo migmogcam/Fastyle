@@ -1,9 +1,9 @@
-package app.fastyleapplication.fastyle.controller;
+package app.fastyleApplication.fastyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import app.fastyleapplication.fastyle.services.EsteticistaService;
+import app.fastyleApplication.fastyle.services.EsteticistaService;
 
 @Controller
 public class EsteticistaController {

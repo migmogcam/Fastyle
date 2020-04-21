@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.services;
+package app.fastyleApplication.fastyle.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import app.fastyleapplication.fastyle.model.Authority;
-import app.fastyleapplication.fastyle.model.Usuario;
-import app.fastyleapplication.fastyle.repository.UsuarioRepository;
+import app.fastyleApplication.fastyle.model.Authority;
+import app.fastyleApplication.fastyle.model.Usuario;
+import app.fastyleApplication.fastyle.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService implements UserDetailsService {

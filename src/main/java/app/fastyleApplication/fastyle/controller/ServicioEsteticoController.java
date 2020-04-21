@@ -1,4 +1,4 @@
-package app.fastyleapplication.fastyle.controller;
+package app.fastyleApplication.fastyle.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import app.fastyleapplication.fastyle.model.Esteticista;
-import app.fastyleapplication.fastyle.model.ServicioEstetico;
-import app.fastyleapplication.fastyle.model.Usuario;
-import app.fastyleapplication.fastyle.services.EsteticistaService;
-import app.fastyleapplication.fastyle.services.ServicioEsteticoService;
-import app.fastyleapplication.fastyle.services.UsuarioService;
+import app.fastyleApplication.fastyle.model.Esteticista;
+import app.fastyleApplication.fastyle.model.ServicioEstetico;
+import app.fastyleApplication.fastyle.model.Usuario;
+import app.fastyleApplication.fastyle.services.EsteticistaService;
+import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
+import app.fastyleApplication.fastyle.services.UsuarioService;
 
 @Controller
 public class ServicioEsteticoController {
