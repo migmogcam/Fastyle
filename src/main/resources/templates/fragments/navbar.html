@@ -14,9 +14,9 @@
 		<ul class="navbar-nav mr-auto">
 
 			<li sec:authorize="hasRole('CLIENTE')" class="nav-item"><a
-				class="nav-link" th:href="@{/misCitas}">Iniciar sesión</a></li>
+				class="nav-link" th:href="@{/misCitas}">Mis citas</a></li>
 			<li sec:authorize="hasRole('ESTETICISTA')" class="nav-item"><a
-				class="nav-link" th:href="@{/misCitasEsteticista}">Iniciar sesi&oacute;n</a></li>
+				class="nav-link" th:href="@{/misCitasEsteticista}">Mis citas</a></li>
 
 			<li sec:authorize="hasRole('ADMIN')" class="nav-item"><a
 				class="nav-link" th:href="@{/servicioEsteticoRegistro}">Crear
