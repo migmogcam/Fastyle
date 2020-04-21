@@ -132,7 +132,7 @@ public class UserController {
 				model.addAttribute("formErrorMessage", e.getMessage());
 			}
 		}
-		return "listadoServicios";
+		return "redirect:/";
 	}
 
 	@GetMapping("/perfil")

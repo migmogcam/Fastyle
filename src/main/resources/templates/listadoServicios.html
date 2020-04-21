@@ -89,7 +89,14 @@
 					</tr>
 
 				</div>
-				<!-- /.row -->
+				<div th:if="${listaServicios.isEmpty()}"  class="alert alert-info">
+    
+       <div>No hay servicios aún en su provincia. Puede ir a editar perfil para cambiar su provincia y ver los servicios disponibles allí</div>
+								<div class="col-lg-12 text-center">
+								
+       <a sec:authorize="hasRole('CLIENTE') or hasRole('ESTETICISTA')" th:href="@{/edit}" role="button" class="btn btn-outline-danger btn-sm">Ir a editar perfil</a>
+        <a  th:href="@{/ayuda}" role="button" class="btn btn-outline-danger btn-sm">Ir a ayuda</a>
+    </div>
 
 			</div>
 			<!-- /.col-lg-9 -->
