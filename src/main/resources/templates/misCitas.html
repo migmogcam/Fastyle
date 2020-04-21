@@ -14,7 +14,75 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 	<div class="container">
+				<br />
+				<br />
 		<div class="row">
+
+			<th:block th:if="${citasEsteticista}">
+				<div class="mx-auto col-sm-8 main-section">
+					<div class="card">
+						<div
+							th:if="${esteticista.imagenes!=null and !esteticista.imagenes.isEmpty()}"
+							class="container">
+							<h3 class="card-title" align="center">Book del esteticista</h3>
+							<div id="carouselExampleIndicators" class="carousel slide my-4"
+								data-ride="carousel">
+								<ol class="carousel-indicators">
+									<tr th:each="imagen,iter : ${esteticista.imagenes}">
+										<li
+											th:if="${iter.index == 0 and not #strings.isEmpty(imagen)}"
+											data-target="#carouselExampleIndicators" data-slide-to="0"
+											class="active"></li>
+										<li
+											th:if="${iter.index == 1 and not #strings.isEmpty(imagen)}"
+											data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+										<li
+											th:if="${iter.index == 2 and not #strings.isEmpty(imagen)}"
+											data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+										<li
+											th:if="${iter.index == 3 and not #strings.isEmpty(imagen)}"
+											data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+									</tr>
+								</ol>
+								<div class="carousel-inner" role="listbox">
+									<tr th:each="imagen,iter : ${esteticista.imagenes}">
+										<div
+											th:if="${iter.index == 0 and not #strings.isEmpty(imagen)}"
+											class="carousel-item active">
+											<img class="d-block img-fluid" th:src="${imagen}">
+										</div>
+										<div
+											th:if="${iter.index == 1 and not #strings.isEmpty(imagen)}"
+											class="carousel-item">
+											<img class="d-block img-fluid" th:src="${imagen}">
+										</div>
+										<div
+											th:if="${iter.index == 2 and not #strings.isEmpty(imagen)}"
+											class="carousel-item">
+											<img class="d-block img-fluid" th:src="${imagen}">
+										</div>
+										<div
+											th:if="${iter.index == 3 and not #strings.isEmpty(imagen)}"
+											class="carousel-item">
+											<img class="d-block img-fluid" th:src="${imagen}">
+										</div>
+									</tr>
+								</div>
+								<a class="carousel-control-prev"
+									href="#carouselExampleIndicators" role="button"
+									data-slide="prev"> <span class="carousel-control-prev-icon"
+									aria-hidden="true"></span> <span class="sr-only">Previous</span>
+								</a> <a class="carousel-control-next"
+									href="#carouselExampleIndicators" role="button"
+									data-slide="next"> <span class="carousel-control-next-icon"
+									aria-hidden="true"></span> <span class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</th:block>
+
 			<div class="col-sm-12 d-flex justify-content-center">
 				<div class="w-75 mt-5">
 
@@ -22,69 +90,68 @@
 
 					<h3 th:if="${not citasEsteticista}" class="card-title"
 						align="center">Mis citas</h3>
-					<h3 th:if="${citasEsteticista}" class="card-title"
-						align="center">
+					<h3 th:if="${citasEsteticista}" class="card-title" align="center">
 						Citas del esteticista
+			</th:block>
+			</h3>
+			<table th:if="${not #lists.isEmpty(citas)}"
+				class="table table-striped align-middle" style="margin-top: 50px">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Fecha</th>
+						<th scope="col">Hora</th>
+						<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
+						<th th:if="${not citasEsteticista}"
+							sec:authorize="hasRole('ESTETICISTA')" scope="col">Cliente</th>
+						<th scope="col">Estado</th>
+						<th th:if="${not citasEsteticista}" scope="col">Información y
+							pago</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cita : ${citas}">
+
+						<th scope="row" th:text="${citaStat.index +1 }"></th>
+						<td th:text="${cita.fecha}"></td>
+						<td th:text="${cita.hora}"></td>
+
+						<td th:if="${cita.esteticista != null}"
+							sec:authorize="hasRole('CLIENTE')"
+							th:text="${cita.esteticista.usuario.name}"></td>
+
+						<td th:unless="${cita.esteticista != null}"
+							sec:authorize="hasRole('CLIENTE')">El esteticista ha
+							eliminado su cuenta</td>
+
+						<td th:if="${cita.cliente != null}"
+							sec:authorize="hasRole('ESTETICISTA')"
+							th:text="${cita.cliente.usuario.name}"></td>
+
+						<td th:unless="${cita.cliente != null}"
+							sec:authorize="hasRole('ESTETICISTA')">El cliente ha
+							eliminado su cuenta</td>
+
+						<td th:text="${cita.estado}"></td>
+						<th:block th:if="${not citasEsteticista}">
+							<td
+								th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}"><a
+								th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
+								class="btn btn-outline-success ">Ver Detalles</a></td>
+							<td
+								th:unless="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}">Cita
+								cancelada</td>
 						</th:block>
-					</h3>
-					<table th:if="${not #lists.isEmpty(citas)}"
-						class="table table-striped align-middle" style="margin-top: 50px">
-						<thead>
-							<tr>
-								<th scope="col"></th>
-								<th scope="col">Fecha</th>
-								<th scope="col">Hora</th>
-								<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
-								<th th:if="${not citasEsteticista}"
-									sec:authorize="hasRole('ESTETICISTA')" scope="col">Cliente</th>
-								<th scope="col">Estado</th>
-								<th th:if="${not citasEsteticista}" scope="col">Información
-									y pago</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="cita : ${citas}">
-
-								<th scope="row" th:text="${citaStat.index +1 }"></th>
-								<td th:text="${cita.fecha}"></td>
-								<td th:text="${cita.hora}"></td>
-
-								<td th:if="${cita.esteticista != null}"
-									sec:authorize="hasRole('CLIENTE')"
-									th:text="${cita.esteticista.usuario.name}"></td>
-
-								<td th:unless="${cita.esteticista != null}"
-									sec:authorize="hasRole('CLIENTE')">El esteticista ha
-									eliminado su cuenta</td>
-
-								<td th:if="${cita.cliente != null}"
-									sec:authorize="hasRole('ESTETICISTA')"
-									th:text="${cita.cliente.usuario.name}"></td>
-
-								<td th:unless="${cita.cliente != null}"
-									sec:authorize="hasRole('ESTETICISTA')">El cliente ha
-									eliminado su cuenta</td>
-
-								<td th:text="${cita.estado}"></td>
-								<th:block th:if="${not citasEsteticista}">
-								<td
-									th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}"><a
-									th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
-									class="btn btn-outline-success ">Ver Detalles</a></td>
-								<td
-									th:unless="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}">Cita
-									cancelada</td>
-								</th:block>
-							</tr>
-						</tbody>
-					</table>
-					<div class="col-lg-12 text-center">
-						<button type="button" class="btn btn-outline-dark btn-sm"
-							onclick='javascript:window.history.back()'>Cancelar</button>
-					</div>
-				</div>
+					</tr>
+				</tbody>
+			</table>
+			<div class="col-lg-12 text-center">
+				<button type="button" class="btn btn-outline-dark btn-sm"
+					onclick='javascript:window.history.back()'>Cancelar</button>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

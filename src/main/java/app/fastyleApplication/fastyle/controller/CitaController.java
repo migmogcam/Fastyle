@@ -204,6 +204,7 @@ public class CitaController {
 			return "emptyCitas";
 		} else {
 			model.put("citas", citas);
+			model.put("esteticista", citas.get(0).getEsteticista());
 			model.put("citasEsteticista", true);
 	        return "misCitas"; //view
 		}
