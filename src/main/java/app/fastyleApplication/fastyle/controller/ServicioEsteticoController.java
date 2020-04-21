@@ -128,6 +128,37 @@ public class ServicioEsteticoController {
 		}
 		
 		
+		// Para la categoria mascotas
+				@GetMapping("/mascotas")
+				public String listadoMascotas(Model model) {
+					List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+					String username = SecurityContextHolder.getContext().getAuthentication().getName();
+					Usuario u = this.usuarioService.findByUsuario(username);
+					String provincia = u.getProvincia();
+					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+					boolean hasAdminRole = authentication.getAuthorities().stream()
+							.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+					
+				//	boolean noAnonymous = authentication.isAuthenticated();
+					try {
+						if(hasAdminRole ) {
+							
+							serviciosTipo= service.getAllServicioEsteticosPorTipo("Mascotas");
+							model.addAttribute("listaServicios", serviciosTipo);
+							
+							
+							}else { // para clientes y esteticistas
+						serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
+						model.addAttribute("listaServicios", serviciosTipo);
+					}
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "error";
+					}
+					return "listadoServicios"; // view
+				}
+		
+		
 		// @GetMapping("/listadoServicios/tinte")
 		@GetMapping("/tinte")
 		public String listadoTinte(Model model) {

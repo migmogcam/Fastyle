@@ -19,7 +19,7 @@
 		<div class="mx-auto col-sm-8 main-section">
 			<div class="card">
 				<div class="card-header">
-					<h4>Crear servicio estetico</h4>
+					<h4 align="center">Crear servicio estetico</h4>
 				</div>
 				<div class="card-body">
 					<div>
@@ -33,13 +33,14 @@
 
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Tipo</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<select class="form-control" id="tiposevicio" th:field="${servicioEstetico.tipo}">
 										<option value="Peluqueria">Peluquer&iacutea</option>
 										<option value="Tinte">Tinte</option>
 										<option value="Pedicura y Manicura">Pedicura y
 											Manicura</option>
 										<option value="Depilacion">Depilaci&oacuten</option>
+										<option value="Mascotas">Mascotas</option>
 									</select>
 								</div>
 							</div>
@@ -47,7 +48,7 @@
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Descripción
 									corta</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<input class="form-control" type="text"
 										th:field="${servicioEstetico.detalleAcortado}"
 										th:disabled="${disableFields}" required>
@@ -58,7 +59,7 @@
 
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Detalles</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<textarea class="form-control" rows="5" id="comment"
 										th:field="${servicioEstetico.detalle}"
 										th:disabled="${disableFields}" required></textarea>
@@ -69,7 +70,7 @@
 
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<select class="form-control" id="provincia" th:field="${servicioEstetico.provincia}">
 										<option value="Sevilla">Sevilla</option>
 										<option value="Huelva">Huelva</option>
@@ -85,7 +86,7 @@
 
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<input class="form-control" type="text"
 										th:field="${servicioEstetico.ciudad}"
 										th:disabled="${disableFields}" required>
@@ -97,7 +98,7 @@
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">URL
 									imagen</label>
-								<div class="col-lg-9">
+								<div class="col-lg-7">
 									<input class="form-control" type="text"
 										th:field="${servicioEstetico.imagen}"
 										th:disabled="${disableFields}" required>
@@ -105,15 +106,14 @@
 								</div>
 							</div>
 
-							<div class="input-group">
+							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Precio</label>
-								<div class="input-group-prepend">
-									<span class="input-group-text">€</span>
-								</div>
+								<div class="col-lg-7">
 								<input type="number" th:field="${servicioEstetico.precio}"
 									value="1000" min="0" step="0.01" data-number-to-fixed="2"
-									data-number-stepfactor="100" class="form-control currency"
+									data-number-stepfactor="100" class="form-control"
 									id="c2" />
+									</div>
 							</div>
 
 							<br>
