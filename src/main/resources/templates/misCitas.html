@@ -24,7 +24,9 @@
 						<div
 							th:if="${esteticista.imagenes!=null and !esteticista.imagenes.isEmpty()}"
 							class="container">
+							<div class="card-header">
 							<h3 class="card-title" align="center">Book del esteticista</h3>
+							</div>
 							<div id="carouselExampleIndicators" class="carousel slide my-4"
 								data-ride="carousel">
 								<ol class="carousel-indicators">
@@ -49,22 +51,22 @@
 										<div
 											th:if="${iter.index == 0 and not #strings.isEmpty(imagen)}"
 											class="carousel-item active">
-											<img class="d-block img-fluid" th:src="${imagen}">
+											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 1 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}">
+											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 2 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}">
+											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 3 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}">
+											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
 										</div>
 									</tr>
 								</div>
