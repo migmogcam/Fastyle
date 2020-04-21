@@ -15,6 +15,6 @@ addons:
   sonarqube:
     organization: "fastyle"
     token:
-      secure: 59995df6689ff055d7af90b4a632e8b34a98e4c2
+      secure: acqNHHriZiTeFa4iJuXYcU4YQvvAlvjZ+ZcxJJHUXIw8dyaGw73C7X6M492HBaHHFM7c2QoO/pDZR8bAGPiixA3RrAp00nSgKxeYKtFMOIfSR3+V1x6C+l73qQtH85FZSTeI4DYhjzh24GGUiyOo39bMolA8B7/A64gfqNWdC/+eEIrwRXyYRvBTY6+B95bzZtkfavEaTGSQZ0H+7qiSiyUaI+Opv4OOJiLeVNi4ytqCuVkCgJ6g/I2tEGkX/zeYB82jtfbWrpep8rUxhRwzHzCXMGQw7kRY8vk8u5EZpVYqUvo/8mPad0ANNlvxuhxVV6q3N0iOl5TCRae/hTPXYlD+83ebHht1W1yNKukIT7KCeB3+ARuwqhtZjGt5VP7KLo/TqNCFRFIkwUerB7tZlurcGIFu94WMNZMnN4bIPLqJr7a6hXFAbUwyVKu7BzXE+S546Nhr5HMgE2k4LHmeKo0U78qsy0L/AX7jzA+t6bYbHcW6AQUzR9/3yR4qsFg1y3bTsN7/VQJ7PhMb8d5FQYmU8d3wz8u3ZbT+AeHXJmaf+abHKi58HvQCD+rAgQu3bglaKcNx151FKs73aO8eGw3lbbOPqyt/K+GAhRJOuFJHicou4R42AZBwyeAKBgT/3m7w6NFja0geLmfc1LPHR1tG/o+x095Wk+3ZUHoCmYQ=
 script:
   - sonar-scanner
