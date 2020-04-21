@@ -1,9 +1,9 @@
-package app.fastyleApplication.fastyle.repository;
+package app.fastyleapplication.fastyle.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import app.fastyleApplication.fastyle.entities.Role;
+import app.fastyleapplication.fastyle.entities.Role;
 
 
 

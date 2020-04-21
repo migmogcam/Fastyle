@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.services;
+package app.fastyleapplication.fastyle.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import app.fastyleApplication.fastyle.model.Cita;
-import app.fastyleApplication.fastyle.model.Cliente;
-import app.fastyleApplication.fastyle.model.Usuario;
-import app.fastyleApplication.fastyle.repository.CitaRepository;
-import app.fastyleApplication.fastyle.repository.ClienteRepository;
+import app.fastyleapplication.fastyle.model.Cita;
+import app.fastyleapplication.fastyle.model.Cliente;
+import app.fastyleapplication.fastyle.model.Usuario;
+import app.fastyleapplication.fastyle.repository.CitaRepository;
+import app.fastyleapplication.fastyle.repository.ClienteRepository;
 
 @Service
 public class ClienteService {

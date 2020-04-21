@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle;
+package app.fastyleapplication.fastyle;
 
 public class CustomeFieldValidationException extends Exception{
 

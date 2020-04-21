@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle;
+package app.fastyleapplication.fastyle;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 

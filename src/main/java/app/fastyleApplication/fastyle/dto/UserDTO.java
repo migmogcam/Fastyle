@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.dto;
+package app.fastyleapplication.fastyle.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-//package app.fastyleApplication.fastyle.entities;
+//package app.fastyleapplication.fastyle.entities;
 //
 //import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;

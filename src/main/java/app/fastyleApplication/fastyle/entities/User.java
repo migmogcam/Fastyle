@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.entities;
+package app.fastyleapplication.fastyle.entities;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -14,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;

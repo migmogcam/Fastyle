@@ -1,17 +1,10 @@
-package app.fastyleApplication.fastyle.services;
+package app.fastyleapplication.fastyle.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.fastyleApplication.fastyle.model.Administrador;
-import app.fastyleApplication.fastyle.model.Authority;
-import app.fastyleApplication.fastyle.repository.AdministradorRepository;
-import app.fastyleApplication.fastyle.repository.AuthorityRepository;
+import app.fastyleapplication.fastyle.model.Authority;
+import app.fastyleapplication.fastyle.repository.AuthorityRepository;
 
 @Service
 public class AuthorityService {

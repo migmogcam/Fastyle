@@ -1,7 +1,6 @@
-package app.fastyleApplication.fastyle.model;
+package app.fastyleapplication.fastyle.model;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,15 +11,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Currency;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import app.fastyleApplication.fastyle.entities.Role;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.controller;
+package app.fastyleapplication.fastyle.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import app.fastyleApplication.fastyle.dto.CitaDTO;
-import app.fastyleApplication.fastyle.model.Cita;
-import app.fastyleApplication.fastyle.model.Cliente;
-import app.fastyleApplication.fastyle.model.Esteticista;
-import app.fastyleApplication.fastyle.model.ServicioEstetico;
-import app.fastyleApplication.fastyle.model.Usuario;
-import app.fastyleApplication.fastyle.services.CitaService;
-import app.fastyleApplication.fastyle.services.ClienteService;
-import app.fastyleApplication.fastyle.services.EsteticistaService;
-import app.fastyleApplication.fastyle.services.ServicioEsteticoService;
-import app.fastyleApplication.fastyle.services.UsuarioService;
+import app.fastyleapplication.fastyle.dto.CitaDTO;
+import app.fastyleapplication.fastyle.model.Cita;
+import app.fastyleapplication.fastyle.model.Cliente;
+import app.fastyleapplication.fastyle.model.Esteticista;
+import app.fastyleapplication.fastyle.model.ServicioEstetico;
+import app.fastyleapplication.fastyle.model.Usuario;
+import app.fastyleapplication.fastyle.services.CitaService;
+import app.fastyleapplication.fastyle.services.ClienteService;
+import app.fastyleapplication.fastyle.services.EsteticistaService;
+import app.fastyleapplication.fastyle.services.ServicioEsteticoService;
+import app.fastyleapplication.fastyle.services.UsuarioService;
 
 @Controller
 public class CitaController {

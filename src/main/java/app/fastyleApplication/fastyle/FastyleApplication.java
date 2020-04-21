@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle;
+package app.fastyleapplication.fastyle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

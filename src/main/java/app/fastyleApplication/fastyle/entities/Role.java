@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.entities;
+package app.fastyleapplication.fastyle.entities;
 
 import java.io.Serializable;
 

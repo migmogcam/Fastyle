@@ -1,17 +1,14 @@
-package app.fastyleApplication.fastyle.controller;
+package app.fastyleapplication.fastyle.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +17,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import antlr.StringUtils;
-import app.fastyleApplication.fastyle.CustomeFieldValidationException;
-import app.fastyleApplication.fastyle.dto.UserDTO;
-import app.fastyleApplication.fastyle.entities.Role;
-import app.fastyleApplication.fastyle.model.Authority;
-import app.fastyleApplication.fastyle.model.Cita;
-import app.fastyleApplication.fastyle.model.Cliente;
-import app.fastyleApplication.fastyle.model.Esteticista;
-import app.fastyleApplication.fastyle.model.Usuario;
-import app.fastyleApplication.fastyle.repository.RoleRepository;
-import app.fastyleApplication.fastyle.services.AuthorityService;
-import app.fastyleApplication.fastyle.services.ClienteService;
-import app.fastyleApplication.fastyle.services.EsteticistaService;
-import app.fastyleApplication.fastyle.services.UsuarioService;
-import app.fastyleApplication.fastyle.util.PassGenerator;
+
+import app.fastyleapplication.fastyle.CustomeFieldValidationException;
+import app.fastyleapplication.fastyle.dto.UserDTO;
+import app.fastyleapplication.fastyle.entities.Role;
+import app.fastyleapplication.fastyle.model.Authority;
+import app.fastyleapplication.fastyle.model.Cita;
+import app.fastyleapplication.fastyle.model.Cliente;
+import app.fastyleapplication.fastyle.model.Esteticista;
+import app.fastyleapplication.fastyle.model.Usuario;
+import app.fastyleapplication.fastyle.repository.RoleRepository;
+import app.fastyleapplication.fastyle.services.AuthorityService;
+import app.fastyleapplication.fastyle.services.ClienteService;
+import app.fastyleapplication.fastyle.services.EsteticistaService;
+import app.fastyleapplication.fastyle.services.UsuarioService;
+import app.fastyleapplication.fastyle.util.PassGenerator;
 
 @Controller
 public class UserController {

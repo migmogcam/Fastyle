@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.controller;
+package app.fastyleapplication.fastyle.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

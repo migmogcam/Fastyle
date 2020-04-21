@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.model;
+package app.fastyleapplication.fastyle.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.model;
+package app.fastyleapplication.fastyle.model;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

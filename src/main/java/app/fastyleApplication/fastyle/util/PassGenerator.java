@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.util;
+package app.fastyleapplication.fastyle.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

@@ -1,4 +1,4 @@
-package app.fastyleApplication.fastyle.controller;
+package app.fastyleapplication.fastyle.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,22 +16,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
-import app.fastyleApplication.fastyle.dto.CitaDTO;
-import app.fastyleApplication.fastyle.model.Cita;
-import app.fastyleApplication.fastyle.model.Cliente;
-import app.fastyleApplication.fastyle.model.Esteticista;
-import app.fastyleApplication.fastyle.model.ServicioEstetico;
-import app.fastyleApplication.fastyle.model.Usuario;
-import app.fastyleApplication.fastyle.services.CitaService;
-import app.fastyleApplication.fastyle.services.ClienteService;
-import app.fastyleApplication.fastyle.services.PaypalService;
-import app.fastyleApplication.fastyle.services.UsuarioService;
-import app.fastyleApplication.fastyle.util.URLUtils;
+import app.fastyleapplication.fastyle.dto.CitaDTO;
+import app.fastyleapplication.fastyle.model.Cita;
+import app.fastyleapplication.fastyle.model.Cliente;
+import app.fastyleapplication.fastyle.model.Esteticista;
+import app.fastyleapplication.fastyle.model.ServicioEstetico;
+import app.fastyleapplication.fastyle.model.Usuario;
+import app.fastyleapplication.fastyle.services.CitaService;
+import app.fastyleapplication.fastyle.services.ClienteService;
+import app.fastyleapplication.fastyle.services.PaypalService;
+import app.fastyleapplication.fastyle.services.UsuarioService;
+import app.fastyleapplication.fastyle.util.URLUtils;
 
 @Controller
 public class PaypalController {

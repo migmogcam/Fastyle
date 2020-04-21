@@ -1,13 +1,12 @@
-package app.fastyleApplication.fastyle.repository;
+package app.fastyleapplication.fastyle.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import app.fastyleApplication.fastyle.model.Cliente;
-import app.fastyleApplication.fastyle.model.Esteticista;
-import app.fastyleApplication.fastyle.model.Usuario;
+import app.fastyleapplication.fastyle.model.Cliente;
+import app.fastyleapplication.fastyle.model.Usuario;
 
 
 @Repository
