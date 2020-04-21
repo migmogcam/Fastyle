@@ -187,7 +187,7 @@ public class PaypalController {
 			Payment payment = service.executePayment(paymentId, payerId);
 			if (payment.getState().equals("approved")) {
 				try {
-					Double puntos = (cita.getServicioEstetico().getPrecio()*0.2) + c.getPuntos();
+					Double puntos = (cita.getServicioEstetico().getPrecio()*0.1) + c.getPuntos();
 					c.setPuntos(puntos);
 					this.clienteService.createOrUpdateCliente(c);
 					cita.setEstado("PAGADA");
