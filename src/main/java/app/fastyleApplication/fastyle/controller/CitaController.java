@@ -177,9 +177,34 @@ public class CitaController {
 		
 		if(citas.isEmpty()) {
 			model2.addAttribute("citasVacio", true);
+			model2.addAttribute("citasEsteticista", false);
 			return "emptyCitas";
 		} else {
 			model.put("citas", citas);
+			model.put("citasEsteticista", false);
+	        return "misCitas"; //view
+		}
+    }
+
+	@GetMapping("/citasEsteticista/{idEst}")
+    public String citasEsteticista(@PathVariable("idEst") Integer id, final Map<String, Object> model, Model model2) {
+		Esteticista esteticista = null;
+		try {
+			esteticista = this.esteticistaService.getEsteticistaById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Cita> citas = new LinkedList<Cita>();
+		citas = esteticista.getCitas();
+		
+		if(citas.isEmpty()) {
+			model2.addAttribute("citasVacio", true);
+			model2.addAttribute("citasEsteticista", true);
+			return "emptyCitas";
+		} else {
+			model.put("citas", citas);
+			model.put("citasEsteticista", true);
 	        return "misCitas"; //view
 		}
     }
@@ -193,9 +218,11 @@ public class CitaController {
 		citas = c.getCitas();
 		
 		if(citas.isEmpty()) {
+			model.put("citasEsteticista", false);
 			return "emptyCitas";
 		} else {
 			model.put("citas", citas);
+			model.put("citasEsteticista", false);
 	        return "misCitas"; //view
 		}
     }

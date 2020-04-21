@@ -73,6 +73,9 @@
 							<a sec:authorize="hasRole('CLIENTE')"
 								th:href="@{/citaCrear/{idServ}/{idEst}(idServ=${servicioEstetico.id}, idEst=${esteticista.id})}"
 								class="btn btn-success">Pedir una Cita</a>
+							<a sec:authorize="hasRole('CLIENTE')"
+								th:href="@{/citasEsteticista/{idEst}(idEst=${esteticista.id})}"
+								class="btn btn-success">Ver citas del esteticista</a>
 							<hr>
 						</tr>
 

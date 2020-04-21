@@ -92,3 +92,4 @@ insert into servicio_esteticistas (servicio_id, esteticista_id) values (24,2);
 
 insert into cita values(1,'detalle',  'ACEPTADA', '2021-01-01','18:30', '2020-01-01 14:27','OK',1,1,1);
 insert into cita values(2,'detalle1', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK',2,1,1);
+insert into cita values(3,'detalle2', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK',2,2,2);
