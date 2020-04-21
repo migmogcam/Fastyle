@@ -61,11 +61,23 @@
 						</li>
 					</ul></li>
 
-				<li th:case="*" class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#"
+				<li th:case="*" class="nav-item dropdown">
+				<a sec:authorize="hasRole('CLIENTE')" class="nav-link dropdown-toggle" href="#"
 					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> <img
-						src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+						src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS4bkPT14o4_n_lnU-3DNyZol1LE0vParolHN-kXQTD8exgO4-8&usqp=CAU"
+						width="40" height="40" class="rounded-circle">
+				</a>
+				<a sec:authorize="hasRole('ESTETICISTA')" class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> <img
+						src="https://previews.123rf.com/images/sanek13744/sanek137441707/sanek13744170700604/82985617-icono-plano-de-tijeras-ilustraci%C3%B3n-de-vector-de-tijera-pictograma-simple-del-concepto-del-negocio-en-fo.jpg"
+						width="40" height="40" class="rounded-circle">
+				</a>
+				<a sec:authorize="hasRole('ADMIN')" class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> <img
+						src="https://previews.123rf.com/images/yuliaglam/yuliaglam1706/yuliaglam170600008/80110489-vector-s%C3%ADmbolo-icono-de-la-estrella.jpg"
 						width="40" height="40" class="rounded-circle">
 				</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -79,9 +91,6 @@
 		</ul>
 		</ul>
 	</div>
-
-
-
 </nav>
 
 
