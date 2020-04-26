@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/loginCorrecto")
 				.failureUrl("/loginError").and().logout()
                 .permitAll()
-                .logoutSuccessUrl("/");;
+                .logoutSuccessUrl("/");
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	  @Bean
 	  public UserDetailsService userDetailsService() {
 	    return new UsuarioService();
-	  };
+	  }
 	  
 	  @Override
 	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {

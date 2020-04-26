@@ -83,8 +83,6 @@ public class PaypalController {
 		}
 		String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
 
-		Cita saved = new Cita();
-
 		if (futuro.isAfter(ahora) || futuro.isEqual(ahora)) {
 			if (futuro.isEqual(ahora) && tFuturo.isBefore(tAhora)) {
 				session.setAttribute("fallo", true);
@@ -103,7 +101,7 @@ public class PaypalController {
 					cita.setHora(order.getHora());
 					cita.setServicioEstetico(servicio);
 					cita.setEstado("PENDIENTE");
-					saved = citaService.createOrUpdateCita(cita);
+					citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -119,7 +117,7 @@ public class PaypalController {
 	@PostMapping("/pay")
 	public String payment(@ModelAttribute("cita") Cita order, HttpServletRequest request, HttpSession session,
 			Model model) {
-
+		String redirect1 = "redirect:/";
 		try {
 			String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
 			String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
@@ -137,11 +135,12 @@ public class PaypalController {
 			e.printStackTrace();
 
 		}
-		return "redirect:/";
+		return redirect1;
 	}
 
 	@GetMapping("/pagarPuntos/{id}")
 	public String pagarPuntos(@PathVariable("id") Integer id, Model model) {
+		String redirect2 = "redirect:/";
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
@@ -182,18 +181,12 @@ public class PaypalController {
 			}
 			cita.setEstado("PAGADA");
 			citaService.createOrUpdateCita(cita);
-			return "redirect:/";
+			return redirect2;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:/";
+		return redirect2;
 	}
-
-//	@PostMapping("/pay")
-//	public String paymentTest(@ModelAttribute("cita") Cita order,HttpServletRequest request) {
-//		return "pagoCorrecto";
-//	}
 
 	@GetMapping(value = PAYPAL_CANCEL_URL)
 	public String cancelPay() {
@@ -204,7 +197,6 @@ public class PaypalController {
 	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
 			HttpServletRequest request) {
 		Cita cita = (Cita) request.getSession().getAttribute("citaSave");
-		Cita saved = new Cita();
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Cliente c = this.clienteService.findByUsuario(u);
@@ -242,7 +234,7 @@ public class PaypalController {
 					String momento2 = stringAño2 + "-" + stringMes2 + "-" + stringDia2 + " " + stringHora2 + ":" + stringMinuto2;
 					cita.setMomento(momento2);
 					cita.setEstado("PAGADA");
-					saved = citaService.createOrUpdateCita(cita);
+					citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
 					return "error";
 				}

@@ -83,7 +83,7 @@ public class Usuario{
 
 	public Usuario() {}
 
-	public Usuario(String usuario, String passwordS) {
+	public Usuario(String usuario, String password) {
 		this.usuario = usuario; 
 		this.password = password;
 		

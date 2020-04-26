@@ -24,9 +24,8 @@ public class ClienteService {
 	CitaRepository citaRepo;
 
 	public Cliente findByUsuario(Usuario usuario) {
-		Cliente appUser = repository.findByUsuario(usuario)
+		return repository.findByUsuario(usuario)
 				.orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
-		return appUser;
 	}
 
 	public Cliente createOrUpdateCliente(Cliente entity) throws Exception {
@@ -64,7 +63,7 @@ public class ClienteService {
 	public List<Cliente> getAllClientes() {
 		List<Cliente> clienteList = repository.findAll();
 
-		if (clienteList.size() > 0) {
+		if (!clienteList.isEmpty()) {
 			return clienteList;
 		} else {
 			return new ArrayList<Cliente>();

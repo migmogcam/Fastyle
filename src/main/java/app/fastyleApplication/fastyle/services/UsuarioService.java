@@ -77,7 +77,7 @@ public class UsuarioService implements UserDetailsService {
 	                  repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
 
 	    //Mapear nuestra lista de Authority con la de spring security 
-	     List grantList = new ArrayList();
+	     List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 	     for (Authority authority: appUser.getAuthorities()) {
 	         // ROLE_USER, ROLE_ADMIN,..
 	         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
@@ -85,8 +85,7 @@ public class UsuarioService implements UserDetailsService {
 	     }
 
 	    //Crear El objeto UserDetails que va a ir en sesion y retornarlo.
-	    UserDetails user = (UserDetails) new User(appUser.getUsuario(), appUser.getPassword(), grantList);
-	         return user;
+	    return (UserDetails) new User(appUser.getUsuario(), appUser.getPassword(), grantList);
 	    }
 	
 

@@ -20,7 +20,7 @@ public class AdministradorService {
     {
         List<Administrador> administradorList = repository.findAll();
          
-        if(administradorList.size() > 0) {
+        if(!administradorList.isEmpty()) {
             return administradorList;
         } else {
             return new ArrayList<Administrador>();

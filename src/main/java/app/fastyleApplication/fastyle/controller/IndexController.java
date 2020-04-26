@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-//	@GetMapping("/")
-//    public String main(Model model) {
-//        return "index"; //view
-//		// return "listadoServicios";
-//    }
-
 	// Login form
 	@RequestMapping("/login")
 	public String login(Model model) {
