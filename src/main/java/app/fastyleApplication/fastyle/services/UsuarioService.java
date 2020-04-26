@@ -24,24 +24,22 @@ public class UsuarioService implements UserDetailsService {
     UsuarioRepository repository;
      
      
-    public Usuario createOrUpdateCliente(Usuario entity) throws Exception 
-    {
+    public Usuario createOrUpdateCliente(Usuario entity) throws Exception {
     	
     	if(entity.getId()!= null) {
-        Optional<Usuario> cliente = repository.findById(entity.getId());
-         
-       
-        
-            Usuario newEntity = cliente.get();
-            newEntity.setApellido1(entity.getApellido1());
-            newEntity.setApellido2(entity.getApellido2());
-            newEntity.setName(entity.getName());
-            newEntity.setCiudad(entity.getCiudad());
-            newEntity.setProvincia(entity.getProvincia());
-            newEntity.setEMail(entity.getEMail());
-            newEntity.setDireccion(entity.getDireccion());
-            newEntity.setEdad(entity.getEdad());
-            
+	        Optional<Usuario> cliente = repository.findById(entity.getId());
+	        Usuario newEntity = new Usuario();
+	        if(cliente.isPresent()) {
+	            newEntity = cliente.get();
+	            newEntity.setApellido1(entity.getApellido1());
+	            newEntity.setApellido2(entity.getApellido2());
+	            newEntity.setName(entity.getName());
+	            newEntity.setCiudad(entity.getCiudad());
+	            newEntity.setProvincia(entity.getProvincia());
+	            newEntity.setEMail(entity.getEMail());
+	            newEntity.setDireccion(entity.getDireccion());
+	            newEntity.setEdad(entity.getEdad());
+	        }
             newEntity = repository.save(newEntity);
              
             return newEntity;

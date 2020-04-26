@@ -188,7 +188,7 @@ public class CitaController {
 
 	@GetMapping("/citasEsteticista/{idEst}")
     public String citasEsteticista(@PathVariable("idEst") Integer id, final Map<String, Object> model, Model model2) {
-		Esteticista esteticista = null;
+		Esteticista esteticista = new Esteticista();
 		try {
 			esteticista = this.esteticistaService.getEsteticistaById(id);
 		} catch (Exception e) {

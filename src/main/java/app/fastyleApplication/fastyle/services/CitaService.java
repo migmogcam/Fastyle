@@ -47,16 +47,18 @@ public class CitaService {
 
 	public Cita createOrUpdateCita(Cita entity) throws Exception {
 		if(entity.getId() != null) {
-		Optional<Cita> cita = repository.findById(entity.getId());
-			Cita newEntity = cita.get();
-			newEntity.setFecha(entity.getFecha());
-			newEntity.setHora(entity.getHora());
-			newEntity.setDetalle(entity.getDetalle());
-			newEntity.setEstado(entity.getEstado());
-			newEntity.setRespuesta(entity.getRespuesta());
-			newEntity.setMomento(entity.getMomento());
-			newEntity = repository.save(newEntity);
-
+			Optional<Cita> cita = repository.findById(entity.getId());
+			Cita newEntity = new Cita();
+			if(cita.isPresent()) {
+				newEntity = cita.get();
+				newEntity.setFecha(entity.getFecha());
+				newEntity.setHora(entity.getHora());
+				newEntity.setDetalle(entity.getDetalle());
+				newEntity.setEstado(entity.getEstado());
+				newEntity.setRespuesta(entity.getRespuesta());
+				newEntity.setMomento(entity.getMomento());
+				newEntity = repository.save(newEntity);
+			}
 			return newEntity;
 		} else {
 			entity = repository.save(entity);

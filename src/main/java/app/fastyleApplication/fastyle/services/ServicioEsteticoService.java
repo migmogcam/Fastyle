@@ -75,19 +75,20 @@ public class ServicioEsteticoService {
 
 	public ServicioEstetico createOrUpdateServicioEstetico(ServicioEstetico entity) throws Exception {
 		if(entity.getId() != null) {
-		Optional<ServicioEstetico> servicioEstetico = repository.findById(entity.getId());
-
-			ServicioEstetico newEntity = servicioEstetico.get();
-			newEntity.setCitas(entity.getCitas());
-			newEntity.setDetalle(entity.getDetalle());
-			newEntity.setDetalleAcortado(entity.getDetalleAcortado());
-			newEntity.setCiudad(entity.getCiudad());
-			newEntity.setProvincia(entity.getProvincia());
-			newEntity.setImagen(entity.getImagen());
-			newEntity.setPrecio(entity.getPrecio());
-			newEntity.setTipo(entity.getTipo());
-			newEntity.setEsteticista(entity.getEsteticista());
-			
+			Optional<ServicioEstetico> servicioEstetico = repository.findById(entity.getId());
+			ServicioEstetico newEntity = new ServicioEstetico();
+			if(servicioEstetico.isPresent()) {
+				newEntity = servicioEstetico.get();
+				newEntity.setCitas(entity.getCitas());
+				newEntity.setDetalle(entity.getDetalle());
+				newEntity.setDetalleAcortado(entity.getDetalleAcortado());
+				newEntity.setCiudad(entity.getCiudad());
+				newEntity.setProvincia(entity.getProvincia());
+				newEntity.setImagen(entity.getImagen());
+				newEntity.setPrecio(entity.getPrecio());
+				newEntity.setTipo(entity.getTipo());
+				newEntity.setEsteticista(entity.getEsteticista());
+			}
 			newEntity = repository.save(newEntity);
 
 			return newEntity;

@@ -33,23 +33,24 @@ public class ClienteService {
 
 		if (entity.getId() != null) {
 			Optional<Cliente> cliente = repository.findById(entity.getId());
-			Cliente newEntity = cliente.get();
-
-			newEntity.getUsuario().setApellido1(entity.getUsuario().getApellido1());
-			newEntity.getUsuario().setApellido2(entity.getUsuario().getApellido2());
-			newEntity.getUsuario().setCiudad(entity.getUsuario().getCiudad());
-			newEntity.getUsuario().setEMail(entity.getUsuario().getEMail());
-			newEntity.getUsuario().setName(entity.getUsuario().getName());
-			newEntity.getUsuario().setProvincia(entity.getUsuario().getProvincia());
-			newEntity.getUsuario().setUsuario(entity.getUsuario().getUsuario());
-			newEntity.getUsuario().setDireccion(entity.getUsuario().getDireccion());
-			newEntity.getUsuario().setEdad(entity.getUsuario().getEdad());
-			newEntity.setPuntos(entity.getPuntos());
-			
-			if(null != entity.getUsuario().getPassword() && !"".equals(entity.getUsuario().getPassword())) {
-				newEntity.getUsuario().setPassword(entity.getUsuario().getPassword());
+			Cliente newEntity = new Cliente();
+			if(cliente.isPresent()) {
+				newEntity = cliente.get();
+				newEntity.getUsuario().setApellido1(entity.getUsuario().getApellido1());
+				newEntity.getUsuario().setApellido2(entity.getUsuario().getApellido2());
+				newEntity.getUsuario().setCiudad(entity.getUsuario().getCiudad());
+				newEntity.getUsuario().setEMail(entity.getUsuario().getEMail());
+				newEntity.getUsuario().setName(entity.getUsuario().getName());
+				newEntity.getUsuario().setProvincia(entity.getUsuario().getProvincia());
+				newEntity.getUsuario().setUsuario(entity.getUsuario().getUsuario());
+				newEntity.getUsuario().setDireccion(entity.getUsuario().getDireccion());
+				newEntity.getUsuario().setEdad(entity.getUsuario().getEdad());
+				newEntity.setPuntos(entity.getPuntos());
+				
+				if(null != entity.getUsuario().getPassword() && !"".equals(entity.getUsuario().getPassword())) {
+					newEntity.getUsuario().setPassword(entity.getUsuario().getPassword());
+				}
 			}
-			
 			newEntity = repository.save(newEntity);
 
 			return newEntity;

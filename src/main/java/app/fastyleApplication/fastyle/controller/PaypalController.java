@@ -150,32 +150,32 @@ public class PaypalController {
 			if (c.getPuntos() >= cita.getServicioEstetico().getPrecio()) {
 				Double puntos = c.getPuntos()-cita.getServicioEstetico().getPrecio();		
 				c.setPuntos(puntos);
-				LocalDate ahoraPuntos = LocalDate.now();
-				LocalTime tAhoraPuntos = LocalTime.now();
-				Integer añoPuntos = ahoraPuntos.getYear();
-				Integer mesPuntos = ahoraPuntos.getMonthValue();
-				Integer diaPuntos = ahoraPuntos.getDayOfMonth();
-				Integer horaPuntos = tAhoraPuntos.getHour();
-				Integer minutoPuntos = tAhoraPuntos.getMinute();
-				String stringAñoPuntos = añoPuntos.toString();
-				String stringMesPuntos = mesPuntos.toString();
-				String stringDiaPuntos = diaPuntos.toString();
-				String stringHoraPuntos = horaPuntos.toString();
-				String stringMinutoPuntos = minutoPuntos.toString();
-				if (mesPuntos < 10) {
-					stringMesPuntos = "0" + stringMesPuntos;
+				LocalDate ahoraPuntos1 = LocalDate.now();
+				LocalTime tAhoraPuntos1 = LocalTime.now();
+				Integer añoPuntos1 = ahoraPuntos1.getYear();
+				Integer mesPuntos1 = ahoraPuntos1.getMonthValue();
+				Integer diaPuntos1 = ahoraPuntos1.getDayOfMonth();
+				Integer horaPuntos1 = tAhoraPuntos1.getHour();
+				Integer minutoPuntos1 = tAhoraPuntos1.getMinute();
+				String stringAñoPuntos1 = añoPuntos1.toString();
+				String stringMesPuntos1 = mesPuntos1.toString();
+				String stringDiaPuntos1 = diaPuntos1.toString();
+				String stringHoraPuntos1 = horaPuntos1.toString();
+				String stringMinutoPuntos1 = minutoPuntos1.toString();
+				if (mesPuntos1 < 10) {
+					stringMesPuntos1 = "0" + stringMesPuntos1;
 				}
-				if (diaPuntos < 10) {
-					stringDiaPuntos = "0" + stringDiaPuntos;
+				if (diaPuntos1 < 10) {
+					stringDiaPuntos1 = "0" + stringDiaPuntos1;
 				}
-				if (horaPuntos < 10) {
-					stringHoraPuntos = "0" + stringHoraPuntos;
+				if (horaPuntos1 < 10) {
+					stringHoraPuntos1 = "0" + stringHoraPuntos1;
 				}
-				if (minutoPuntos < 10) {
-					stringMinutoPuntos = "0" + stringMinutoPuntos;
+				if (minutoPuntos1 < 10) {
+					stringMinutoPuntos1 = "0" + stringMinutoPuntos1;
 				}
-				String momentoPuntos = stringAñoPuntos + "-" + stringMesPuntos + "-" + stringDiaPuntos + " " + stringHoraPuntos + ":" + stringMinutoPuntos;
-				cita.setMomento(momentoPuntos);
+				String momentoPuntos1 = stringAñoPuntos1 + "-" + stringMesPuntos1 + "-" + stringDiaPuntos1 + " " + stringHoraPuntos1 + ":" + stringMinutoPuntos1;
+				cita.setMomento(momentoPuntos1);
 				this.clienteService.createOrUpdateCliente(c);
 			} else {
 				return "cancel";
@@ -215,32 +215,32 @@ public class PaypalController {
 					Double puntos = (cita.getServicioEstetico().getPrecio()*0.1) + c.getPuntos();
 					c.setPuntos(puntos);
 					this.clienteService.createOrUpdateCliente(c);
-					LocalDate ahoraPago = LocalDate.now();
-					LocalTime tAhoraPago = LocalTime.now();
-					Integer añoPago = ahoraPago.getYear();
-					Integer mesPago = ahoraPago.getMonthValue();
-					Integer diaPago = ahoraPago.getDayOfMonth();
-					Integer horaPago = tAhoraPago.getHour();
-					Integer minutoPago = tAhoraPago.getMinute();
-					String stringAñoPago = añoPago.toString();
-					String stringMesPago = mesPago.toString();
-					String stringDiaPago = diaPago.toString();
-					String stringHoraPago = horaPago.toString();
-					String stringMinutoPago = minutoPago.toString();
-					if (mesPago < 10) {
-						stringMesPago = "0" + stringMesPago;
+					LocalDate ahoraPago1 = LocalDate.now();
+					LocalTime tAhoraPago1 = LocalTime.now();
+					Integer añoPago1 = ahoraPago1.getYear();
+					Integer mesPago1 = ahoraPago1.getMonthValue();
+					Integer diaPago1 = ahoraPago1.getDayOfMonth();
+					Integer horaPago1 = tAhoraPago1.getHour();
+					Integer minutoPago1 = tAhoraPago1.getMinute();
+					String stringAñoPago1 = añoPago1.toString();
+					String stringMesPago1 = mesPago1.toString();
+					String stringDiaPago1 = diaPago1.toString();
+					String stringHoraPago1 = horaPago1.toString();
+					String stringMinutoPago1 = minutoPago1.toString();
+					if (mesPago1 < 10) {
+						stringMesPago1 = "0" + stringMesPago1;
 					}
-					if (diaPago < 10) {
-						stringDiaPago = "0" + stringDiaPago;
+					if (diaPago1 < 10) {
+						stringDiaPago1 = "0" + stringDiaPago1;
 					}
-					if (horaPago < 10) {
-						stringHoraPago = "0" + stringHoraPago;
+					if (horaPago1 < 10) {
+						stringHoraPago1 = "0" + stringHoraPago1;
 					}
-					if (minutoPago < 10) {
-						stringMinutoPago = "0" + stringMinutoPago;
+					if (minutoPago1 < 10) {
+						stringMinutoPago1 = "0" + stringMinutoPago1;
 					}
-					String momentoPago = stringAñoPago + "-" + stringMesPago + "-" + stringDiaPago + " " + stringHoraPago + ":" + stringMinutoPago;
-					cita.setMomento(momentoPago);
+					String momentoPago1 = stringAñoPago1 + "-" + stringMesPago1 + "-" + stringDiaPago1 + " " + stringHoraPago1 + ":" + stringMinutoPago1;
+					cita.setMomento(momentoPago1);
 					cita.setEstado("PAGADA");
 					saved = citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
