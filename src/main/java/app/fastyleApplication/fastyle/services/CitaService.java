@@ -28,7 +28,7 @@ public class CitaService {
 	public List<Cita> getAllCitas() {
 		List<Cita> citaList = repository.findAll();
 
-		if (citaList.size() > 0) {
+		if (!citaList.isEmpty()) {
 			return citaList;
 		} else {
 			return new ArrayList<Cita>();
@@ -45,7 +45,7 @@ public class CitaService {
 		}
 	}
 
-	public Cita createOrUpdateCita(Cita entity) throws Exception {
+	public void createOrUpdateCita(Cita entity) throws Exception {
 		if(entity.getId() != null) {
 			Optional<Cita> cita = repository.findById(entity.getId());
 			Cita newEntity = new Cita();
@@ -59,10 +59,8 @@ public class CitaService {
 				newEntity.setMomento(entity.getMomento());
 				newEntity = repository.save(newEntity);
 			}
-			return newEntity;
 		} else {
 			entity = repository.save(entity);
-			return entity;
 		}
 	}
 

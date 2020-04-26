@@ -21,7 +21,7 @@ public class ServicioEsteticoService {
 	public List<ServicioEstetico> getAllServicioEsteticos() {
 		List<ServicioEstetico> servicioEsteticoList = repository.findAll();
 
-		if (servicioEsteticoList.size() > 0) {
+		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
 			return new ArrayList<ServicioEstetico>();
@@ -31,7 +31,7 @@ public class ServicioEsteticoService {
 	public List<ServicioEstetico> getAllServicioEsteticosPorProvincia(String provincia) {
 		List<ServicioEstetico> servicioEsteticoList = repository.findByProvincia(provincia);
 
-		if (servicioEsteticoList.size() > 0) {
+		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
 			return new ArrayList<ServicioEstetico>();
@@ -41,7 +41,7 @@ public class ServicioEsteticoService {
 	public List<ServicioEstetico> getAllServicioEsteticosPorTipo(String tipo) {
 		List<ServicioEstetico> servicioEsteticoList = repository.findByTipo(tipo);
 
-		if (servicioEsteticoList.size() > 0) {
+		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
 			return new ArrayList<ServicioEstetico>();
@@ -56,7 +56,7 @@ public class ServicioEsteticoService {
 				res.add(se);
 			}
 		}
-		if (res.size() > 0) {
+		if (!res.isEmpty()) {
 			return res;
 		} else {
 			return new ArrayList<ServicioEstetico>();

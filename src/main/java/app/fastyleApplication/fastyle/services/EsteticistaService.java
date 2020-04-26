@@ -28,9 +28,8 @@ public class EsteticistaService {
 	ServicioEsteticoService servicioEstetico;
 	
 	public Esteticista findByUsuario(Usuario usuario) {
-		Esteticista appUser = repository.findByUsuario(usuario)
+		return repository.findByUsuario(usuario)
 				.orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
-		return appUser;
 	}
 
 	public Esteticista createOrUpdateCliente(Esteticista entity) throws Exception {
@@ -70,7 +69,7 @@ public class EsteticistaService {
 	public List<Esteticista> getAllEsteticistas() {
 		List<Esteticista> esteticistaList = repository.findAll();
 
-		if (esteticistaList.size() > 0) {
+		if (!esteticistaList.isEmpty()) {
 			return esteticistaList;
 		} else {
 			return new ArrayList<Esteticista>();
