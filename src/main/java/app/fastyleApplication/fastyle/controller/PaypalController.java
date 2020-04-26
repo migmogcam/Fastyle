@@ -148,8 +148,34 @@ public class PaypalController {
 			Cliente c = this.clienteService.findByUsuario(u);
 			Cita cita = this.citaService.getCitaById(id);
 			if (c.getPuntos() >= cita.getServicioEstetico().getPrecio()) {
-				Double puntos = c.getPuntos()-cita.getServicioEstetico().getPrecio();
+				Double puntos = c.getPuntos()-cita.getServicioEstetico().getPrecio();		
 				c.setPuntos(puntos);
+				LocalDate ahora = LocalDate.now();
+				LocalTime tAhora = LocalTime.now();
+				Integer año = ahora.getYear();
+				Integer mes = ahora.getMonthValue();
+				Integer dia = ahora.getDayOfMonth();
+				Integer hora = tAhora.getHour();
+				Integer minuto = tAhora.getMinute();
+				String stringAño = año.toString();
+				String stringMes = mes.toString();
+				String stringDia = dia.toString();
+				String stringHora = hora.toString();
+				String stringMinuto = minuto.toString();
+				if (mes < 10) {
+					stringMes = "0" + stringMes;
+				}
+				if (dia < 10) {
+					stringDia = "0" + stringDia;
+				}
+				if (hora < 10) {
+					stringHora = "0" + stringHora;
+				}
+				if (minuto < 10) {
+					stringMinuto = "0" + stringMinuto;
+				}
+				String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
+				cita.setMomento(momento);
 				this.clienteService.createOrUpdateCliente(c);
 			} else {
 				return "cancel";
@@ -189,6 +215,32 @@ public class PaypalController {
 					Double puntos = (cita.getServicioEstetico().getPrecio()*0.1) + c.getPuntos();
 					c.setPuntos(puntos);
 					this.clienteService.createOrUpdateCliente(c);
+					LocalDate ahora = LocalDate.now();
+					LocalTime tAhora = LocalTime.now();
+					Integer año = ahora.getYear();
+					Integer mes = ahora.getMonthValue();
+					Integer dia = ahora.getDayOfMonth();
+					Integer hora = tAhora.getHour();
+					Integer minuto = tAhora.getMinute();
+					String stringAño = año.toString();
+					String stringMes = mes.toString();
+					String stringDia = dia.toString();
+					String stringHora = hora.toString();
+					String stringMinuto = minuto.toString();
+					if (mes < 10) {
+						stringMes = "0" + stringMes;
+					}
+					if (dia < 10) {
+						stringDia = "0" + stringDia;
+					}
+					if (hora < 10) {
+						stringHora = "0" + stringHora;
+					}
+					if (minuto < 10) {
+						stringMinuto = "0" + stringMinuto;
+					}
+					String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
+					cita.setMomento(momento);
 					cita.setEstado("PAGADA");
 					saved = citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
