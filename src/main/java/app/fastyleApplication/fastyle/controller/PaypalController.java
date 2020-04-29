@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,8 @@ public class PaypalController {
 
 	@Autowired
 	UsuarioService usuarioService;
+	
+	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
 
 	public static final String PAYPAL_SUCCESS_URL = "pagoCorrecto";
 	public static final String PAYPAL_CANCEL_URL = "cancel";
@@ -103,7 +106,7 @@ public class PaypalController {
 					cita.setEstado("PENDIENTE");
 					citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.log(Logger.Level.FATAL, e.getMessage());
 				}
 			}
 		} else {
@@ -183,7 +186,7 @@ public class PaypalController {
 			citaService.createOrUpdateCita(cita);
 			return redirect2;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
 		}
 		return redirect2;
 	}

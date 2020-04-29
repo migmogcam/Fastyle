@@ -48,7 +48,7 @@ public class CitaService {
 	public void createOrUpdateCita(Cita entity) throws Exception {
 		if(entity.getId() != null) {
 			Optional<Cita> cita = repository.findById(entity.getId());
-			Cita newEntity = new Cita();
+			Cita newEntity;
 			if(cita.isPresent()) {
 				newEntity = cita.get();
 				newEntity.setFecha(entity.getFecha());
@@ -57,10 +57,10 @@ public class CitaService {
 				newEntity.setEstado(entity.getEstado());
 				newEntity.setRespuesta(entity.getRespuesta());
 				newEntity.setMomento(entity.getMomento());
-				newEntity = repository.save(newEntity);
+				repository.save(newEntity);
 			}
 		} else {
-			entity = repository.save(entity);
+			repository.save(entity);
 		}
 	}
 

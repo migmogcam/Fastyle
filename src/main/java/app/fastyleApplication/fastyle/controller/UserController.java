@@ -36,9 +36,6 @@ import app.fastyleApplication.fastyle.util.PassGenerator;
 @Controller
 public class UserController {
 
-	private final static String TAB_FORM = "formTab";
-	private final static String TAB_LIST = "listTab";
-
 	@Autowired
 	ClienteService userService;
 

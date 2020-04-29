@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +39,8 @@ public class ServicioEsteticoController {
 
 	@Autowired
 	EsteticistaService esteticistaService;
+	
+	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
 
 	@GetMapping("/servicioEsteticoRegistro")
 	public String addServicioEstetico(Model model) {
@@ -57,24 +60,11 @@ public class ServicioEsteticoController {
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
 			return viewError1;
 		}
 		return redirect1;
 	}
-
-//	@GetMapping("/servicioEsteticoEdit/{id}")
-//	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-//		String viewError2 = "error";
-//		String redirect2 = "redirect:/";
-//		try {
-//			ServicioEstetico servicioEstetico = service.getServicioEsteticoById(id);
-//		} catch (Exception e) {
-//			return viewError2;
-//		}
-//		model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-//		return redirect2;
-//	}
 
 	@PostMapping("/servicioEsteticoUpdate/{id}")
 	public String updateServicioEsteticoService(@PathVariable("id") Integer id,
@@ -88,7 +78,7 @@ public class ServicioEsteticoController {
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
 			return viewError3;
 		}
 		String message1 = "Añadir lo que se necesite en la vista a la que se va redirigir";
@@ -110,10 +100,9 @@ public class ServicioEsteticoController {
 		return redirect4;
 	}
 
-	//@GetMapping("/listadoServicios")
 		@GetMapping("/")
 		public String listado(Model model) {
-			List<ServicioEstetico> servicios = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> servicios;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = "";
 			String viewError5 = "error";
@@ -134,47 +123,42 @@ public class ServicioEsteticoController {
 					model.addAttribute(listaServicios1, servicios);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Logger.Level.FATAL, e.getMessage());
 				return viewError5;
 			}
-			return viewListado1; // view
+			return viewListado1;
+		}
+
+		@GetMapping("/mascotas")
+		public String listadoMascotas(Model model) {
+			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			String viewError6 = "error";
+			String listaServicios2 = "listaServicios";
+			String viewListado2 = "listadoServicios";
+			String rolAdmin1 = "ROLE_ADMIN";
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin1));
+			try {
+				if (hasAdminRole) {
+
+					serviciosTipo = service.getAllServicioEsteticosPorTipo("Mascotas");
+					model.addAttribute(listaServicios2, serviciosTipo);
+
+				} else {
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
+					model.addAttribute(listaServicios2, serviciosTipo);
+				}
+			} catch (Exception e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return viewError6;
+			}
+			return viewListado2;
 		}
 		
-		
-		// Para la categoria mascotas
-				@GetMapping("/mascotas")
-				public String listadoMascotas(Model model) {
-					List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
-					String username = SecurityContextHolder.getContext().getAuthentication().getName();
-					Usuario u = this.usuarioService.findByUsuario(username);
-					String provincia = u.getProvincia();
-					String viewError6 = "error";
-					String listaServicios2 = "listaServicios";
-					String viewListado2 = "listadoServicios";
-					String rolAdmin1 = "ROLE_ADMIN";
-					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-					boolean hasAdminRole = authentication.getAuthorities().stream()
-							.anyMatch(r -> r.getAuthority().equals(rolAdmin1));
-					try {
-						if(hasAdminRole ) {
-							
-							serviciosTipo= service.getAllServicioEsteticosPorTipo("Mascotas");
-							model.addAttribute(listaServicios2, serviciosTipo);
-							
-							
-							}else { // para clientes y esteticistas
-						serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
-						model.addAttribute(listaServicios2, serviciosTipo);
-					}
-					} catch (Exception e) {
-						e.printStackTrace();
-						return viewError6;
-					}
-					return viewListado2; // view
-				}
-		
-		
-		// @GetMapping("/listadoServicios/tinte")
 		@GetMapping("/tinte")
 		public String listadoTinte(Model model) {
 			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
@@ -188,26 +172,21 @@ public class ServicioEsteticoController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
 					.anyMatch(r -> r.getAuthority().equals(rolAdmin2));
-			
 			try {
-				if(hasAdminRole) {
-					
+				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Tinte");
 					model.addAttribute(listaServicios3, serviciosTipo);
-					
-					
-					}else { // para clientes y esteticistas
+					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
 				model.addAttribute(listaServicios3, serviciosTipo);
 			}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Logger.Level.FATAL, e.getMessage());
 				return viewError7;
 			}
-			return viewListado3; // view
+			return viewListado3;
 		}
 		
-		// @GetMapping("/listadoServicios/pedicura-y-manicura")
 		@GetMapping("/pedicura-y-manicura")
 		public String listadoPedicuraYManicura(Model model) {
 			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
@@ -222,24 +201,20 @@ public class ServicioEsteticoController {
 			boolean hasAdminRole = authentication.getAuthorities().stream()
 					.anyMatch(r -> r.getAuthority().equals(rolAdmin3));
 			try {
-				if(hasAdminRole) {
-					
+				if(hasAdminRole) {	
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Pedicura y Manicura");
+					model.addAttribute(listaServicios4, serviciosTipo);									
+				}else {
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
 					model.addAttribute(listaServicios4, serviciosTipo);
-					
-					
-					}else {
-				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
-				model.addAttribute(listaServicios4, serviciosTipo);
-					}
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Logger.Level.FATAL, e.getMessage());
 				return viewError8;
 			}
-			return viewListado4; // view
+			return viewListado4;
 		}
 				
-		// @GetMapping("/listadoServicios/depilacion")
 		@GetMapping("/depilacion")
 		public String listadoDepilacion(Model model) {
 			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
@@ -254,24 +229,20 @@ public class ServicioEsteticoController {
 			boolean hasAdminRole = authentication.getAuthorities().stream()
 					.anyMatch(r -> r.getAuthority().equals(rolAdmin4));
 			try {
-				if(hasAdminRole) {
-					
+				if(hasAdminRole) {			
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Depilacion");
+					model.addAttribute(listaServicios5, serviciosTipo);										
+				}else {
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
 					model.addAttribute(listaServicios5, serviciosTipo);
-					
-					
-					}else {
-				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
-				model.addAttribute(listaServicios5, serviciosTipo);
-					}
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Logger.Level.FATAL, e.getMessage());
 				return viewError9;
 			}
-			return viewListado5; // view
+			return viewListado5;
 		}
 				
-		// @GetMapping("/listadoServicios/peluqueria")
 		@GetMapping("/peluqueria")
 		public String listadoPeluqueria(Model model) {
 			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
@@ -286,160 +257,155 @@ public class ServicioEsteticoController {
 			boolean hasAdminRole = authentication.getAuthorities().stream()
 					.anyMatch(r -> r.getAuthority().equals(rolAdmin5));
 			try {
-				if(hasAdminRole) {
-					
+				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria");
-					model.addAttribute(listaServicios6, serviciosTipo);
-					
-					
-					}else {
-				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
-				model.addAttribute(listaServicios6	, serviciosTipo);}
+					model.addAttribute(listaServicios6, serviciosTipo);										
+				}else {
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
+					model.addAttribute(listaServicios6	, serviciosTipo);
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.log(Logger.Level.FATAL, e.getMessage());
 				return viewError10;
 			}
-			return viewListado6; // view
+			return viewListado6;
 		}
 				
-
-	@GetMapping("/servicioInfo/{id}")
-	public String diplayInfo(@PathVariable("id") long id, Model model) {
-		List<Esteticista> servicios = new ArrayList<Esteticista>();
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
-		String anonymousUser2 = "anonymousUser";
-		String servicioEstetico2 = "servicioEstetico"; 
-		String viewError11 = "error";
-		try {
-			servicioEstetico = service.getServicioEsteticoById((int) id);
-			String anonimo = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (!anonimo.equals(anonymousUser2)) {
-				Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext()
-						.getAuthentication().getAuthorities();
-				for (GrantedAuthority g : authorities) {
-					if (g.getAuthority().equals("ROLE_ESTETICISTA")) {
-						String username = SecurityContextHolder.getContext().getAuthentication().getName();
-						Usuario u = this.usuarioService.findByUsuario(username);
-						Esteticista c = this.esteticistaService.findByUsuario(u);
-						if (servicioEstetico.getEsteticista().contains(c)) {
-							model.addAttribute("est", "existe");
+		@GetMapping("/servicioInfo/{id}")
+		public String diplayInfo(@PathVariable("id") long id, Model model) {
+			List<Esteticista> servicios = new ArrayList<Esteticista>();
+			ServicioEstetico servicioEstetico = new ServicioEstetico();
+			String anonymousUser2 = "anonymousUser";
+			String servicioEstetico2 = "servicioEstetico";
+			String viewError11 = "error";
+			try {
+				servicioEstetico = service.getServicioEsteticoById((int) id);
+				String anonimo = SecurityContextHolder.getContext().getAuthentication().getName();
+				if (!anonimo.equals(anonymousUser2)) {
+					Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext()
+							.getAuthentication().getAuthorities();
+					for (GrantedAuthority g : authorities) {
+						if (g.getAuthority().equals("ROLE_ESTETICISTA")) {
+							String username = SecurityContextHolder.getContext().getAuthentication().getName();
+							Usuario u = this.usuarioService.findByUsuario(username);
+							Esteticista c = this.esteticistaService.findByUsuario(u);
+							if (servicioEstetico.getEsteticista().contains(c)) {
+								model.addAttribute("est", "existe");
+							} else {
+								model.addAttribute("est", "noExiste");
+							}
 						} else {
-							model.addAttribute("est", "noExiste");
+							model.addAttribute("est", "noEs");
 						}
-
-					} else {
-						model.addAttribute("est", "noEs");
 					}
+				} else {
+					model.addAttribute("est", "noEs");
+				}
+				servicios = servicioEstetico.getEsteticista();
+				model.addAttribute("listaEsteticistas", servicios);
+				model.addAttribute(servicioEstetico2, servicioEstetico);
+			} catch (Exception e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return viewError11;
+			}
+			return "servicioInfo";
+		}
+
+		@GetMapping("/ServicioUnir/{idServ}")
+		public String ServicioUnir(@PathVariable("idServ") long id, Model model) {
+			ServicioEstetico servicioEstetico = new ServicioEstetico();
+			String viewError12 = "error";
+			String redirect5 = "redirect:/";
+			try {
+				servicioEstetico = service.getServicioEsteticoById((int) id);
+				String username = SecurityContextHolder.getContext().getAuthentication().getName();
+				Usuario u = this.usuarioService.findByUsuario(username);
+				Esteticista c = this.esteticistaService.findByUsuario(u);
+				servicioEstetico.getEsteticista().add(c);
+				this.service.createOrUpdateServicioEstetico(servicioEstetico);
+			} catch (Exception e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return viewError12;
+			}
+			return redirect5;
+		}
+
+		@GetMapping("/ServicioEditar/{idServ}")
+		public String ServicioEditar(@PathVariable("idServ") long id, Model model) {
+			String servicioEstetico3 = "servicioEstetico";
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			String viewError13 = "error";
+			String admin2 = "admin";
+			if (username.equals(admin2)) {
+				ServicioEstetico servicioEstetico = new ServicioEstetico();
+				try {
+					servicioEstetico = service.getServicioEsteticoById((int) id);
+					model.addAttribute(servicioEstetico3, servicioEstetico);
+					return "editarServicio";
+				} catch (Exception e) {
+					logger.log(Logger.Level.FATAL, e.getMessage());
+					return viewError13;
 				}
 			} else {
-				model.addAttribute("est", "noEs");
+				return viewError13;
 			}
-			servicios = servicioEstetico.getEsteticista();
-			model.addAttribute("listaEsteticistas", servicios);
-			model.addAttribute(servicioEstetico2, servicioEstetico);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError11;
 		}
-		return "servicioInfo"; // view
-	}
-
-	@GetMapping("/ServicioUnir/{idServ}")
-	public String ServicioUnir(@PathVariable("idServ") long id, Model model) {
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
-		String viewError12 = "error";
-		String redirect5 = "redirect:/";
-		try {
-			servicioEstetico = service.getServicioEsteticoById((int) id);
+	
+		@PostMapping("/editarServicioEstetico")
+		public String editarServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result,
+				Model model) {
+			String viewError14 = "error";
+			String redirect6 = "redirect:/";
+			if (result.hasErrors()) {
+				return viewError14;
+			}
+			try {
+				service.createOrUpdateServicioEstetico(servicioEstetico);
+			} catch (Exception e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return viewError14;
+			}
+			return redirect6;
+		}
+	
+		@GetMapping("/ServicioBorrar/{idServ}")
+		public String ServicioBorrar(@PathVariable("idServ") Integer id, Model model) {
+			String servicioEstetico4 = "servicioEstetico";
+			String viewError15 = "error";
+			String redirect7 = "redirect:/";
+			String admin3 = "admin";
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Usuario u = this.usuarioService.findByUsuario(username);
-			Esteticista c = this.esteticistaService.findByUsuario(u);
-			servicioEstetico.getEsteticista().add(c);
-			this.service.createOrUpdateServicioEstetico(servicioEstetico);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError12;
+			if (username.equals(admin3)) {
+				ServicioEstetico servicioEstetico = new ServicioEstetico();
+				try {
+					service.deleteServicioEsteticoById(id);
+					model.addAttribute(servicioEstetico4, servicioEstetico);
+					return redirect7;
+				} catch (Exception e) {
+					logger.log(Logger.Level.FATAL, e.getMessage());
+					return viewError15;
+				}
+			} else {
+				return viewError15;
+			}
 		}
-		return redirect5;
-	}
 	
-	@GetMapping("/ServicioEditar/{idServ}")
-	public String ServicioEditar(@PathVariable("idServ") long id, Model model) {
-		String servicioEstetico3 = "servicioEstetico"; 
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		String viewError13 = "error";
-		String admin2 = "admin";
-		if(username.equals(admin2)) {
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
-		try {
-			servicioEstetico = service.getServicioEsteticoById((int) id);
-			model.addAttribute(servicioEstetico3, servicioEstetico);
-			return "editarServicio";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError13;
+		@GetMapping("/ServicioCancelar/{idServ}")
+		public String ServicioCancelar(@PathVariable("idServ") long id, Model model) {
+			ServicioEstetico servicioEstetico = new ServicioEstetico();
+			String viewError16 = "error";
+			String redirect8 = "redirect:/";
+			try {
+				servicioEstetico = service.getServicioEsteticoById((int) id);
+				String username = SecurityContextHolder.getContext().getAuthentication().getName();
+				Usuario u = this.usuarioService.findByUsuario(username);
+				Esteticista c = this.esteticistaService.findByUsuario(u);
+				servicioEstetico.getEsteticista().remove(c);
+				this.service.createOrUpdateServicioEstetico(servicioEstetico);
+			} catch (Exception e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return viewError16;
+			}
+			return redirect8;
 		}
-		}else {
-			return viewError13;
-		}
-	}
-	
-	@PostMapping("/editarServicioEstetico")
-	public String editarServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
-		String viewError14 = "error";
-		String redirect6 = "redirect:/";
-		if (result.hasErrors()) {
-			return viewError14;
-		}
-		try {
-			service.createOrUpdateServicioEstetico(servicioEstetico);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError14;
-		}
-		return redirect6;
-	}
-	
-	@GetMapping("/ServicioBorrar/{idServ}")
-	public String ServicioBorrar(@PathVariable("idServ") Integer id, Model model) {
-		String servicioEstetico4 = "servicioEstetico"; 
-		String viewError15 = "error";
-		String redirect7 = "redirect:/";
-		String admin3 = "admin";
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(username.equals(admin3)) {
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
-		try {
-			service.deleteServicioEsteticoById(id);
-			model.addAttribute(servicioEstetico4, servicioEstetico);
-			return redirect7;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError15;
-		}
-		}else {
-			return viewError15;
-		}
-	}
-
-	
-	@GetMapping("/ServicioCancelar/{idServ}")
-	public String ServicioCancelar(@PathVariable("idServ") long id, Model model) {
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
-		String viewError16 = "error";
-		String redirect8 = "redirect:/";
-		try {
-			servicioEstetico = service.getServicioEsteticoById((int) id);
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Usuario u = this.usuarioService.findByUsuario(username);
-			Esteticista c = this.esteticistaService.findByUsuario(u);
-			servicioEstetico.getEsteticista().remove(c);
-			this.service.createOrUpdateServicioEstetico(servicioEstetico);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return viewError16;
-		}
-		return redirect8;
-	}
-
 }

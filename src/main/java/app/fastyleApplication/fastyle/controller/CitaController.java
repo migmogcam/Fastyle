@@ -2,7 +2,6 @@ package app.fastyleApplication.fastyle.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,6 +53,8 @@ public class CitaController {
 	@Autowired
 	EsteticistaService esteticistaService;
 	
+	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
+	
 	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
         String viewError1 = "error";
@@ -85,23 +87,11 @@ public class CitaController {
     		cita.setMomento(momento);
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
             return viewError1;
 		}
         return "redirect:/";
     }
-	
-//	@GetMapping("/citaEdit/{id}")
-//	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-//		String viewError2 = "error";
-//		try {
-//			Cita cita = service.getCitaById(id);
-//		} catch (Exception e) {
-//            return viewError2;
-//		}
-//        model.addAttribute("Añadir lo que se necesite en la vista a la que se va redirigir");
-//        return "accionRealizada";
-//	}
 	
 	@PostMapping("/citaUpdate/{id}")
 	public String updateCitaService(@PathVariable("id") Integer id, @Valid Cita cita, 
@@ -115,7 +105,7 @@ public class CitaController {
 	    try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
 			return viewError3;
 		}
 	    String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
@@ -139,8 +129,8 @@ public class CitaController {
 	
 	@GetMapping("/citaCrear/{idServ}/{idEst}")
     public String diplayInfo(@PathVariable("idServ") long id, @PathVariable("idEst") long idE, Model model, HttpSession session, HttpServletRequest request) {
-		Esteticista servicios = new Esteticista();
-		ServicioEstetico servicioEstetico = new ServicioEstetico();
+		Esteticista servicios;
+		ServicioEstetico servicioEstetico;
 		Boolean fallo = false;
 		String fallo1 = "fallo";
 		if(request.getSession().getAttribute(fallo1) != null) {
@@ -157,8 +147,7 @@ public class CitaController {
 		} catch (Exception e) {
 			return "index"; 
 		}
-		
-        return "citaCrear"; //view
+        return "citaCrear";
     }
 	
 	@GetMapping("/verCita/{idCita}")
@@ -182,7 +171,7 @@ public class CitaController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Cliente c = this.clienteService.findByUsuario(u);
-		List<Cita> citas = new LinkedList<Cita>();
+		List<Cita> citas;	
 		String citasEsteticista1 = "citasEsteticista";
 		String citas1 = "citas";
 		String viewEmpty1 = "emptyCitas";
@@ -196,7 +185,7 @@ public class CitaController {
 		} else {
 			model.put(citas1, citas);
 			model.put(citasEsteticista1, false);
-	        return misCitas1; //view
+	        return misCitas1;
 		}
     }
 
@@ -210,9 +199,9 @@ public class CitaController {
 		try {
 			esteticista = this.esteticistaService.getEsteticistaById(id);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Logger.Level.FATAL, e.getMessage());
 		}
-		List<Cita> citas = new LinkedList<Cita>();
+		List<Cita> citas;
 		citas = esteticista.getCitas();
 		
 		if(citas.isEmpty()) {
@@ -223,7 +212,7 @@ public class CitaController {
 			model.put(citas2, citas);
 			model.put("esteticista", citas.get(0).getEsteticista());
 			model.put(citasEsteticista2, true);
-	        return misCitas2; //view
+	        return misCitas2;
 		}
     }
 	
@@ -232,7 +221,7 @@ public class CitaController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Esteticista c = this.esteticistaService.findByUsuario(u);
-		List<Cita> citas = new LinkedList<Cita>();
+		List<Cita> citas;
 		citas = c.getCitas();
 		String citasEsteticista3 = "citasEsteticista";
 		String citas3 = "citas";
@@ -245,9 +234,7 @@ public class CitaController {
 		} else {
 			model.put(citas3, citas);
 			model.put(citasEsteticista3, false);
-	        return misCitas3; //view
+	        return misCitas3;
 		}
     }
-
-
 }
