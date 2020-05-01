@@ -54,11 +54,11 @@ public class CitaController {
 	EsteticistaService esteticistaService;
 	
 	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
-	private static final String viewError = "error";
-	private static final String citasEsteticista = "citasEsteticista";
-	private static final String viewCitas = "citas";
-	private static final String emptyCitas = "emptyCitas";
-	private static final String misCitas = "misCitas";
+	private static final String VIEW_ERROR = "error";
+	private static final String CITAS_ESTETICISTA = "citasEsteticista";
+	private static final String VIEW_CITAS = "citas";
+	private static final String EMPTY_CITAS = "emptyCitas";
+	private static final String MIS_CITAS = "misCitas";
 	
 	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
@@ -92,7 +92,7 @@ public class CitaController {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-            return viewError;
+            return VIEW_ERROR;
 		}
         return "redirect:/";
     }
@@ -102,14 +102,14 @@ public class CitaController {
 	  BindingResult result, Model model) {
 		String view1 = "accionRealizada";
 	    if (result.hasErrors()) {
-            return viewError;
+            return VIEW_ERROR;
 	    }
 	         
 	    try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError;
+			return VIEW_ERROR;
 		}
 	    String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
         model.addAttribute("message", message);
@@ -122,7 +122,7 @@ public class CitaController {
 		try {
 			service.deleteCitaById(id);
 		} catch (Exception e) {
-            return viewError;
+            return VIEW_ERROR;
 		}
 		String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
         model.addAttribute("message", message);
@@ -162,7 +162,7 @@ public class CitaController {
 			model.addAttribute("cita", cita);
 			model.addAttribute("isCliente", isCliente);
 		} catch (Exception e) {
-			return viewError;
+			return VIEW_ERROR;
 		}
 		return "verCita";
     }
@@ -177,12 +177,12 @@ public class CitaController {
 		
 		if(citas.isEmpty()) {
 			model2.addAttribute("citasVacio", true);
-			model2.addAttribute(citasEsteticista, false);
-			return emptyCitas;
+			model2.addAttribute(CITAS_ESTETICISTA, false);
+			return EMPTY_CITAS;
 		} else {
-			model.put(viewCitas, citas);
-			model.put(citasEsteticista, false);
-	        return misCitas;
+			model.put(VIEW_CITAS, citas);
+			model.put(CITAS_ESTETICISTA, false);
+	        return MIS_CITAS;
 		}
     }
 
@@ -199,13 +199,13 @@ public class CitaController {
 		
 		if(citas.isEmpty()) {
 			model2.addAttribute("citasVacio", true);
-			model2.addAttribute(citasEsteticista, true);
-			return emptyCitas;
+			model2.addAttribute(CITAS_ESTETICISTA, true);
+			return EMPTY_CITAS;
 		} else {
-			model.put(viewCitas, citas);
+			model.put(VIEW_CITAS, citas);
 			model.put("esteticista", citas.get(0).getEsteticista());
-			model.put(citasEsteticista, true);
-	        return misCitas;
+			model.put(CITAS_ESTETICISTA, true);
+	        return MIS_CITAS;
 		}
     }
 	
@@ -218,12 +218,12 @@ public class CitaController {
 		citas = c.getCitas();
 		
 		if(citas.isEmpty()) {
-			model.put(citasEsteticista, false);
-			return emptyCitas;
+			model.put(CITAS_ESTETICISTA, false);
+			return EMPTY_CITAS;
 		} else {
-			model.put(viewCitas, citas);
-			model.put(citasEsteticista, false);
-	        return misCitas;
+			model.put(VIEW_CITAS, citas);
+			model.put(CITAS_ESTETICISTA, false);
+	        return MIS_CITAS;
 		}
     }
 }
