@@ -51,23 +51,23 @@ public class UserController {
 	@Autowired
 	UsuarioService usuarioService;
 	
-	private static final String signup = "signup";
-	private static final String varRoles = "roles";
-	private static final String redirect = "redirect:/";
-	private static final String rolCliente = "ROLE_CLIENTE";
-	private static final String message = "formErrorMessage";
-	private static final String varCliente = "cliente";
-	private static final String error = "error";
-	private static final String editCliente = "editCliente";
+	private static final String SIGN_UP = "signup";
+	private static final String VAR_ROLES = "roles";
+	private static final String VIEW_REDIRECT = "redirect:/";
+	private static final String ROL_CLIENTE = "ROLE_CLIENTE";
+	private static final String VAR_MESSAGE = "formErrorMessage";
+	private static final String VAR_CLIENTE = "cliente";
+	private static final String VIEW_ERROR = "error";
+	private static final String EDIT_CLIENTE = "editCliente";
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 
-		model.addAttribute(signup, true);
+		model.addAttribute(SIGN_UP, true);
 		model.addAttribute("userForm", new UserDTO());
-		model.addAttribute(varRoles, roles);
+		model.addAttribute(VAR_ROLES, roles);
 		return "user-signup";
 	}
 
@@ -76,8 +76,8 @@ public class UserController {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		model.addAttribute("userForm", user);
-		model.addAttribute(varRoles, roles);
-		model.addAttribute(signup, true);
+		model.addAttribute(VAR_ROLES, roles);
+		model.addAttribute(SIGN_UP, true);
 		model.addAttribute("registro", true);
 		List<Cita> citas = new ArrayList<>();
 		String pass = PassGenerator.getPassEncode(user.getPassword());
@@ -99,7 +99,7 @@ public class UserController {
 		us.setUsuario(user.getUsuario());
 		Cliente cliente = new Cliente();
 		Esteticista esteticista = new Esteticista();
-		if (user.getAutority().equals(rolCliente)) {
+		if (user.getAutority().equals(ROL_CLIENTE)) {
 			cliente.setPuntos(0.0);
 			cliente.setCitas(citas);
 			cliente.setUsuario(us);
@@ -120,7 +120,7 @@ public class UserController {
 			return "user-signup";
 		} else {
 			try {
-				if (user.getAutority().equals(rolCliente)) {
+				if (user.getAutority().equals(ROL_CLIENTE)) {
 					userService.createOrUpdateCliente(cliente);
 				} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
 					esteticistaService.createOrUpdateCliente(esteticista);
@@ -129,10 +129,10 @@ public class UserController {
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				model.addAttribute(message, e.getMessage());
+				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 
 	@GetMapping("/perfil")
@@ -141,11 +141,11 @@ public class UserController {
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		try {
 			if (hasUserRole) {
 				Cliente cliente = this.userService.findByUsuario(u);
-				model.addAttribute(varCliente, cliente);
+				model.addAttribute(VAR_CLIENTE, cliente);
 				return "perfilCliente";
 			} else {
 				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
@@ -154,7 +154,7 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error;
+			return VIEW_ERROR;
 		}
 	}
 
@@ -164,12 +164,12 @@ public class UserController {
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		try {
 			if (hasUserRole) {
 				Cliente cliente = this.userService.findByUsuario(u);
-				model.addAttribute(varCliente, cliente);
-				return editCliente;
+				model.addAttribute(VAR_CLIENTE, cliente);
+				return EDIT_CLIENTE;
 			} else {
 				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
 				model.addAttribute("esteticista", esteticista);
@@ -177,7 +177,7 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error;
+			return VIEW_ERROR;
 		}
 	}
 
@@ -185,52 +185,52 @@ public class UserController {
 	public String editCliente(@Valid @ModelAttribute("cliente") Cliente user, BindingResult result, ModelMap model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-		model.addAttribute(varCliente, user);
-		model.addAttribute(varRoles, roles);
-		model.addAttribute(signup, true);
+		model.addAttribute(VAR_CLIENTE, user);
+		model.addAttribute(VAR_ROLES, roles);
+		model.addAttribute(SIGN_UP, true);
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
 			user.getUsuario().setPassword(pass);
 		}
 		if (result.hasErrors()) {
-			return editCliente;
+			return EDIT_CLIENTE;
 		} else {
 			try {
 				userService.createOrUpdateCliente(user);
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				model.addAttribute(message, e.getMessage());
+				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 
 	@PostMapping("/editarEsteticista")
 	public String editEsteticista(@Valid @ModelAttribute("esteticista") Esteticista user, BindingResult result, ModelMap model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-		model.addAttribute(varCliente, user);
-		model.addAttribute(varRoles, roles);
-		model.addAttribute(signup, true);
+		model.addAttribute(VAR_CLIENTE, user);
+		model.addAttribute(VAR_ROLES, roles);
+		model.addAttribute(SIGN_UP, true);
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
 			user.getUsuario().setPassword(pass);
 		}
 		if (result.hasErrors()) {
-			return editCliente;
+			return EDIT_CLIENTE;
 		} else {
 			try {
 				esteticistaService.createOrUpdateCliente(user);
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				model.addAttribute(message, e.getMessage());
+				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 	
 	@GetMapping("/eliminar")
@@ -239,7 +239,7 @@ public class UserController {
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		try {
 			if (hasUserRole) {
 				Cliente client = this.userService.findByUsuario(u);
@@ -254,13 +254,13 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error;
+			return VIEW_ERROR;
 		}
 	}
 	
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto(Model model) {
 		model.addAttribute("loginCorrecto", true);
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 }
