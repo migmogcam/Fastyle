@@ -50,31 +50,34 @@ public class UserController {
 
 	@Autowired
 	UsuarioService usuarioService;
+	
+	private static final String signup = "signup";
+	private static final String varRoles = "roles";
+	private static final String redirect = "redirect:/";
+	private static final String rolCliente = "ROLE_CLIENTE";
+	private static final String message = "formErrorMessage";
+	private static final String varCliente = "cliente";
+	private static final String error = "error";
+	private static final String editCliente = "editCliente";
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
-		String signup1 = "signup";
-		String roles1 = "roles";
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 
-		model.addAttribute(signup1, true);
+		model.addAttribute(signup, true);
 		model.addAttribute("userForm", new UserDTO());
-		model.addAttribute(roles1, roles);
+		model.addAttribute(varRoles, roles);
 		return "user-signup";
 	}
 
 	@PostMapping("/signup")
 	public String signupAction(@Valid @ModelAttribute("userForm") UserDTO user, BindingResult result, ModelMap model) {
-		String signup2 = "signup";
-		String roles2 = "roles";
-		String redirect1 = "redirect:/";
-		String rolCliente1 = "ROLE_CLIENTE";
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		model.addAttribute("userForm", user);
-		model.addAttribute(roles2, roles);
-		model.addAttribute(signup2, true);
+		model.addAttribute(varRoles, roles);
+		model.addAttribute(signup, true);
 		model.addAttribute("registro", true);
 		List<Cita> citas = new ArrayList<>();
 		String pass = PassGenerator.getPassEncode(user.getPassword());
@@ -83,7 +86,7 @@ public class UserController {
 		us.setApellido1(user.getApellido1());
 		us.setApellido2(user.getApellido2());
 		Authority autor = this.autoRepository.findByAuthority(user.getAutority());
-		List<Authority> autoridades = new LinkedList<Authority>();
+		List<Authority> autoridades = new LinkedList<>();
 		autoridades.add(autor);
 		us.setAuthorities(autoridades);
 		us.setCiudad(user.getCiudad());
@@ -96,7 +99,7 @@ public class UserController {
 		us.setUsuario(user.getUsuario());
 		Cliente cliente = new Cliente();
 		Esteticista esteticista = new Esteticista();
-		if (user.getAutority().equals(rolCliente1)) {
+		if (user.getAutority().equals(rolCliente)) {
 			cliente.setPuntos(0.0);
 			cliente.setCitas(citas);
 			cliente.setUsuario(us);
@@ -117,7 +120,7 @@ public class UserController {
 			return "user-signup";
 		} else {
 			try {
-				if (user.getAutority().equals(rolCliente1)) {
+				if (user.getAutority().equals(rolCliente)) {
 					userService.createOrUpdateCliente(cliente);
 				} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
 					esteticistaService.createOrUpdateCliente(esteticista);
@@ -126,27 +129,23 @@ public class UserController {
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				String message1 = "formErrorMessage";
-				model.addAttribute(message1, e.getMessage());
+				model.addAttribute(message, e.getMessage());
 			}
 		}
-		return redirect1;
+		return redirect;
 	}
 
 	@GetMapping("/perfil")
 	public String getPerfil(Model model) {
-		String rolCliente2 = "ROLE_CLIENTE";
-		String cliente1 = "cliente";
-		String error1 = "error";
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente2));
+				.anyMatch(r -> r.getAuthority().equals(rolCliente));
 		try {
 			if (hasUserRole) {
 				Cliente cliente = this.userService.findByUsuario(u);
-				model.addAttribute(cliente1, cliente);
+				model.addAttribute(varCliente, cliente);
 				return "perfilCliente";
 			} else {
 				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
@@ -155,26 +154,22 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error1;
+			return error;
 		}
 	}
 
 	@GetMapping("/edit")
 	public String editPerfil(Model model) {
-		String rolCliente3 = "ROLE_CLIENTE";
-		String cliente2 = "cliente";
-		String error2 = "error";
-		String editCliente1 = "editCliente";
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente3));
+				.anyMatch(r -> r.getAuthority().equals(rolCliente));
 		try {
 			if (hasUserRole) {
 				Cliente cliente = this.userService.findByUsuario(u);
-				model.addAttribute(cliente2, cliente);
-				return editCliente1;
+				model.addAttribute(varCliente, cliente);
+				return editCliente;
 			} else {
 				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
 				model.addAttribute("esteticista", esteticista);
@@ -182,83 +177,69 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error2;
+			return error;
 		}
 	}
 
 	@PostMapping("/editarCliente")
 	public String editCliente(@Valid @ModelAttribute("cliente") Cliente user, BindingResult result, ModelMap model) {
-		String signup3 = "signup";
-		String roles3 = "roles";
-		String redirect2 = "redirect:/";
-		String cliente3 = "cliente";
-		String editCliente2 = "editCliente";
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-		model.addAttribute(cliente3, user);
-		model.addAttribute(roles3, roles);
-		model.addAttribute(signup3, true);
+		model.addAttribute(varCliente, user);
+		model.addAttribute(varRoles, roles);
+		model.addAttribute(signup, true);
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
 			user.getUsuario().setPassword(pass);
 		}
 		if (result.hasErrors()) {
-			return editCliente2;
+			return editCliente;
 		} else {
 			try {
 				userService.createOrUpdateCliente(user);
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				String message2 = "formErrorMessage";
-				model.addAttribute(message2, e.getMessage());
+				model.addAttribute(message, e.getMessage());
 			}
 		}
-		return redirect2;
+		return redirect;
 	}
 
 	@PostMapping("/editarEsteticista")
 	public String editEsteticista(@Valid @ModelAttribute("esteticista") Esteticista user, BindingResult result, ModelMap model) {
-		String signup4 = "signup";
-		String roles4 = "roles";
-		String redirect3 = "redirect:/";
-		String cliente4 = "cliente";
-		String editCliente3 = "editCliente";
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-		model.addAttribute(cliente4, user);
-		model.addAttribute(roles4, roles);
-		model.addAttribute(signup4, true);
+		model.addAttribute(varCliente, user);
+		model.addAttribute(varRoles, roles);
+		model.addAttribute(signup, true);
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
 			user.getUsuario().setPassword(pass);
 		}
 		if (result.hasErrors()) {
-			return editCliente3;
+			return editCliente;
 		} else {
 			try {
 				esteticistaService.createOrUpdateCliente(user);
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 			} catch (Exception e) {
-				String message3 = "formErrorMessage";
-				model.addAttribute(message3, e.getMessage());
+				model.addAttribute(message, e.getMessage());
 			}
 		}
-		return redirect3;
+		return redirect;
 	}
 	
 	@GetMapping("/eliminar")
 	public String eliminar( ModelMap model) {
-		String rolCliente4 = "ROLE_CLIENTE";
-		String error3 = "error";
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean hasUserRole = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals(rolCliente4));
+				.anyMatch(r -> r.getAuthority().equals(rolCliente));
 		try {
 			if (hasUserRole) {
 				Cliente client = this.userService.findByUsuario(u);
@@ -273,14 +254,13 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			return error3;
+			return error;
 		}
 	}
 	
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto(Model model) {
-		String redirect4 = "redirect:/";
 		model.addAttribute("loginCorrecto", true);
-		return redirect4;
+		return redirect;
 	}
 }

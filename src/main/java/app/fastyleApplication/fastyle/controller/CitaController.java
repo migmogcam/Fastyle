@@ -54,10 +54,14 @@ public class CitaController {
 	EsteticistaService esteticistaService;
 	
 	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
+	private static final String viewError = "error";
+	private static final String citasEsteticista = "citasEsteticista";
+	private static final String viewCitas = "citas";
+	private static final String emptyCitas = "emptyCitas";
+	private static final String misCitas = "misCitas";
 	
 	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
-        String viewError1 = "error";
 		try {
         	LocalDate ahora = LocalDate.now();
     		LocalTime tAhora = LocalTime.now();
@@ -88,7 +92,7 @@ public class CitaController {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-            return viewError1;
+            return viewError;
 		}
         return "redirect:/";
     }
@@ -97,16 +101,15 @@ public class CitaController {
 	public String updateCitaService(@PathVariable("id") Integer id, @Valid Cita cita, 
 	  BindingResult result, Model model) {
 		String view1 = "accionRealizada";
-		String viewError3 = "error";
 	    if (result.hasErrors()) {
-            return viewError3;
+            return viewError;
 	    }
 	         
 	    try {
 			service.createOrUpdateCita(cita);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError3;
+			return viewError;
 		}
 	    String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
         model.addAttribute("message", message);
@@ -116,11 +119,10 @@ public class CitaController {
 	@GetMapping("/citaDelete/{id}")
 	public String deleteCitaService(@PathVariable("id") Integer id, Model model) {
 		String view2 = "accionRealizada";
-		String viewError4 = "error";
 		try {
 			service.deleteCitaById(id);
 		} catch (Exception e) {
-            return viewError4;
+            return viewError;
 		}
 		String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
         model.addAttribute("message", message);
@@ -152,7 +154,6 @@ public class CitaController {
 	
 	@GetMapping("/verCita/{idCita}")
     public String diplayCita(@PathVariable("idCita") Integer id,Model model, HttpSession session, HttpServletRequest request) {
-		String viewError5 = "error";
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
 				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
@@ -161,7 +162,7 @@ public class CitaController {
 			model.addAttribute("cita", cita);
 			model.addAttribute("isCliente", isCliente);
 		} catch (Exception e) {
-			return viewError5;
+			return viewError;
 		}
 		return "verCita";
     }
@@ -172,30 +173,22 @@ public class CitaController {
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Cliente c = this.clienteService.findByUsuario(u);
 		List<Cita> citas;	
-		String citasEsteticista1 = "citasEsteticista";
-		String citas1 = "citas";
-		String viewEmpty1 = "emptyCitas";
-		String misCitas1 = "misCitas";
 		citas = c.getCitas();
 		
 		if(citas.isEmpty()) {
 			model2.addAttribute("citasVacio", true);
-			model2.addAttribute(citasEsteticista1, false);
-			return viewEmpty1;
+			model2.addAttribute(citasEsteticista, false);
+			return emptyCitas;
 		} else {
-			model.put(citas1, citas);
-			model.put(citasEsteticista1, false);
-	        return misCitas1;
+			model.put(viewCitas, citas);
+			model.put(citasEsteticista, false);
+	        return misCitas;
 		}
     }
 
 	@GetMapping("/citasEsteticista/{idEst}")
     public String citasEsteticista(@PathVariable("idEst") Integer id, final Map<String, Object> model, Model model2) {
 		Esteticista esteticista = new Esteticista();
-		String citasEsteticista2 = "citasEsteticista";
-		String citas2 = "citas";
-		String viewEmpty2 = "emptyCitas";
-		String misCitas2 = "misCitas";
 		try {
 			esteticista = this.esteticistaService.getEsteticistaById(id);
 		} catch (Exception e) {
@@ -206,13 +199,13 @@ public class CitaController {
 		
 		if(citas.isEmpty()) {
 			model2.addAttribute("citasVacio", true);
-			model2.addAttribute(citasEsteticista2, true);
-			return viewEmpty2;
+			model2.addAttribute(citasEsteticista, true);
+			return emptyCitas;
 		} else {
-			model.put(citas2, citas);
+			model.put(viewCitas, citas);
 			model.put("esteticista", citas.get(0).getEsteticista());
-			model.put(citasEsteticista2, true);
-	        return misCitas2;
+			model.put(citasEsteticista, true);
+	        return misCitas;
 		}
     }
 	
@@ -223,18 +216,14 @@ public class CitaController {
 		Esteticista c = this.esteticistaService.findByUsuario(u);
 		List<Cita> citas;
 		citas = c.getCitas();
-		String citasEsteticista3 = "citasEsteticista";
-		String citas3 = "citas";
-		String viewEmpty3 = "emptyCitas";
-		String misCitas3 = "misCitas";
 		
 		if(citas.isEmpty()) {
-			model.put(citasEsteticista3, false);
-			return viewEmpty3;
+			model.put(citasEsteticista, false);
+			return emptyCitas;
 		} else {
-			model.put(citas3, citas);
-			model.put(citasEsteticista3, false);
-	        return misCitas3;
+			model.put(viewCitas, citas);
+			model.put(citasEsteticista, false);
+	        return misCitas;
 		}
     }
 }

@@ -66,7 +66,7 @@ public class ClienteService {
 		if (!clienteList.isEmpty()) {
 			return clienteList;
 		} else {
-			return new ArrayList<Cliente>();
+			return new ArrayList<>();
 		}
 	}
 

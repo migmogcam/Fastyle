@@ -31,7 +31,7 @@ public class CitaService {
 		if (!citaList.isEmpty()) {
 			return citaList;
 		} else {
-			return new ArrayList<Cita>();
+			return new ArrayList<>();
 		}
 	}
 

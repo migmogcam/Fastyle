@@ -52,9 +52,8 @@ public class UsuarioService implements UserDetailsService {
      
     
     public Usuario findByUsuario(String usuario) {
-    	Usuario appUser = 
-                repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
-    	return appUser;
+    	return repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
+ 
     }
     
     public void deleteUsuarioById(Integer id) throws Exception {
@@ -71,13 +70,12 @@ public class UsuarioService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
 		
-
 	     //Buscar el usuario con el repositorio y si no existe lanzar una exepcion
 	     Usuario appUser = 
 	                  repository.findByUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
 
 	    //Mapear nuestra lista de Authority con la de spring security 
-	     List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+	     List<GrantedAuthority> grantList = new ArrayList<>();
 	     for (Authority authority: appUser.getAuthorities()) {
 	         // ROLE_USER, ROLE_ADMIN,..
 	         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
