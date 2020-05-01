@@ -74,20 +74,25 @@ public class Role implements Serializable{
 			return false;
 		Role other = (Role) obj;
 		if (description == null) {
-			if (other.description != null)
+			if (other.description != null) {
 				return false;
-		} else if (!description.equals(other.description))
+			}
+		} else if (!description.equals(other.description)) {
 			return false;
+		}
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 

@@ -41,63 +41,63 @@ public class ServicioEsteticoController {
 	EsteticistaService esteticistaService;
 	
 	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
+	private static final String viewServicioEstetico = "servicioEstetico";
+	private static final String viewError = "viewError";
+	private static final String redirect = "redirect:/";
+	private static final String admin = "admin";
+	private static final String listaServicios = "listaServicios";
+	private static final String viewListado = "listadoServicios";
+	private static final String rolAdmin = "ROLE_ADMIN";
 
 	@GetMapping("/servicioEsteticoRegistro")
 	public String addServicioEstetico(Model model) {
-		String servicioEstetico1 = "servicioEstetico"; 
-		model.addAttribute(servicioEstetico1, new ServicioEstetico());
+		model.addAttribute(viewServicioEstetico, new ServicioEstetico());
 
 		return "crearServicioEstetico";
 	}
 
 	@PostMapping("/crearServicioEstetico")
 	public String addServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
-		String viewError1 = "error";
-		String redirect1 = "redirect:/";
 		if (result.hasErrors()) {
-			return viewError1;
+			return viewError;
 		}
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError1;
+			return viewError;
 		}
-		return redirect1;
+		return redirect;
 	}
 
 	@PostMapping("/servicioEsteticoUpdate/{id}")
 	public String updateServicioEsteticoService(@PathVariable("id") Integer id,
 			@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
-		String viewError3 = "error";
-		String redirect3 = "redirect:/";
 		if (result.hasErrors()) {
-			return viewError3;
+			return viewError;
 		}
 
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError3;
+			return viewError;
 		}
 		String message1 = "Añadir lo que se necesite en la vista a la que se va redirigir";
 		model.addAttribute("message", message1);
-		return redirect3;
+		return redirect;
 	}
 
 	@GetMapping("/servicioEsteticoDelete/{id}")
 	public String deleteServicioEsteticoService(@PathVariable("id") Integer id, Model model) {
-		String viewError4 = "error";
-		String redirect4 = "redirect:/";
 		try {
 			service.deleteServicioEsteticoById(id);
 		} catch (Exception e) {
-			return viewError4;
+			return viewError;
 		}
 		String message2 = "Añadir lo que se necesite en la vista a la que se va redirigir";
 		model.addAttribute("message", message2);
-		return redirect4;
+		return redirect;
 	}
 
 		@GetMapping("/")
@@ -105,179 +105,153 @@ public class ServicioEsteticoController {
 			List<ServicioEstetico> servicios;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = "";
-			String viewError5 = "error";
 			String anonymousUser1 = "anonymousUser";
-			String admin1 = "admin";
-			String listaServicios1 = "listaServicios";
-			String viewListado1 = "listadoServicios";
-			if(!username.equals(anonymousUser1) && !username.equals(admin1)) {
+			if(!username.equals(anonymousUser1) && !username.equals(admin)) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();
 			}
 			try {
-				if(!username.equals(anonymousUser1) && !username.equals(admin1)) {
+				if(!username.equals(anonymousUser1) && !username.equals(admin)) {
 					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
-					model.addAttribute(listaServicios1, servicios);
+					model.addAttribute(listaServicios, servicios);
 				} else {
 					servicios = service.getAllServicioEsteticos();
-					model.addAttribute(listaServicios1, servicios);
+					model.addAttribute(listaServicios, servicios);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError5;
+				return viewError;
 			}
-			return viewListado1;
+			return viewListado;
 		}
 
 		@GetMapping("/mascotas")
 		public String listadoMascotas(Model model) {
-			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
-			String viewError6 = "error";
-			String listaServicios2 = "listaServicios";
-			String viewListado2 = "listadoServicios";
-			String rolAdmin1 = "ROLE_ADMIN";
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin1));
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
 			try {
 				if (hasAdminRole) {
 
 					serviciosTipo = service.getAllServicioEsteticosPorTipo("Mascotas");
-					model.addAttribute(listaServicios2, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 
 				} else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
-					model.addAttribute(listaServicios2, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError6;
+				return viewError;
 			}
-			return viewListado2;
+			return viewListado;
 		}
 		
 		@GetMapping("/tinte")
 		public String listadoTinte(Model model) {
-			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
-			String viewError7 = "error";
-			String listaServicios3 = "listaServicios";
-			String viewListado3 = "listadoServicios";
-			String rolAdmin2 = "ROLE_ADMIN";
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin2));
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
 			try {
 				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Tinte");
-					model.addAttribute(listaServicios3, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
-				model.addAttribute(listaServicios3, serviciosTipo);
+				model.addAttribute(listaServicios, serviciosTipo);
 			}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError7;
+				return viewError;
 			}
-			return viewListado3;
+			return viewListado;
 		}
 		
 		@GetMapping("/pedicura-y-manicura")
 		public String listadoPedicuraYManicura(Model model) {
-			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
-			String viewError8 = "error";
-			String listaServicios4 = "listaServicios";
-			String viewListado4 = "listadoServicios";
-			String rolAdmin3 = "ROLE_ADMIN";
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin3));
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
 			try {
 				if(hasAdminRole) {	
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Pedicura y Manicura");
-					model.addAttribute(listaServicios4, serviciosTipo);									
+					model.addAttribute(listaServicios, serviciosTipo);									
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
-					model.addAttribute(listaServicios4, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError8;
+				return viewError;
 			}
-			return viewListado4;
+			return viewListado;
 		}
 				
 		@GetMapping("/depilacion")
 		public String listadoDepilacion(Model model) {
-			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
-			String viewError9 = "error";
-			String listaServicios5 = "listaServicios";
-			String viewListado5 = "listadoServicios";
-			String rolAdmin4 = "ROLE_ADMIN";
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin4));
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
 			try {
 				if(hasAdminRole) {			
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Depilacion");
-					model.addAttribute(listaServicios5, serviciosTipo);										
+					model.addAttribute(listaServicios, serviciosTipo);										
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
-					model.addAttribute(listaServicios5, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError9;
+				return viewError;
 			}
-			return viewListado5;
+			return viewListado;
 		}
 				
 		@GetMapping("/peluqueria")
 		public String listadoPeluqueria(Model model) {
-			List<ServicioEstetico> serviciosTipo = new ArrayList<ServicioEstetico>();
+			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			Usuario u = this.usuarioService.findByUsuario(username);
 			String provincia = u.getProvincia();
-			String viewError10 = "error";
-			String listaServicios6 = "listaServicios";
-			String viewListado6 = "listadoServicios";
-			String rolAdmin5 = "ROLE_ADMIN";
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin5));
+					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
 			try {
 				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria");
-					model.addAttribute(listaServicios6, serviciosTipo);										
+					model.addAttribute(listaServicios, serviciosTipo);										
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
-					model.addAttribute(listaServicios6	, serviciosTipo);
+					model.addAttribute(listaServicios, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError10;
+				return viewError;
 			}
-			return viewListado6;
+			return viewListado;
 		}
 				
 		@GetMapping("/servicioInfo/{id}")
 		public String diplayInfo(@PathVariable("id") long id, Model model) {
-			List<Esteticista> servicios = new ArrayList<Esteticista>();
+			List<Esteticista> servicios;
 			ServicioEstetico servicioEstetico = new ServicioEstetico();
 			String anonymousUser2 = "anonymousUser";
-			String servicioEstetico2 = "servicioEstetico";
-			String viewError11 = "error";
 			try {
 				servicioEstetico = service.getServicioEsteticoById((int) id);
 				String anonimo = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -303,19 +277,17 @@ public class ServicioEsteticoController {
 				}
 				servicios = servicioEstetico.getEsteticista();
 				model.addAttribute("listaEsteticistas", servicios);
-				model.addAttribute(servicioEstetico2, servicioEstetico);
+				model.addAttribute(viewServicioEstetico, servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError11;
+				return viewError;
 			}
 			return "servicioInfo";
 		}
 
 		@GetMapping("/ServicioUnir/{idServ}")
-		public String ServicioUnir(@PathVariable("idServ") long id, Model model) {
+		public String servicioUnir(@PathVariable("idServ") long id, Model model) {
 			ServicioEstetico servicioEstetico = new ServicioEstetico();
-			String viewError12 = "error";
-			String redirect5 = "redirect:/";
 			try {
 				servicioEstetico = service.getServicioEsteticoById((int) id);
 				String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -325,76 +297,65 @@ public class ServicioEsteticoController {
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError12;
+				return viewError;
 			}
-			return redirect5;
+			return redirect;
 		}
 
 		@GetMapping("/ServicioEditar/{idServ}")
-		public String ServicioEditar(@PathVariable("idServ") long id, Model model) {
-			String servicioEstetico3 = "servicioEstetico";
+		public String servicioEditar(@PathVariable("idServ") long id, Model model) {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			String viewError13 = "error";
-			String admin2 = "admin";
-			if (username.equals(admin2)) {
+			if (username.equals(admin)) {
 				ServicioEstetico servicioEstetico = new ServicioEstetico();
 				try {
 					servicioEstetico = service.getServicioEsteticoById((int) id);
-					model.addAttribute(servicioEstetico3, servicioEstetico);
+					model.addAttribute(viewServicioEstetico, servicioEstetico);
 					return "editarServicio";
 				} catch (Exception e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
-					return viewError13;
+					return viewError;
 				}
 			} else {
-				return viewError13;
+				return viewError;
 			}
 		}
 	
 		@PostMapping("/editarServicioEstetico")
 		public String editarServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result,
 				Model model) {
-			String viewError14 = "error";
-			String redirect6 = "redirect:/";
 			if (result.hasErrors()) {
-				return viewError14;
+				return viewError;
 			}
 			try {
 				service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError14;
+				return viewError;
 			}
-			return redirect6;
+			return redirect;
 		}
 	
 		@GetMapping("/ServicioBorrar/{idServ}")
-		public String ServicioBorrar(@PathVariable("idServ") Integer id, Model model) {
-			String servicioEstetico4 = "servicioEstetico";
-			String viewError15 = "error";
-			String redirect7 = "redirect:/";
-			String admin3 = "admin";
+		public String servicioBorrar(@PathVariable("idServ") Integer id, Model model) {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (username.equals(admin3)) {
+			if (username.equals(admin)) {
 				ServicioEstetico servicioEstetico = new ServicioEstetico();
 				try {
 					service.deleteServicioEsteticoById(id);
-					model.addAttribute(servicioEstetico4, servicioEstetico);
-					return redirect7;
+					model.addAttribute(viewServicioEstetico, servicioEstetico);
+					return redirect;
 				} catch (Exception e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
-					return viewError15;
+					return viewError;
 				}
 			} else {
-				return viewError15;
+				return viewError;
 			}
 		}
 	
 		@GetMapping("/ServicioCancelar/{idServ}")
-		public String ServicioCancelar(@PathVariable("idServ") long id, Model model) {
+		public String servicioCancelar(@PathVariable("idServ") long id, Model model) {
 			ServicioEstetico servicioEstetico = new ServicioEstetico();
-			String viewError16 = "error";
-			String redirect8 = "redirect:/";
 			try {
 				servicioEstetico = service.getServicioEsteticoById((int) id);
 				String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -404,8 +365,8 @@ public class ServicioEsteticoController {
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError16;
+				return viewError;
 			}
-			return redirect8;
+			return redirect;
 		}
 }

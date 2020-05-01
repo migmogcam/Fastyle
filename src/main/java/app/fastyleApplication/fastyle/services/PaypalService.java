@@ -37,7 +37,7 @@ public class PaypalService {
 		trasaction.setDescription(description);
 		trasaction.setAmount(amount);
 		
-		List<Transaction> transactions = new ArrayList<Transaction>();
+		List<Transaction> transactions = new ArrayList<>();
 		transactions.add(trasaction);
 		
 		Payer payer = new Payer();

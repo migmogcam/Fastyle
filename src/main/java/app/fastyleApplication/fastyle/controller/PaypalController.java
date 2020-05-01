@@ -180,7 +180,7 @@ public class PaypalController {
 				cita.setMomento(momento1);
 				this.clienteService.createOrUpdateCliente(c);
 			} else {
-				return "cancel";
+				return PAYPAL_CANCEL_URL;
 			}
 			cita.setEstado("PAGADA");
 			citaService.createOrUpdateCita(cita);
@@ -193,7 +193,7 @@ public class PaypalController {
 
 	@GetMapping(value = PAYPAL_CANCEL_URL)
 	public String cancelPay() {
-		return "cancel";
+		return PAYPAL_CANCEL_URL;
 	}
 
 	@GetMapping(value = PAYPAL_SUCCESS_URL)
@@ -241,12 +241,12 @@ public class PaypalController {
 				} catch (Exception e) {
 					return "error";
 				}
-				return "pagoCorrecto";
+				return PAYPAL_SUCCESS_URL;
 			}
 		} catch (PayPalRESTException e) {
-			System.out.println(e.getMessage());
+			logger.log(Logger.Level.FATAL, e.getMessage());
 		}
-		return "pagoCorrecto";
+		return PAYPAL_SUCCESS_URL;
 	}
 
 }

@@ -72,7 +72,7 @@ public class EsteticistaService {
 		if (!esteticistaList.isEmpty()) {
 			return esteticistaList;
 		} else {
-			return new ArrayList<Esteticista>();
+			return new ArrayList<>();
 		}
 	}
 

@@ -23,7 +23,7 @@ public class AdministradorService {
         if(!administradorList.isEmpty()) {
             return administradorList;
         } else {
-            return new ArrayList<Administrador>();
+            return new ArrayList<>();
         }
     }
      

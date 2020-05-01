@@ -24,7 +24,7 @@ public class ServicioEsteticoService {
 		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
-			return new ArrayList<ServicioEstetico>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class ServicioEsteticoService {
 		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
-			return new ArrayList<ServicioEstetico>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -44,7 +44,7 @@ public class ServicioEsteticoService {
 		if (!servicioEsteticoList.isEmpty()) {
 			return servicioEsteticoList;
 		} else {
-			return new ArrayList<ServicioEstetico>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class ServicioEsteticoService {
 		if (!res.isEmpty()) {
 			return res;
 		} else {
-			return new ArrayList<ServicioEstetico>();
+			return new ArrayList<>();
 		}
 	}
 
