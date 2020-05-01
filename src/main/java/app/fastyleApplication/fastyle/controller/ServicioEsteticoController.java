@@ -1,6 +1,5 @@
 package app.fastyleApplication.fastyle.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,17 +40,17 @@ public class ServicioEsteticoController {
 	EsteticistaService esteticistaService;
 	
 	private static final Logger logger = Logger.getLogger(CitaController.class.getName());
-	private static final String viewServicioEstetico = "servicioEstetico";
-	private static final String viewError = "viewError";
-	private static final String redirect = "redirect:/";
-	private static final String admin = "admin";
-	private static final String listaServicios = "listaServicios";
-	private static final String viewListado = "listadoServicios";
-	private static final String rolAdmin = "ROLE_ADMIN";
+	private static final String VIEW_SERVICIO_ESTETICO = "servicioEstetico";
+	private static final String VIEW_ERROR = "viewError";
+	private static final String VIEW_REDIRECT = "redirect:/";
+	private static final String USER_ADMIN = "admin";
+	private static final String LISTA_SERVICIOS = "listaServicios";
+	private static final String VIEW_LISTADO = "listadoServicios";
+	private static final String ROL_ADMIN = "ROLE_ADMIN";
 
 	@GetMapping("/servicioEsteticoRegistro")
 	public String addServicioEstetico(Model model) {
-		model.addAttribute(viewServicioEstetico, new ServicioEstetico());
+		model.addAttribute(VIEW_SERVICIO_ESTETICO, new ServicioEstetico());
 
 		return "crearServicioEstetico";
 	}
@@ -59,33 +58,33 @@ public class ServicioEsteticoController {
 	@PostMapping("/crearServicioEstetico")
 	public String addServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return viewError;
+			return VIEW_ERROR;
 		}
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError;
+			return VIEW_ERROR;
 		}
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 
 	@PostMapping("/servicioEsteticoUpdate/{id}")
 	public String updateServicioEsteticoService(@PathVariable("id") Integer id,
 			@Valid ServicioEstetico servicioEstetico, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return viewError;
+			return VIEW_ERROR;
 		}
 
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
 		} catch (Exception e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
-			return viewError;
+			return VIEW_ERROR;
 		}
 		String message1 = "Añadir lo que se necesite en la vista a la que se va redirigir";
 		model.addAttribute("message", message1);
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 
 	@GetMapping("/servicioEsteticoDelete/{id}")
@@ -93,11 +92,11 @@ public class ServicioEsteticoController {
 		try {
 			service.deleteServicioEsteticoById(id);
 		} catch (Exception e) {
-			return viewError;
+			return VIEW_ERROR;
 		}
 		String message2 = "Añadir lo que se necesite en la vista a la que se va redirigir";
 		model.addAttribute("message", message2);
-		return redirect;
+		return VIEW_REDIRECT;
 	}
 
 		@GetMapping("/")
@@ -106,23 +105,23 @@ public class ServicioEsteticoController {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = "";
 			String anonymousUser1 = "anonymousUser";
-			if(!username.equals(anonymousUser1) && !username.equals(admin)) {
+			if(!username.equals(anonymousUser1) && !username.equals(USER_ADMIN)) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();
 			}
 			try {
-				if(!username.equals(anonymousUser1) && !username.equals(admin)) {
+				if(!username.equals(anonymousUser1) && !username.equals(USER_ADMIN)) {
 					servicios = service.getAllServicioEsteticosPorProvincia(provincia);
-					model.addAttribute(listaServicios, servicios);
+					model.addAttribute(LISTA_SERVICIOS, servicios);
 				} else {
 					servicios = service.getAllServicioEsteticos();
-					model.addAttribute(listaServicios, servicios);
+					model.addAttribute(LISTA_SERVICIOS, servicios);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 
 		@GetMapping("/mascotas")
@@ -133,22 +132,22 @@ public class ServicioEsteticoController {
 			String provincia = u.getProvincia();
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if (hasAdminRole) {
 
 					serviciosTipo = service.getAllServicioEsteticosPorTipo("Mascotas");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 
 				} else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 		
 		@GetMapping("/tinte")
@@ -159,20 +158,20 @@ public class ServicioEsteticoController {
 			String provincia = u.getProvincia();
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Tinte");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 					}else {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
-				model.addAttribute(listaServicios, serviciosTipo);
+				model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 			}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 		
 		@GetMapping("/pedicura-y-manicura")
@@ -183,20 +182,20 @@ public class ServicioEsteticoController {
 			String provincia = u.getProvincia();
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {	
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Pedicura y Manicura");
-					model.addAttribute(listaServicios, serviciosTipo);									
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);									
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 				
 		@GetMapping("/depilacion")
@@ -207,20 +206,20 @@ public class ServicioEsteticoController {
 			String provincia = u.getProvincia();
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {			
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Depilacion");
-					model.addAttribute(listaServicios, serviciosTipo);										
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);										
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 				
 		@GetMapping("/peluqueria")
@@ -231,20 +230,20 @@ public class ServicioEsteticoController {
 			String provincia = u.getProvincia();
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			boolean hasAdminRole = authentication.getAuthorities().stream()
-					.anyMatch(r -> r.getAuthority().equals(rolAdmin));
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {				
 					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria");
-					model.addAttribute(listaServicios, serviciosTipo);										
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);										
 				}else {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
-					model.addAttribute(listaServicios, serviciosTipo);
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return viewListado;
+			return VIEW_LISTADO;
 		}
 				
 		@GetMapping("/servicioInfo/{id}")
@@ -277,10 +276,10 @@ public class ServicioEsteticoController {
 				}
 				servicios = servicioEstetico.getEsteticista();
 				model.addAttribute("listaEsteticistas", servicios);
-				model.addAttribute(viewServicioEstetico, servicioEstetico);
+				model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
 			return "servicioInfo";
 		}
@@ -297,26 +296,26 @@ public class ServicioEsteticoController {
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return redirect;
+			return VIEW_REDIRECT;
 		}
 
 		@GetMapping("/ServicioEditar/{idServ}")
 		public String servicioEditar(@PathVariable("idServ") long id, Model model) {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (username.equals(admin)) {
+			if (username.equals(USER_ADMIN)) {
 				ServicioEstetico servicioEstetico = new ServicioEstetico();
 				try {
 					servicioEstetico = service.getServicioEsteticoById((int) id);
-					model.addAttribute(viewServicioEstetico, servicioEstetico);
+					model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
 					return "editarServicio";
 				} catch (Exception e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
-					return viewError;
+					return VIEW_ERROR;
 				}
 			} else {
-				return viewError;
+				return VIEW_ERROR;
 			}
 		}
 	
@@ -324,32 +323,32 @@ public class ServicioEsteticoController {
 		public String editarServicioEstetico(@Valid ServicioEstetico servicioEstetico, BindingResult result,
 				Model model) {
 			if (result.hasErrors()) {
-				return viewError;
+				return VIEW_ERROR;
 			}
 			try {
 				service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return redirect;
+			return VIEW_REDIRECT;
 		}
 	
 		@GetMapping("/ServicioBorrar/{idServ}")
 		public String servicioBorrar(@PathVariable("idServ") Integer id, Model model) {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			if (username.equals(admin)) {
+			if (username.equals(USER_ADMIN)) {
 				ServicioEstetico servicioEstetico = new ServicioEstetico();
 				try {
 					service.deleteServicioEsteticoById(id);
-					model.addAttribute(viewServicioEstetico, servicioEstetico);
-					return redirect;
+					model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
+					return VIEW_REDIRECT;
 				} catch (Exception e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
-					return viewError;
+					return VIEW_ERROR;
 				}
 			} else {
-				return viewError;
+				return VIEW_ERROR;
 			}
 		}
 	
@@ -365,8 +364,8 @@ public class ServicioEsteticoController {
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
 			} catch (Exception e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
-				return viewError;
+				return VIEW_ERROR;
 			}
-			return redirect;
+			return VIEW_REDIRECT;
 		}
 }
