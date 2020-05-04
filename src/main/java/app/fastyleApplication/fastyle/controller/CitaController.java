@@ -59,6 +59,10 @@ public class CitaController {
 	private static final String VIEW_CITAS = "citas";
 	private static final String EMPTY_CITAS = "emptyCitas";
 	private static final String MIS_CITAS = "misCitas";
+	private static final String ROL_CLIENTE = "ROLE_CLIENTE";
+	
+	
+	
 	
 	@PostMapping("/guardarRespuesta")
     public String addCita(@Valid Cita cita, BindingResult result, Model model) {
@@ -156,7 +160,7 @@ public class CitaController {
     public String diplayCita(@PathVariable("idCita") Integer id,Model model, HttpSession session, HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		try {
 			Cita cita = this.service.getCitaById(id);
 			model.addAttribute("cita", cita);
@@ -231,7 +235,7 @@ public class CitaController {
     public String positiva(@PathVariable("idCita") Integer id, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		if(isCliente) {
 		try {
 			Cita cita = this.service.getCitaById(id);
@@ -254,7 +258,7 @@ public class CitaController {
     public String negativa(@PathVariable("idCita") Integer id, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
-				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
 		if(isCliente) {
 		try {
 			Cita cita = this.service.getCitaById(id);
