@@ -158,70 +158,34 @@ public class User implements Serializable{
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		User other = (User) obj;
-		if (confirmPassword == null) {
-			if (other.confirmPassword != null) {
-				return false;
-			}
-		} else if (!confirmPassword.equals(other.confirmPassword)) {
+		if ((confirmPassword == null && other.confirmPassword != null) || !confirmPassword.equals(other.confirmPassword)) {
 			return false;
 		}
-		if (email == null) {
-			if (other.email != null) {
-				return false;
-			}
-		} else if (!email.equals(other.email)) {
+		if ((email == null && other.email != null) || !email.equals(other.email)) {
 			return false;
 		}
-		if (firstName == null) {
-			if (other.firstName != null) {
-				return false;
-			}
-		} else if (!firstName.equals(other.firstName)) {
+		if ((firstName == null && other.firstName != null) || !firstName.equals(other.firstName)) {
 			return false;
 		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
+		if ((id == null && other.id != null) || !id.equals(other.id)) {
 			return false;
 		}
-		if (lastName == null) {
-			if (other.lastName != null) {
-				return false;
-			}
-		} else if (!lastName.equals(other.lastName)) {
+		if ((lastName == null && other.lastName != null) || !lastName.equals(other.lastName)) {
 			return false;
 		}
-		if (password == null) {
-			if (other.password != null) {
-				return false;
-			}
-		} else if (!password.equals(other.password)) {
+		if (password == null && other.password != null || !password.equals(other.password)) {
 			return false;
 		}
-		if (roles == null) {
-			if (other.roles != null) {
-				return false;
-			}
-		} else if (!roles.equals(other.roles)) {
+		if ((roles == null && other.roles != null) || !roles.equals(other.roles)) {
 			return false;
 		}
-		if (username == null) {
-			if (other.username != null) {
-				return false;
-			}
-		} else if (!username.equals(other.username)) {
+		if ((username == null && other.username != null) || !username.equals(other.username)) {
 			return false;
 		}
 		return true;
 	}
-
 }
