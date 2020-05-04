@@ -48,12 +48,12 @@ insert into usuario (id, apellido1, apellido2, ciudad, direccion, e_mail, name, 
 insert into cliente values (1, 50.0,1);
 insert into cliente values (2, 8.0,2);
 
-insert into esteticista (descripcion, usuario_id, id) values ('Hola soy Antonio, llevo 3 meses realizando cortes de pelo, todos mis clientes están muy contentos.', 4,1);
+insert into esteticista (descripcion, usuario_id, id, negativo, positivo) values ('Hola soy Antonio, llevo 3 meses realizando cortes de pelo, todos mis clientes están muy contentos.', 4,1, 0, 5);
 insert into imagenes values (1,'https://static3.abc.es/media/summum/2019/12/07/Yolanda-Aberasturi-TUPe-FLEXIBLE-WEB--kfhG--660x372@abc.jpg');
 insert into imagenes values (1,'https://static2.abc.es/media/summum/2019/12/07/Yolanda-Aberasturi-cortepelo-kfhG--660x372@abc.jpg');
 insert into imagenes values (1,'https://static2.abc.es/media/summum/2019/12/07/LLONGUERA-ESTILO-KITE--kfhG--620x349@abc.jpg');
 
-insert into esteticista (descripcion, usuario_id, id) values ('Hola soy Francisco Manuel, soy muy profesional en mi trabajo.',3,2);
+insert into esteticista (descripcion, usuario_id, id, negativo, positivo) values ('Hola soy Francisco Manuel, soy muy profesional en mi trabajo.',3,2,4,3);
 
 insert into usuario (id, apellido1, apellido2, ciudad, direccion, e_mail, name, password, provincia, usuario, edad) values ('99','admin','admin','admin', 'admin', 'admin@admin','admin admin','$2y$04$3HFfqKtG6YXiFq1JKasKQuDfBOK4zmU7b2xAEtx9nC6asDlSn47Am','admin','admin', 99);
 
@@ -130,6 +130,6 @@ insert into servicio_esteticistas (servicio_id, esteticista_id) values (39,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (40,1);
 insert into servicio_esteticistas (servicio_id, esteticista_id) values (40,2);
 
-insert into cita values(1,'detalle',  'ACEPTADA', '2021-01-01','18:30', '2020-01-01 14:27','OK',1,1,1);
-insert into cita values(2,'detalle1', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK',2,1,1);
-insert into cita values(3,'detalle2', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK',2,2,2);
+insert into cita values(1,'detalle',  'ACEPTADA', '2021-01-01','18:30', '2020-01-01 14:27','OK', false,1,1,1);
+insert into cita values(2,'detalle1', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK', false,2,1,1);
+insert into cita values(3,'detalle2', 'ACEPTADA', '2021-01-04','16:30', '2020-01-04 17:32','OK', false,2,2,2);

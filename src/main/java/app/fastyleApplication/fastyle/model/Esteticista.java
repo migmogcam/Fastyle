@@ -43,5 +43,13 @@ public class Esteticista extends BaseEntity {
 	@Getter
 	@Setter
 	private Usuario usuario;
+	
+	@Getter
+	@Setter
+	private Integer positivo;
+	
+	@Getter
+	@Setter
+	private Integer negativo;
 
 }

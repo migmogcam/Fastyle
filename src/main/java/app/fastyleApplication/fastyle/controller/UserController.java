@@ -113,6 +113,8 @@ public class UserController {
 			esteticista.setCitas(citas);
 			esteticista.setDescripcion(user.getDescripcion());
 			esteticista.setUsuario(us);
+			esteticista.setNegativo(0);
+			esteticista.setPositivo(0);
 		}
 
 		if (result.hasErrors()) {

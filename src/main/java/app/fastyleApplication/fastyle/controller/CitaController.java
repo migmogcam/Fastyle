@@ -226,4 +226,51 @@ public class CitaController {
 	        return MIS_CITAS;
 		}
     }
+	
+	@GetMapping("/positiva/{idCita}")
+    public String positiva(@PathVariable("idCita") Integer id, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isCliente = authentication.getAuthorities().stream()
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		if(isCliente) {
+		try {
+			Cita cita = this.service.getCitaById(id);
+			cita.setValorar(true);
+			Esteticista este = this.esteticistaService.getEsteticistaById(cita.getEsteticista().getId());
+			Integer valor = este.getPositivo() +1;
+			este.setPositivo(valor);
+			this.service.createOrUpdateCita(cita);
+			this.serviceEsteticista.createOrUpdateCliente(este);
+		} catch (Exception e) {
+			return VIEW_ERROR;
+		}
+		return "redirect:/misCitas";
+		}else {
+			return VIEW_ERROR;
+		}
+	}
+	
+	@GetMapping("/negativa/{idCita}")
+    public String negativa(@PathVariable("idCita") Integer id, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isCliente = authentication.getAuthorities().stream()
+				.anyMatch(r -> r.getAuthority().equals("ROLE_CLIENTE"));
+		if(isCliente) {
+		try {
+			Cita cita = this.service.getCitaById(id);
+			cita.setValorar(true);
+			Esteticista este = this.esteticistaService.getEsteticistaById(cita.getEsteticista().getId());
+			Integer valor = este.getNegativo() +1;
+			este.setNegativo(valor);
+			this.service.createOrUpdateCita(cita);
+			this.serviceEsteticista.createOrUpdateCliente(este);
+		} catch (Exception e) {
+			return VIEW_ERROR;
+		}
+		return "redirect:/misCitas";
+		}else {
+			return VIEW_ERROR;
+		}
+	}
+	
 }

@@ -67,7 +67,7 @@
 						class="card-body">
 						<tr th:each="esteticista: ${listaEsteticistas}">
 							<p>
-								<td>
+					
 								<td th:text="${esteticista.descripcion}" /></td>
 							</p>
 							<a sec:authorize="hasRole('CLIENTE')"
@@ -76,6 +76,13 @@
 							<a sec:authorize="hasRole('CLIENTE')"
 								th:href="@{/citasEsteticista/{idEst}(idEst=${esteticista.id})}"
 								class="btn btn-success">Ver citas del esteticista</a>
+							
+							<div sec:authorize="hasRole('CLIENTE')" class="float-right d-flex p-2"><td th:text="${esteticista.positivo}"></td> &nbsp; <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20" width="20"> &nbsp; <td th:text="${esteticista.negativo}"></td> &nbsp;<img alt="" src="https://www.freeiconspng.com/uploads/youtube-dislike-facebook-thumbs-down-not-like-png-16.png" height="20" width="20"></div>
+							<div sec:authorize="hasRole('ESTETICISTA')" class="d-flex p-2"><td th:text="${esteticista.positivo}"></td> &nbsp; <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20" width="20"> &nbsp; <td th:text="${esteticista.negativo}"></td> &nbsp;<img alt="" src="https://www.freeiconspng.com/uploads/youtube-dislike-facebook-thumbs-down-not-like-png-16.png" height="20" width="20"></div>
+							<div sec:authorize="hasRole('ADMIN')" class="d-flex p-2"><td th:text="${esteticista.positivo}"></td> &nbsp; <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20" width="20"> &nbsp; <td th:text="${esteticista.negativo}"></td> &nbsp;<img alt="" src="https://www.freeiconspng.com/uploads/youtube-dislike-facebook-thumbs-down-not-like-png-16.png" height="20" width="20"></div>
+							
+							<div th:if="${#authentication.getPrincipal() == 'anonymousUser'}" class="d-flex p-2"><td th:text="${esteticista.positivo}"></td> &nbsp; <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20" width="20"> &nbsp; <td th:text="${esteticista.negativo}"></td> &nbsp;<img alt="" src="https://www.freeiconspng.com/uploads/youtube-dislike-facebook-thumbs-down-not-like-png-16.png" height="20" width="20"></div>
+							
 							<hr>
 						</tr>
 

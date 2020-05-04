@@ -104,6 +104,7 @@ public class PaypalController {
 					cita.setHora(order.getHora());
 					cita.setServicioEstetico(servicio);
 					cita.setEstado("PENDIENTE");
+					cita.setValorar(false);
 					citaService.createOrUpdateCita(cita);
 				} catch (Exception e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());

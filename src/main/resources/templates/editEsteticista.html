@@ -27,6 +27,10 @@
 						<input class="form-control" type=hidden
 							th:field="${esteticista.usuario.id}"> <input
 							class="form-control" type=hidden th:field="${esteticista.id}">
+						<input class="form-control" type=hidden
+							th:field="${esteticista.negativo}"> <input
+							class="form-control" type=hidden
+							th:field="${esteticista.positivo}">
 
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
@@ -58,15 +62,15 @@
 
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
 							<div class="input-group">
 								<label class="col-lg-3 col-form-label form-control-label">Edad</label>
 
 								<div class="col-lg-7">
-								<input class="form-control number" type="number"
-									min="18" th:field="${esteticista.usuario.edad}" readonly>
-</div>
+									<input class="form-control number" type="number" min="18"
+										th:field="${esteticista.usuario.edad}" readonly>
+								</div>
 							</div>
 						</div>
 
@@ -125,7 +129,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Descripci&oacute;n</label>
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="exampleFormControlTextarea1">Descripci&oacute;n</label>
 							<div class="col-lg-7">
 								<textarea class="form-control"
 									th:field="${esteticista.descripcion}" rows="3"></textarea>
@@ -133,7 +138,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Imagen 1</label>
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="exampleFormControlTextarea1">Imagen 1</label>
 							<div class="col-lg-7">
 								<input class="form-control"
 									th:field="${esteticista.imagenes[0]}"></input>
@@ -141,7 +147,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Imagen 2</label>
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="exampleFormControlTextarea1">Imagen 2</label>
 							<div class="col-lg-7">
 								<input class="form-control"
 									th:field="${esteticista.imagenes[1]}"></input>
@@ -149,7 +156,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Imagen 3</label>
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="exampleFormControlTextarea1">Imagen 3</label>
 							<div class="col-lg-7">
 								<input class="form-control"
 									th:field="${esteticista.imagenes[2]}"></input>
@@ -157,7 +165,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label" for="exampleFormControlTextarea1">Imagen 4</label>
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="exampleFormControlTextarea1">Imagen 4</label>
 							<div class="col-lg-7">
 								<input class="form-control"
 									th:field="${esteticista.imagenes[3]}"></input>
@@ -185,8 +194,9 @@
 
 						<div class="form-group row">
 							<div class="col-lg-12 text-center">
-								<input type="submit" class="btn btn-outline-primary btn-sm" value="Guardar">
-								<a type="button" class="btn btn-outline-dark btn-sm" th:href="@{/}">Cancelar</a>
+								<input type="submit" class="btn btn-outline-primary btn-sm"
+									value="Guardar"> <a type="button"
+									class="btn btn-outline-dark btn-sm" th:href="@{/}">Cancelar</a>
 							</div>
 						</div>
 

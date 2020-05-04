@@ -14,8 +14,7 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 	<div class="container">
-				<br />
-				<br />
+		<br /> <br />
 		<div class="row">
 
 			<th:block th:if="${citasEsteticista}">
@@ -25,7 +24,7 @@
 							th:if="${esteticista.imagenes!=null and !esteticista.imagenes.isEmpty()}"
 							class="container">
 							<div class="card-header">
-							<h3 class="card-title" align="center">Book del esteticista</h3>
+								<h3 class="card-title" align="center">Book del esteticista</h3>
 							</div>
 							<div id="carouselExampleIndicators" class="carousel slide my-4"
 								data-ride="carousel">
@@ -51,22 +50,26 @@
 										<div
 											th:if="${iter.index == 0 and not #strings.isEmpty(imagen)}"
 											class="carousel-item active">
-											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
+											<img class="d-block img-fluid" th:src="${imagen}"
+												height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 1 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
+											<img class="d-block img-fluid" th:src="${imagen}"
+												height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 2 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
+											<img class="d-block img-fluid" th:src="${imagen}"
+												height="400" width="600">
 										</div>
 										<div
 											th:if="${iter.index == 3 and not #strings.isEmpty(imagen)}"
 											class="carousel-item">
-											<img class="d-block img-fluid" th:src="${imagen}" height="400" width="600">
+											<img class="d-block img-fluid" th:src="${imagen}"
+												height="400" width="600">
 										</div>
 									</tr>
 								</div>
@@ -94,66 +97,115 @@
 						align="center">Mis citas</h3>
 					<h3 th:if="${citasEsteticista}" class="card-title" align="center">
 						Citas del esteticista
-			</th:block>
-			</h3>
-			<table th:if="${not #lists.isEmpty(citas)}"
-				class="table table-striped align-middle" style="margin-top: 50px">
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">Fecha</th>
-						<th scope="col">Hora</th>
-						<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
-						<th th:if="${not citasEsteticista}"
-							sec:authorize="hasRole('ESTETICISTA')" scope="col">Cliente</th>
-						<th scope="col">Estado</th>
-						<th th:if="${not citasEsteticista}" scope="col">Información y
-							pago</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="cita : ${citas}">
-
-						<th scope="row" th:text="${citaStat.index +1 }"></th>
-						<td th:text="${cita.fecha}"></td>
-						<td th:text="${cita.hora}"></td>
-
-						<td th:if="${cita.esteticista != null}"
-							sec:authorize="hasRole('CLIENTE')"
-							th:text="${cita.esteticista.usuario.name}"></td>
-
-						<td th:unless="${cita.esteticista != null}"
-							sec:authorize="hasRole('CLIENTE')">El esteticista ha
-							eliminado su cuenta</td>
-
-						<td th:if="${cita.cliente != null}"
-							sec:authorize="hasRole('ESTETICISTA')"
-							th:text="${cita.cliente.usuario.name}"></td>
-
-						<td th:unless="${cita.cliente != null}"
-							sec:authorize="hasRole('ESTETICISTA')">El cliente ha
-							eliminado su cuenta</td>
-
-						<td th:text="${cita.estado}"></td>
-						<th:block th:if="${not citasEsteticista}">
-							<td
-								th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}"><a
-								th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
-								class="btn btn-outline-success ">Ver Detalles</a></td>
-							<td
-								th:unless="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}">Cita
-								cancelada</td>
 						</th:block>
-					</tr>
-				</tbody>
-			</table>
-			<div class="col-lg-12 text-center">
-				<button type="button" class="btn btn-outline-dark btn-sm"
-					onclick='javascript:window.history.back()'>Cancelar</button>
+					</h3>
+					<table th:if="${not #lists.isEmpty(citas)}"
+						class="table table-striped align-middle" style="margin-top: 50px">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Fecha</th>
+								<th scope="col">Hora</th>
+								<th sec:authorize="hasRole('CLIENTE')" scope="col">Esteticista</th>
+								<th th:if="${not citasEsteticista}"
+									sec:authorize="hasRole('ESTETICISTA')" scope="col">Cliente</th>
+								<th scope="col">Estado</th>
+								<th th:if="${not citasEsteticista}" scope="col">Información
+									y pago</th>
+								<th sec:authorize="hasRole('CLIENTE')"
+									th:if="${not citasEsteticista}" scope="col">Valorar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cita : ${citas}">
+
+								<th scope="row" th:text="${citaStat.index +1 }"></th>
+								<td th:text="${cita.fecha}"></td>
+								<td th:text="${cita.hora}"></td>
+
+								<td th:if="${cita.esteticista != null}"
+									sec:authorize="hasRole('CLIENTE')"
+									th:text="${cita.esteticista.usuario.name}"></td>
+
+								<td th:unless="${cita.esteticista != null}"
+									sec:authorize="hasRole('CLIENTE')">El esteticista ha
+									eliminado su cuenta</td>
+
+								<td th:if="${cita.cliente != null}"
+									sec:authorize="hasRole('ESTETICISTA')"
+									th:text="${cita.cliente.usuario.name}"></td>
+
+								<td th:unless="${cita.cliente != null}"
+									sec:authorize="hasRole('ESTETICISTA')">El cliente ha
+									eliminado su cuenta</td>
+
+								<td th:text="${cita.estado}"></td>
+								<th:block th:if="${not citasEsteticista}">
+									<td
+										th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}"><a
+										th:href="@{/verCita/{idCita}(idCita=${cita.id})}"
+										class="btn btn-outline-success ">Ver Detalles</a></td>
+									<td
+										th:unless="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}">Cita
+										cancelada</td>
+								</th:block>
+								<th:block th:if="${not citasEsteticista}">
+									<td sec:authorize="hasRole('CLIENTE')"
+										th:if="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null and not cita.valorar}"><button
+											type="button" class="btn btn-outline-success"
+											data-toggle="modal" data-target="#exampleModal">Valorar
+											Esteticista</button></td>
+									<td sec:authorize="hasRole('CLIENTE')"
+										th:unless="${cita.cliente != null and cita.esteticista != null and cita.servicioEstetico != null}">Cita
+										cancelada</td>
+									<td sec:authorize="hasRole('CLIENTE')" th:if="${cita.valorar}">Cita
+										valorada</td>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Valorar
+														esteticista</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Valore positiva o
+													negativamente la atención que a recibido de nuestro
+													esteticista</div>
+												<div class="modal-footer">
+													<a th:href="@{/positiva/{idCita}(idCita=${cita.id})}"
+														role="button" class="btn btn-outline-success btn-sm">
+														<img alt=""
+														src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"
+														height="30" width="30">
+													</a> <a th:href="@{/negativa/{idCita}(idCita=${cita.id})}"
+														role="button" class="btn btn-outline-danger btn-sm"> <img
+														alt=""
+														src="https://www.freeiconspng.com/uploads/youtube-dislike-facebook-thumbs-down-not-like-png-16.png"
+														height="30" width="30"></a>
+													<button type="button"
+														class="btn btn-outline-secondary btn-sm"
+														data-dismiss="modal">Cancelar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</th:block>
+							</tr>
+						</tbody>
+					</table>
+					<div class="col-lg-12 text-center">
+						<button type="button" class="btn btn-outline-dark btn-sm"
+							onclick='javascript:window.history.back()'>Cancelar</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

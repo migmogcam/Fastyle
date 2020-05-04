@@ -63,4 +63,7 @@ public class Cita extends BaseEntity {
 	@Setter
 	private String momento;
 
+	@Getter
+	@Setter
+	private Boolean valorar;
 }

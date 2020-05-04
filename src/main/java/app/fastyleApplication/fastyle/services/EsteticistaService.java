@@ -51,6 +51,8 @@ public class EsteticistaService {
 				newEntity.setDescripcion(entity.getDescripcion());
 				newEntity.setImagenes(entity.getImagenes());
 				newEntity.getUsuario().setEdad(entity.getUsuario().getEdad());
+				newEntity.setNegativo(entity.getNegativo());
+				newEntity.setPositivo(entity.getPositivo());
 	
 				if (null != entity.getUsuario().getPassword() && !"".equals(entity.getUsuario().getPassword())) {
 					newEntity.getUsuario().setPassword(entity.getUsuario().getPassword());
