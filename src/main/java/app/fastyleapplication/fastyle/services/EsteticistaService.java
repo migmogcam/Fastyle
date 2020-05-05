@@ -32,7 +32,7 @@ public class EsteticistaService {
 				.orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
 	}
 
-	public Esteticista createOrUpdateCliente(Esteticista entity) throws IllegalArgumentException {
+	public Esteticista createOrUpdateCliente(Esteticista entity) {
 
 		if (entity.getId() != null) {
 			Optional<Esteticista> cliente = repository.findById(entity.getId());
@@ -78,7 +78,7 @@ public class EsteticistaService {
 		}
 	}
 
-	public Esteticista getEsteticistaById(Integer id) throws IllegalArgumentException {
+	public Esteticista getEsteticistaById(Integer id) {
 		Optional<Esteticista> esteticista = repository.findById(id);
 
 		if (esteticista.isPresent()) {
@@ -88,7 +88,7 @@ public class EsteticistaService {
 		}
 	}
 
-	public void deleteEsteticistaById(Integer id) throws IllegalArgumentException {
+	public void deleteEsteticistaById(Integer id) {
 		Optional<Esteticista> esteticista = repository.findById(id);
 
 		if (esteticista.isPresent()) {

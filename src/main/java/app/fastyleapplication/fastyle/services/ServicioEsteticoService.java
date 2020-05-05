@@ -63,7 +63,7 @@ public class ServicioEsteticoService {
 		}
 	}
 
-	public ServicioEstetico getServicioEsteticoById(Integer id) throws IllegalArgumentException {
+	public ServicioEstetico getServicioEsteticoById(Integer id) {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
@@ -73,7 +73,7 @@ public class ServicioEsteticoService {
 		}
 	}
 
-	public ServicioEstetico createOrUpdateServicioEstetico(ServicioEstetico entity) throws IllegalArgumentException {
+	public ServicioEstetico createOrUpdateServicioEstetico(ServicioEstetico entity) {
 		if(entity.getId() != null) {
 			Optional<ServicioEstetico> servicioEstetico = repository.findById(entity.getId());
 			ServicioEstetico newEntity = new ServicioEstetico();
@@ -100,7 +100,7 @@ public class ServicioEsteticoService {
 		}
 	}
 
-	public void deleteServicioEsteticoById(Integer id) throws IllegalArgumentException {
+	public void deleteServicioEsteticoById(Integer id) {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {

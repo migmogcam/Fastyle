@@ -24,7 +24,7 @@ public class UsuarioService implements UserDetailsService {
     UsuarioRepository repository;
      
      
-    public Usuario createOrUpdateCliente(Usuario entity) throws IllegalArgumentException {
+    public Usuario createOrUpdateCliente(Usuario entity) {
     	
     	if(entity.getId()!= null) {
 	        Optional<Usuario> cliente = repository.findById(entity.getId());
@@ -56,7 +56,7 @@ public class UsuarioService implements UserDetailsService {
  
     }
     
-    public void deleteUsuarioById(Integer id) throws IllegalArgumentException {
+    public void deleteUsuarioById(Integer id) {
 		Optional<Usuario> usuario = repository.findById(id);
 
 		if (usuario.isPresent()) {

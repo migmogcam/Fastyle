@@ -12,43 +12,38 @@ import app.fastyleapplication.fastyle.repository.AdministradorRepository;
 
 @Service
 public class AdministradorService {
-	
-    @Autowired
-    AdministradorRepository repository;
-     
-    public List<Administrador> getAllAdministradors()
-    {
-        List<Administrador> administradorList = repository.findAll();
-         
-        if(!administradorList.isEmpty()) {
-            return administradorList;
-        } else {
-            return new ArrayList<>();
-        }
-    }
-     
-    public Administrador getAdministradorById(Integer id) throws IllegalArgumentException 
-    {
-        Optional<Administrador> administrador = repository.findById(id);
-         
-        if(administrador.isPresent()) {
-            return administrador.get();
-        } else {
-            throw new IllegalArgumentException("No administrador record exist for given id");
-        }
-    }
-     
-  
-    public void deleteAdministradorById(Integer id) throws IllegalArgumentException 
-    {
-        Optional<Administrador> administrador = repository.findById(id);
-         
-        if(administrador.isPresent()) 
-        {
-            repository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("No administrador record exist for given id");
-        }
-    } 
+
+	@Autowired
+	AdministradorRepository repository;
+
+	public List<Administrador> getAllAdministradors() {
+		List<Administrador> administradorList = repository.findAll();
+
+		if (!administradorList.isEmpty()) {
+			return administradorList;
+		} else {
+			return new ArrayList<>();
+		}
+	}
+
+	public Administrador getAdministradorById(Integer id) {
+		Optional<Administrador> administrador = repository.findById(id);
+
+		if (administrador.isPresent()) {
+			return administrador.get();
+		} else {
+			throw new IllegalArgumentException("No administrador record exist for given id");
+		}
+	}
+
+	public void deleteAdministradorById(Integer id) {
+		Optional<Administrador> administrador = repository.findById(id);
+
+		if (administrador.isPresent()) {
+			repository.deleteById(id);
+		} else {
+			throw new IllegalArgumentException("No administrador record exist for given id");
+		}
+	}
 
 }

@@ -35,7 +35,7 @@ public class CitaService {
 		}
 	}
 
-	public Cita getCitaById(Integer id) throws IllegalArgumentException {
+	public Cita getCitaById(Integer id) {
 		Optional<Cita> cita = repository.findById(id);
 
 		if (cita.isPresent()) {
@@ -45,7 +45,7 @@ public class CitaService {
 		}
 	}
 
-	public void createOrUpdateCita(Cita entity) throws IllegalArgumentException {
+	public void createOrUpdateCita(Cita entity) {
 		if(entity.getId() != null) {
 			Optional<Cita> cita = repository.findById(entity.getId());
 			Cita newEntity;
@@ -66,7 +66,7 @@ public class CitaService {
 		}
 	}
 
-	public void deleteCitaById(Integer id) throws IllegalArgumentException {
+	public void deleteCitaById(Integer id) {
 		Optional<Cita> cita = repository.findById(id);
 
 		if (cita.isPresent()) {
