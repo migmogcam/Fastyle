@@ -2,6 +2,7 @@ package app.fastyleApplication.fastyle.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -236,22 +237,28 @@ public class CitaController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
 				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
-		if(isCliente) {
+
 		try {
 			Cita cita = this.service.getCitaById(id);
+			if(isCliente && !cita.getValorar()) {
 			cita.setValorar(true);
 			Esteticista este = this.esteticistaService.getEsteticistaById(cita.getEsteticista().getId());
 			Integer valor = este.getPositivo() +1;
 			este.setPositivo(valor);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+			LocalDate ahora = LocalDate.now();
+			String tAhora = LocalTime.now().format(dtf);
+			cita.setFValorar(ahora.toString()+" "+tAhora.toString());
 			this.service.createOrUpdateCita(cita);
 			this.serviceEsteticista.createOrUpdateCliente(este);
+			}else {
+				return VIEW_ERROR;
+			}
 		} catch (Exception e) {
 			return VIEW_ERROR;
 		}
 		return "redirect:/misCitas";
-		}else {
-			return VIEW_ERROR;
-		}
+
 	}
 	
 	@GetMapping("/negativa/{idCita}")
@@ -259,22 +266,26 @@ public class CitaController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isCliente = authentication.getAuthorities().stream()
 				.anyMatch(r -> r.getAuthority().equals(ROL_CLIENTE));
-		if(isCliente) {
 		try {
 			Cita cita = this.service.getCitaById(id);
+			if(isCliente && !cita.getValorar()) {
 			cita.setValorar(true);
 			Esteticista este = this.esteticistaService.getEsteticistaById(cita.getEsteticista().getId());
 			Integer valor = este.getNegativo() +1;
 			este.setNegativo(valor);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+			LocalDate ahora = LocalDate.now();
+			String tAhora = LocalTime.now().format(dtf);
+			cita.setFValorar(ahora.toString()+" "+tAhora.toString());
 			this.service.createOrUpdateCita(cita);
 			this.serviceEsteticista.createOrUpdateCliente(este);
+			}else {
+				return VIEW_ERROR;
+			}
 		} catch (Exception e) {
 			return VIEW_ERROR;
 		}
 		return "redirect:/misCitas";
-		}else {
-			return VIEW_ERROR;
-		}
 	}
 	
 }

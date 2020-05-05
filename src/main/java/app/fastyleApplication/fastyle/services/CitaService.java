@@ -58,6 +58,7 @@ public class CitaService {
 				newEntity.setRespuesta(entity.getRespuesta());
 				newEntity.setMomento(entity.getMomento());
 				newEntity.setValorar(entity.getValorar());
+				newEntity.setFValorar(entity.getFValorar());
 				repository.save(newEntity);
 			}
 		} else {
