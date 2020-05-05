@@ -62,7 +62,7 @@ public class ServicioEsteticoController {
 		}
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
 			return VIEW_ERROR;
 		}
@@ -78,7 +78,7 @@ public class ServicioEsteticoController {
 
 		try {
 			service.createOrUpdateServicioEstetico(servicioEstetico);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
 			return VIEW_ERROR;
 		}
@@ -91,7 +91,7 @@ public class ServicioEsteticoController {
 	public String deleteServicioEsteticoService(@PathVariable("id") Integer id, Model model) {
 		try {
 			service.deleteServicioEsteticoById(id);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 		String message2 = "Añadir lo que se necesite en la vista a la que se va redirigir";
@@ -117,7 +117,7 @@ public class ServicioEsteticoController {
 					servicios = service.getAllServicioEsteticos();
 					model.addAttribute(LISTA_SERVICIOS, servicios);
 				}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -143,7 +143,7 @@ public class ServicioEsteticoController {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Mascotas");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -167,7 +167,7 @@ public class ServicioEsteticoController {
 				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
 				model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 			}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -191,7 +191,7 @@ public class ServicioEsteticoController {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Pedicura y Manicura");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -215,7 +215,7 @@ public class ServicioEsteticoController {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Depilacion");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -239,7 +239,7 @@ public class ServicioEsteticoController {
 					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -277,7 +277,7 @@ public class ServicioEsteticoController {
 				servicios = servicioEstetico.getEsteticista();
 				model.addAttribute("listaEsteticistas", servicios);
 				model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -294,7 +294,7 @@ public class ServicioEsteticoController {
 				Esteticista c = this.esteticistaService.findByUsuario(u);
 				servicioEstetico.getEsteticista().add(c);
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -310,7 +310,7 @@ public class ServicioEsteticoController {
 					servicioEstetico = service.getServicioEsteticoById((int) id);
 					model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
 					return "editarServicio";
-				} catch (Exception e) {
+				} catch (IllegalArgumentException e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
 					return VIEW_ERROR;
 				}
@@ -327,7 +327,7 @@ public class ServicioEsteticoController {
 			}
 			try {
 				service.createOrUpdateServicioEstetico(servicioEstetico);
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}
@@ -343,7 +343,7 @@ public class ServicioEsteticoController {
 					service.deleteServicioEsteticoById(id);
 					model.addAttribute(VIEW_SERVICIO_ESTETICO, servicioEstetico);
 					return VIEW_REDIRECT;
-				} catch (Exception e) {
+				} catch (IllegalArgumentException e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
 					return VIEW_ERROR;
 				}
@@ -362,7 +362,7 @@ public class ServicioEsteticoController {
 				Esteticista c = this.esteticistaService.findByUsuario(u);
 				servicioEstetico.getEsteticista().remove(c);
 				this.service.createOrUpdateServicioEstetico(servicioEstetico);
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				logger.log(Logger.Level.FATAL, e.getMessage());
 				return VIEW_ERROR;
 			}

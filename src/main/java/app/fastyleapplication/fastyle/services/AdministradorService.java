@@ -27,19 +27,19 @@ public class AdministradorService {
         }
     }
      
-    public Administrador getAdministradorById(Integer id) throws Exception 
+    public Administrador getAdministradorById(Integer id) throws IllegalArgumentException 
     {
         Optional<Administrador> administrador = repository.findById(id);
          
         if(administrador.isPresent()) {
             return administrador.get();
         } else {
-            throw new Exception("No administrador record exist for given id");
+            throw new IllegalArgumentException("No administrador record exist for given id");
         }
     }
      
   
-    public void deleteAdministradorById(Integer id) throws Exception 
+    public void deleteAdministradorById(Integer id) throws IllegalArgumentException 
     {
         Optional<Administrador> administrador = repository.findById(id);
          
@@ -47,7 +47,7 @@ public class AdministradorService {
         {
             repository.deleteById(id);
         } else {
-            throw new Exception("No administrador record exist for given id");
+            throw new IllegalArgumentException("No administrador record exist for given id");
         }
     } 
 

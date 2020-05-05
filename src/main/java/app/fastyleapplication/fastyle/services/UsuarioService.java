@@ -24,7 +24,7 @@ public class UsuarioService implements UserDetailsService {
     UsuarioRepository repository;
      
      
-    public Usuario createOrUpdateCliente(Usuario entity) throws Exception {
+    public Usuario createOrUpdateCliente(Usuario entity) throws IllegalArgumentException {
     	
     	if(entity.getId()!= null) {
 	        Optional<Usuario> cliente = repository.findById(entity.getId());
@@ -56,13 +56,13 @@ public class UsuarioService implements UserDetailsService {
  
     }
     
-    public void deleteUsuarioById(Integer id) throws Exception {
+    public void deleteUsuarioById(Integer id) throws IllegalArgumentException {
 		Optional<Usuario> usuario = repository.findById(id);
 
 		if (usuario.isPresent()) {
 			repository.deleteById(id);
 		} else {
-			throw new Exception("No cliente record exist for given id");
+			throw new IllegalArgumentException("No cliente record exist for given id");
 		}
 	}
     

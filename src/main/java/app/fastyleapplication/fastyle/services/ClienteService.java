@@ -28,7 +28,7 @@ public class ClienteService {
 				.orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
 	}
 
-	public Cliente createOrUpdateCliente(Cliente entity) throws Exception {
+	public Cliente createOrUpdateCliente(Cliente entity) throws IllegalArgumentException {
 
 		if (entity.getId() != null) {
 			Optional<Cliente> cliente = repository.findById(entity.getId());
@@ -70,17 +70,17 @@ public class ClienteService {
 		}
 	}
 
-	public Cliente getClienteById(Integer id) throws Exception {
+	public Cliente getClienteById(Integer id) throws IllegalArgumentException {
 		Optional<Cliente> cliente = repository.findById(id);
 
 		if (cliente.isPresent()) {
 			return cliente.get();
 		} else {
-			throw new Exception("No cliente record exist for given id");
+			throw new IllegalArgumentException("No cliente record exist for given id");
 		}
 	}
 
-	public void deleteClienteById(Integer id) throws Exception {
+	public void deleteClienteById(Integer id) throws IllegalArgumentException {
 		Optional<Cliente> cliente = repository.findById(id);
 
 		if (cliente.isPresent()) {
@@ -92,7 +92,7 @@ public class ClienteService {
 			}
 			repository.deleteById(id);
 		} else {
-			throw new Exception("No cliente record exist for given id");
+			throw new IllegalArgumentException("No cliente record exist for given id");
 		}
 	}
 

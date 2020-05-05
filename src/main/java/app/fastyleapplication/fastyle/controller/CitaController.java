@@ -95,7 +95,7 @@ public class CitaController {
     		String momento = stringAño + "-" + stringMes + "-" + stringDia + " " + stringHora + ":" + stringMinuto;
     		cita.setMomento(momento);
 			service.createOrUpdateCita(cita);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
             return VIEW_ERROR;
 		}
@@ -112,7 +112,7 @@ public class CitaController {
 	         
 	    try {
 			service.createOrUpdateCita(cita);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
 			return VIEW_ERROR;
 		}
@@ -126,7 +126,7 @@ public class CitaController {
 		String view2 = "accionRealizada";
 		try {
 			service.deleteCitaById(id);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
             return VIEW_ERROR;
 		}
 		String message = "Añadir lo que se necesite en la vista a la que se va redirigir";
@@ -151,7 +151,7 @@ public class CitaController {
 			CitaDTO cita = new CitaDTO();
 			model.addAttribute(fallo1, fallo);
 			model.addAttribute("cita", cita);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return "index"; 
 		}
         return "citaCrear";
@@ -166,7 +166,7 @@ public class CitaController {
 			Cita cita = this.service.getCitaById(id);
 			model.addAttribute("cita", cita);
 			model.addAttribute("isCliente", isCliente);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 		return "verCita";
@@ -196,7 +196,7 @@ public class CitaController {
 		Esteticista esteticista = new Esteticista();
 		try {
 			esteticista = this.esteticistaService.getEsteticistaById(id);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
 		}
 		List<Cita> citas;
@@ -254,7 +254,7 @@ public class CitaController {
 			}else {
 				return VIEW_ERROR;
 			}
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 		return "redirect:/misCitas";
@@ -282,7 +282,7 @@ public class CitaController {
 			}else {
 				return VIEW_ERROR;
 			}
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 		return "redirect:/misCitas";

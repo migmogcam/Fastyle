@@ -63,17 +63,17 @@ public class ServicioEsteticoService {
 		}
 	}
 
-	public ServicioEstetico getServicioEsteticoById(Integer id) throws Exception {
+	public ServicioEstetico getServicioEsteticoById(Integer id) throws IllegalArgumentException {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
 			return servicioEstetico.get();
 		} else {
-			throw new Exception("No servicioEstetico record exist for given id");
+			throw new IllegalArgumentException("No servicioEstetico record exist for given id");
 		}
 	}
 
-	public ServicioEstetico createOrUpdateServicioEstetico(ServicioEstetico entity) throws Exception {
+	public ServicioEstetico createOrUpdateServicioEstetico(ServicioEstetico entity) throws IllegalArgumentException {
 		if(entity.getId() != null) {
 			Optional<ServicioEstetico> servicioEstetico = repository.findById(entity.getId());
 			ServicioEstetico newEntity = new ServicioEstetico();
@@ -100,7 +100,7 @@ public class ServicioEsteticoService {
 		}
 	}
 
-	public void deleteServicioEsteticoById(Integer id) throws Exception {
+	public void deleteServicioEsteticoById(Integer id) throws IllegalArgumentException {
 		Optional<ServicioEstetico> servicioEstetico = repository.findById(id);
 
 		if (servicioEstetico.isPresent()) {
@@ -113,7 +113,7 @@ public class ServicioEsteticoService {
 			repository.deleteById(id);
 			
 		} else {
-			throw new Exception("No servicioEstetico record exist for given id");
+			throw new IllegalArgumentException("No servicioEstetico record exist for given id");
 		}
 	}
 

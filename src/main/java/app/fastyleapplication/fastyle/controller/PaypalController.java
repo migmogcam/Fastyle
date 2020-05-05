@@ -107,7 +107,7 @@ public class PaypalController {
 					cita.setValorar(false);
 					cita.setFValorar(null);
 					citaService.createOrUpdateCita(cita);
-				} catch (Exception e) {
+				} catch (IllegalArgumentException e) {
 					logger.log(Logger.Level.FATAL, e.getMessage());
 				}
 			}
@@ -187,7 +187,7 @@ public class PaypalController {
 			cita.setEstado("PAGADA");
 			citaService.createOrUpdateCita(cita);
 			return redirect2;
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			logger.log(Logger.Level.FATAL, e.getMessage());
 		}
 		return redirect2;
@@ -240,7 +240,7 @@ public class PaypalController {
 					cita.setMomento(momento2);
 					cita.setEstado("PAGADA");
 					citaService.createOrUpdateCita(cita);
-				} catch (Exception e) {
+				} catch (IllegalArgumentException e) {
 					return "error";
 				}
 				return PAYPAL_SUCCESS_URL;

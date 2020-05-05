@@ -128,9 +128,7 @@ public class UserController {
 					esteticistaService.createOrUpdateCliente(esteticista);
 				}
 
-			} catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
@@ -155,7 +153,7 @@ public class UserController {
 				return "perfilEsteticista";
 			}
 
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 	}
@@ -178,7 +176,7 @@ public class UserController {
 				return "editEsteticista";
 			}
 
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 	}
@@ -200,9 +198,7 @@ public class UserController {
 		} else {
 			try {
 				userService.createOrUpdateCliente(user);
-			} catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
@@ -226,9 +222,7 @@ public class UserController {
 		} else {
 			try {
 				esteticistaService.createOrUpdateCliente(user);
-			} catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			} catch (Exception e) {
+			} catch (IllegalArgumentException e) {
 				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
 		}
@@ -255,7 +249,7 @@ public class UserController {
 				return "redirect:/logout";
 			}
 
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return VIEW_ERROR;
 		}
 	}
