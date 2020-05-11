@@ -100,7 +100,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${cliente.usuario.ciudad}">
+									th:field="${cliente.usuario.ciudad}" required>
 
 
 							</div>
@@ -110,7 +110,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${cliente.usuario.direccion}">
+									th:field="${cliente.usuario.direccion}" required>
 
 
 							</div>
@@ -120,7 +120,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Email</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="email"
-									th:field="${cliente.usuario.eMail}">
+									th:field="${cliente.usuario.eMail}" required>
 
 							</div>
 						</div>
@@ -129,7 +129,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Usuario</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${cliente.usuario.usuario}">
+									th:field="${cliente.usuario.usuario}" required>
 
 							</div>
 						</div>

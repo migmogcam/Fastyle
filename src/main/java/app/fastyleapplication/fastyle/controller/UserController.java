@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class UserController {
 
 	@Autowired
 	UsuarioService usuarioService;
-	
+
 	private static final String SIGN_UP = "signup";
 	private static final String VAR_ROLES = "roles";
 	private static final String VIEW_REDIRECT = "redirect:/";
@@ -64,7 +65,7 @@ public class UserController {
 	public String signup(Model model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
-
+		model.addAttribute("pass", false);
 		model.addAttribute(SIGN_UP, true);
 		model.addAttribute("userForm", new UserDTO());
 		model.addAttribute(VAR_ROLES, roles);
@@ -72,13 +73,12 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public String signupAction(@Valid @ModelAttribute("userForm") UserDTO user, BindingResult result, ModelMap model) {
+	public String signupAction(@Valid @ModelAttribute("userForm") UserDTO user, BindingResult result, ModelMap model , HttpSession session) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		model.addAttribute("userForm", user);
 		model.addAttribute(VAR_ROLES, roles);
 		model.addAttribute(SIGN_UP, true);
-		model.addAttribute("registro", true);
 		List<Cita> citas = new ArrayList<>();
 		String pass = PassGenerator.getPassEncode(user.getPassword());
 
@@ -116,21 +116,28 @@ public class UserController {
 			esteticista.setNegativo(0);
 			esteticista.setPositivo(0);
 		}
+		if (user.getPassword().equals(user.getPassword2())) {
+			if (result.hasErrors()) {
+				model.addAttribute("loginError", true);
+				return "user-signup";
+			} else {
+				try {
+					if (user.getAutority().equals(ROL_CLIENTE)) {
+						userService.createOrUpdateCliente(cliente);
+						session.setAttribute("registro", true);
+					} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
+						esteticistaService.createOrUpdateCliente(esteticista);
+						session.setAttribute("registro", true);
+					}
 
-		if (result.hasErrors()) {
-			model.addAttribute("error-registro", true);
-			return "user-signup";
-		} else {
-			try {
-				if (user.getAutority().equals(ROL_CLIENTE)) {
-					userService.createOrUpdateCliente(cliente);
-				} else if (user.getAutority().equals("ROLE_ESTETICISTA")) {
-					esteticistaService.createOrUpdateCliente(esteticista);
+				} catch (IllegalArgumentException e) {
+					model.addAttribute(VAR_MESSAGE, e.getMessage());
 				}
-
-			} catch (IllegalArgumentException e) {
-				model.addAttribute(VAR_MESSAGE, e.getMessage());
 			}
+		} else {
+			model.addAttribute("loginError", true);
+			model.addAttribute("pass", true);
+			return "user-signup";
 		}
 		return VIEW_REDIRECT;
 	}
@@ -206,7 +213,8 @@ public class UserController {
 	}
 
 	@PostMapping("/editarEsteticista")
-	public String editEsteticista(@Valid @ModelAttribute("esteticista") Esteticista user, BindingResult result, ModelMap model) {
+	public String editEsteticista(@Valid @ModelAttribute("esteticista") Esteticista user, BindingResult result,
+			ModelMap model) {
 		Role userRole = roleRepository.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		model.addAttribute(VAR_CLIENTE, user);
@@ -228,9 +236,9 @@ public class UserController {
 		}
 		return VIEW_REDIRECT;
 	}
-	
+
 	@GetMapping("/eliminar")
-	public String eliminar( ModelMap model) {
+	public String eliminar(ModelMap model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario u = this.usuarioService.findByUsuario(username);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -240,12 +248,12 @@ public class UserController {
 			if (hasUserRole) {
 				Cliente client = this.userService.findByUsuario(u);
 				this.userService.deleteClienteById(client.getId());
-				
+
 				return "redirect:/logout";
 			} else {
 				Esteticista esteticista = this.esteticistaService.findByUsuario(u);
 				this.esteticistaService.deleteEsteticistaById(esteticista.getId());
-				
+
 				return "redirect:/logout";
 			}
 
@@ -253,7 +261,7 @@ public class UserController {
 			return VIEW_ERROR;
 		}
 	}
-	
+
 	@GetMapping({ "/loginCorrecto" })
 	public String loginCorrecto(Model model) {
 		model.addAttribute("loginCorrecto", true);

@@ -103,7 +103,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.ciudad}">
+									th:field="${esteticista.usuario.ciudad}" required>
 
 
 							</div>
@@ -113,7 +113,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Dirección</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.direccion}">
+									th:field="${esteticista.usuario.direccion}" required>
 
 
 							</div>
@@ -123,7 +123,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Email</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="email"
-									th:field="${esteticista.usuario.eMail}">
+									th:field="${esteticista.usuario.eMail}" required>
 
 							</div>
 						</div>
@@ -133,7 +133,7 @@
 								for="exampleFormControlTextarea1">Descripci&oacute;n</label>
 							<div class="col-lg-7">
 								<textarea class="form-control"
-									th:field="${esteticista.descripcion}" rows="3"></textarea>
+									th:field="${esteticista.descripcion}" rows="3" required></textarea>
 							</div>
 						</div>
 
@@ -177,7 +177,7 @@
 							<label class="col-lg-3 col-form-label form-control-label">Usuario</label>
 							<div class="col-lg-7">
 								<input class="form-control" type="text"
-									th:field="${esteticista.usuario.usuario}">
+									th:field="${esteticista.usuario.usuario}" required>
 
 							</div>
 						</div>

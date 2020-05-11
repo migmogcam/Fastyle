@@ -18,12 +18,15 @@ public class UserDTO {
 		private Integer id;
 			
 		@NotBlank
-		@Length(max = 200)
+		@Length(min = 5,max = 20)
 		private String usuario;
 		
 		@NotBlank
-		@Length(max = 200)
+		@Length(min = 5,max = 20)
 		private String password;
+		
+		@NotBlank
+		private String password2;
 
 		@NotBlank
 		@Length(max = 100)

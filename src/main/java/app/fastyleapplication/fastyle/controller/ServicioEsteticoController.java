@@ -3,6 +3,7 @@ package app.fastyleapplication.fastyle.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -100,11 +101,14 @@ public class ServicioEsteticoController {
 	}
 
 		@GetMapping("/")
-		public String listado(Model model) {
+		public String listado(Model model, HttpServletRequest request) {
 			List<ServicioEstetico> servicios;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			String provincia = "";
 			String anonymousUser1 = "anonymousUser";
+			if(request.getSession().getAttribute("registro") != null) {
+				model.addAttribute("registro", true);
+			}
 			if(!username.equals(anonymousUser1) && !username.equals(USER_ADMIN)) {
 				Usuario u = this.usuarioService.findByUsuario(username);
 				provincia = u.getProvincia();

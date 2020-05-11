@@ -7,16 +7,23 @@
 		<!--Es necesario para poder pasar la validacion del Model-->
 		<input class="form-control" type=hidden th:field="${userForm.id}"
 			th:if="${editMode}"> <input class="form-control" type=hidden
-			name="password" value="xxxx" th:if="${editMode}">
+			name="password" value="xxxx" th:if="${editMode}"
+			oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
 		<!--quita el comentario si quieres mantener la validacion @NotBlank del campo confirmPassword
 		 <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
 	 -->
+
+		<div data-auto-dismiss="20000" style="z-index: 300;"
+			class="alert alert-danger" role="alert" th:if="${pass}">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			La contrase&ntilde;a no coincide con la validaci&oacute;n de contrase&ntilde;a
+		</div>
 
 		<div class="form-group row">
 			<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text" th:field="${userForm.name}"
-					th:disabled="${disableFields}">
+					th:disabled="${disableFields}" required>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -24,7 +31,8 @@
 				apellido</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
-					th:field="${userForm.apellido1}" th:disabled="${disableFields}">
+					th:field="${userForm.apellido1}" th:disabled="${disableFields}"
+					required>
 			</div>
 		</div>
 
@@ -33,7 +41,8 @@
 				apellido</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
-					th:field="${userForm.apellido2}" th:disabled="${disableFields}">
+					th:field="${userForm.apellido2}" th:disabled="${disableFields}"
+					required>
 			</div>
 		</div>
 
@@ -41,14 +50,16 @@
 			<label class="col-lg-3 col-form-label form-control-label">Ciudad</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
-					th:field="${userForm.ciudad}" th:disabled="${disableFields}">
+					th:field="${userForm.ciudad}" th:disabled="${disableFields}"
+					required>
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<label class="col-lg-3 col-form-label form-control-label">Provincia</label>
 			<div class="col-lg-7">
-				<select class="form-control" id="provincia" th:field="${userForm.provincia}">
+				<select class="form-control" id="provincia"
+					th:field="${userForm.provincia}">
 					<option value="Sevilla">Sevilla</option>
 					<option value="Huelva">Huelva</option>
 					<option value="Cadiz">C&aacutediz</option>
@@ -65,7 +76,8 @@
 			<label class="col-lg-3 col-form-label form-control-label">Direcci&oacute;n</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
-					th:field="${userForm.direccion}" th:disabled="${disableFields}">
+					th:field="${userForm.direccion}" th:disabled="${disableFields}"
+					required>
 			</div>
 		</div>
 
@@ -73,14 +85,14 @@
 			<div class="input-group">
 				<label class="col-lg-3 col-form-label form-control-label">Edad</label>
 
-			<!-- 	<div class="input-group-prepend" style="padding-left: 15px;">
+				<!-- 	<div class="input-group-prepend" style="padding-left: 15px;">
 					<span class="input-group-text" id="basic-addon3">A&ntilde;os</span>
 				</div>  -->
-				
+
 				<div class="col-lg-7">
-				<input class="form-control number" type="number" min="18"
-					th:field="${userForm.edad}" required>
-					</div>
+					<input class="form-control number" type="number" min="18"
+						th:field="${userForm.edad}" required>
+				</div>
 
 			</div>
 		</div>
@@ -89,7 +101,8 @@
 			<label class="col-lg-3 col-form-label form-control-label">Email</label>
 			<div class="col-lg-7">
 				<input class="form-control" type="email"
-					th:field="${userForm.eMail}" th:disabled="${disableFields}">
+					th:field="${userForm.eMail}" th:disabled="${disableFields}"
+					required>
 			</div>
 		</div>
 
@@ -98,7 +111,9 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="text"
 					th:field="${userForm.usuario}" th:disabled="${disableFields}"
-					required>
+					required maxlength="20"> <small
+					class="form-text text-danger"
+					th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></small>
 			</div>
 		</div>
 
@@ -109,12 +124,26 @@
 			<div class="col-lg-7">
 				<input class="form-control" type="password"
 					th:field="${userForm.password}" th:disabled="${disableFields}"
-					required>
+					required maxlength="20" name="up"> <small
+					class="form-text text-danger"
+					th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+			</div>
+		</div>
+
+		<div class="form-group row"
+			th:if="${editMode==null or editMode==false}">
+			<label class="col-lg-3 col-form-label form-control-label">Validar
+				contrase&ntilde;a</label>
+			<div class="col-lg-7">
+				<input th:field="${userForm.password2}"
+					th:disabled="${disableFields}" class="form-control" type="password"
+					required maxlength="20" name="up2">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-lg-3 col-form-label form-control-label">Crear cuenta de: </label>
+			<label class="col-lg-3 col-form-label form-control-label">Crear
+				cuenta de: </label>
 			<div class="col-lg-7">
 				<select class="form-control" required
 					th:field="${userForm.autority}">
@@ -128,30 +157,31 @@
 			<label class="col-lg-3 col-form-label form-control-label">Descripci&oacute;n</label>
 			<div class="col-lg-7">
 				<textarea class="form-control" th:field="${userForm.descripcion}"
-					rows="3" th:disabled="${disableFields}"></textarea>
+					rows="3" th:disabled="${disableFields}" required></textarea>
 			</div>
 		</div>
 
-    <div class="form-group row">
+		<div class="form-group row">
 			<input type="checkbox" id="check-signup" name="check-signup" required>
-<label> He le&iacutedo y acepto la <a target="_blank" href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a></label>
-    </div>
-    
+			<label> He le&iacutedo y acepto la <a target="_blank"
+				href="/politicaPrivacidad">Pol&iacutetica de Privacidad</a></label>
+		</div>
+
 		<div class="form-group row">
 			<div class="col-lg-12 text-center">
-				<input type="submit"  class="btn btn-primary" value="Save Changes"
-					th:value="${editMode}?'Save User':'Aceptar'">
-				<a type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
+				<input type="submit" class="btn btn-primary" value="Save Changes"
+					th:value="${editMode}?'Save User':'Aceptar'"> <a
+					type="button" class="btn btn-secondary" th:href="@{/}">Cancelar</a>
 			</div>
 		</div>
-		
-	
+
+
 
 		<div class="alert alert-success text-center d-none" id="formSuccess"
 			th:if="${editMode}">Success Message</div>
 	</form>
-	
-	
+
+
 </div>
 
 
