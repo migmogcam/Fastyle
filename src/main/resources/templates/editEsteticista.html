@@ -19,6 +19,19 @@
 				<div class="card-header">
 					<h4 align="center">Perfil de esteticista</h4>
 				</div>
+
+				<div data-auto-dismiss="20000" style="z-index: 300;"
+					class="alert alert-danger" role="alert" th:if="${falloUsuario}">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					El usuario es menor de 5 caracteres
+				</div>
+
+				<div data-auto-dismiss="20000" style="z-index: 300;"
+					class="alert alert-danger" role="alert" th:if="${falloPass}">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					La contrase&ntilde;a es menor de 5 caracteres
+				</div>
+
 				<div class="card-body">
 					<form class="form" role="form" autocomplete="off"
 						th:object="${esteticista}" th:action="@{/editarEsteticista}"

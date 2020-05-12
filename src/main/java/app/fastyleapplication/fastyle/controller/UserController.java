@@ -195,6 +195,15 @@ public class UserController {
 		model.addAttribute(VAR_CLIENTE, user);
 		model.addAttribute(VAR_ROLES, roles);
 		model.addAttribute(SIGN_UP, true);
+		
+		if(user.getUsuario().getUsuario().length()<5) {
+			model.addAttribute("falloUsuario", true);
+			return EDIT_CLIENTE;
+		}
+		if(user.getUsuario().getPassword().length()<5 && !user.getUsuario().getPassword().equals("")) {
+			model.addAttribute("falloPass", true);
+			return EDIT_CLIENTE;
+		}
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
@@ -220,13 +229,22 @@ public class UserController {
 		model.addAttribute(VAR_CLIENTE, user);
 		model.addAttribute(VAR_ROLES, roles);
 		model.addAttribute(SIGN_UP, true);
+		
+		if(user.getUsuario().getUsuario().length()<5) {
+			model.addAttribute("falloUsuario", true);
+			return EDIT_CLIENTE;
+		}
+		if(user.getUsuario().getPassword().length()<5 && !user.getUsuario().getPassword().equals("")) {
+			model.addAttribute("falloPass", true);
+			return EDIT_CLIENTE;
+		}
 
 		if (user.getUsuario().getPassword() != null && !"".equals(user.getUsuario().getPassword())) {
 			String pass = PassGenerator.getPassEncode(user.getUsuario().getPassword());
 			user.getUsuario().setPassword(pass);
 		}
 		if (result.hasErrors()) {
-			return EDIT_CLIENTE;
+			return "editarEsteticista";
 		} else {
 			try {
 				esteticistaService.createOrUpdateCliente(user);
