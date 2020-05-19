@@ -154,7 +154,7 @@ public class ServicioEsteticoController {
 			return VIEW_LISTADO;
 		}
 		
-		@GetMapping("/tinte")
+		@GetMapping("/maquillaje")
 		public String listadoTinte(Model model) {
 			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -165,10 +165,10 @@ public class ServicioEsteticoController {
 					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {				
-					serviciosTipo= service.getAllServicioEsteticosPorTipo("Tinte");
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Maquillaje");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 					}else {
-				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Tinte");
+				serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Maquillaje");
 				model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 			}
 			} catch (IllegalArgumentException e) {
@@ -226,7 +226,31 @@ public class ServicioEsteticoController {
 			return VIEW_LISTADO;
 		}
 				
-		@GetMapping("/peluqueria")
+		@GetMapping("/peluqueria-masculina")
+		public String listadoPeluqueriaHombre(Model model) {
+			List<ServicioEstetico> serviciosTipo;
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario u = this.usuarioService.findByUsuario(username);
+			String provincia = u.getProvincia();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
+			try {
+				if(hasAdminRole) {				
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria masculina");
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);										
+				}else {
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria masculina");
+					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
+				}
+			} catch (IllegalArgumentException e) {
+				logger.log(Logger.Level.FATAL, e.getMessage());
+				return VIEW_ERROR;
+			}
+			return VIEW_LISTADO;
+		}
+		
+		@GetMapping("/peluqueria-femenina")
 		public String listadoPeluqueria(Model model) {
 			List<ServicioEstetico> serviciosTipo;
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -237,10 +261,10 @@ public class ServicioEsteticoController {
 					.anyMatch(r -> r.getAuthority().equals(ROL_ADMIN));
 			try {
 				if(hasAdminRole) {				
-					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria");
+					serviciosTipo= service.getAllServicioEsteticosPorTipo("Peluqueria femenina");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);										
 				}else {
-					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria");
+					serviciosTipo = service.getAllServicioEsteticosPorProvinciaYTipo(provincia, "Peluqueria femenina");
 					model.addAttribute(LISTA_SERVICIOS, serviciosTipo);
 				}
 			} catch (IllegalArgumentException e) {
