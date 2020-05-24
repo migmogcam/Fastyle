@@ -70,7 +70,7 @@
 	  			 <div class="card-service row">
 					<tr th:each="servicio: ${listaServicios}">
 						<div class="col-lg-4 col-md-6 mb-4  card-home">
-						<a th:href="@{/servicioInfo/{id}(id=${servicio.id})}">
+						<a th:href="@{/servicioInfo/{id}(id=${servicio.id})}"></a>
 							<div class="card h-100">
 								<img class="card-img-top"
 									th:src="${servicio.imagen}"
